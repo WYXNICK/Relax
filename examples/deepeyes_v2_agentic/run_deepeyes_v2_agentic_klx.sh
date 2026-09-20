@@ -337,7 +337,6 @@ PY
 )
 fi
 # Pass search configuration to Ray workers without tracing credentials.
-set +x
 export RUNTIME_ENV_JSON
 RUNTIME_ENV_JSON=$(python3 - <<'PYTHON'
 import json
@@ -347,7 +346,7 @@ payload = json.loads(os.environ["RUNTIME_ENV_JSON"])
 for name in ("DEEPEYES_V2_SEARCH_CONFIG", "DEEPEYES_V2_SEARCH_API_KEY"):
     value = os.environ.get(name)
     if value:
-        payload.setdefault("env_vars", {})[name] = value
+        payload["env_vars"][name] = value
 print(json.dumps(payload))
 PYTHON
 )

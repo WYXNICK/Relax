@@ -321,11 +321,11 @@ def test_http_failure_is_bounded_and_redacted(server, configure, caplog, status,
     assert "sensitive-response" not in caplog.text
 
 
-def test_read_timeout(server, configure):
-    configure(retriever_config(server, timeout_s=0.02, max_retries=1))
-    server.delay = 0.1
+def test_read_timeout(server, configure, caplog):
+    configure(retriever_config(server, timeout_s=0.05, max_retries=0))
+    server.delay = 0.2
     assert search_utils.search("q") == "Error"
-    assert len(server.requests) == 2
+    assert "ReadTimeout" in caplog.text
 
 
 @pytest.mark.parametrize("error", [requests.ConnectionError, requests.Timeout])
@@ -347,7 +347,8 @@ def test_transport_retry_and_backoff(configure, monkeypatch, error):
 
 @pytest.mark.parametrize("failed", [False, True])
 async def test_agent_continues_after_search(server, configure, monkeypatch, failed):
-    import openai
+    class APIStatusError(Exception):
+        pass
 
     configure(retriever_config(server, max_retries=0))
     server.status = 503 if failed else 200
@@ -366,10 +367,14 @@ async def test_agent_continues_after_search(server, configure, monkeypatch, fail
         )
         return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=text), finish_reason="stop")])
 
-    monkeypatch.setattr(
-        openai,
-        "AsyncOpenAI",
-        lambda **kw: SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create))),
+    # The scripted model does not require the optional OpenAI SDK.
+    monkeypatch.setitem(
+        sys.modules,
+        "openai",
+        SimpleNamespace(
+            APIStatusError=APIStatusError,
+            AsyncOpenAI=lambda **kw: SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create))),
+        ),
     )
     result = await agent.run_session([{"role": "user", "content": "Search then answer"}], {})
     assert len(server.requests) == 1

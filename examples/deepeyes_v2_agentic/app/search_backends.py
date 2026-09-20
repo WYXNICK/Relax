@@ -144,7 +144,7 @@ def _retriever_rows(body: Any, size: int) -> list[dict]:
             link = doc.get("link", "")
         rows.append(
             {
-                "title": _text(title, "result.title", empty=True),
+                "title": title,
                 "link": _text("" if link is None else link, "result.link", empty=True),
                 "snippet": content,
                 "date": _date(doc.get("date")),
@@ -209,7 +209,7 @@ def run_search(query: str, size: int | None = None) -> dict:
     """Return normalized search results, or raise SearchError on failure."""
     query = _text(query, "query").strip()
     config = _load_config()
-    size = _integer(config["top_k"] if size is None else size, "size", 1)
+    size = config["top_k"] if size is None else _integer(size, "size", 1)
     if config["backend"] == "mock":
         return {
             "elapsed_time": 0.0,
