@@ -1,0 +1,53 @@
+{
+  "Qwen2.5-1.5B-Instruct": {
+    "summary": {
+      "fixed-case-clear": {
+        "samples": 24,
+        "correct": 22,
+        "canonical": 22
+      },
+      "synthetic-clear": {
+        "samples": 36,
+        "correct": 27,
+        "canonical": 31
+      }
+    },
+    "elapsed_seconds": 5.1942665204405785,
+    "latency_median_seconds": 0.25974426232278347,
+    "latency_p95_seconds": 1.88004330676049
+  },
+  "Qwen3-8B non-thinking": {
+    "summary": {
+      "fixed-case-clear": {
+        "samples": 24,
+        "correct": 22,
+        "canonical": 24
+      },
+      "synthetic-clear": {
+        "samples": 36,
+        "correct": 36,
+        "canonical": 36
+      }
+    },
+    "elapsed_seconds": 2.8460651133209467,
+    "latency_median_seconds": 0.23382556531578302,
+    "latency_p95_seconds": 1.2899332943372428
+  },
+  "Qwen3-8B thinking": {
+    "summary": {
+      "fixed-case-clear": {
+        "samples": 24,
+        "correct": 21,
+        "canonical": 24
+      },
+      "synthetic-clear": {
+        "samples": 36,
+        "correct": 36,
+        "canonical": 36
+      }
+    },
+    "elapsed_seconds": 13.962397197261453,
+    "latency_median_seconds": 1.4429210033267736,
+    "latency_p95_seconds": 3.00522540230304
+  }
+}

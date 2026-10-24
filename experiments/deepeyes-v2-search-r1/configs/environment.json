@@ -1,0 +1,15 @@
+{
+  "source_commit": "e5e1df624e8b0ea635b6f2f8a5c41c83c33958e0",
+  "training_image": "ghcr.io/redai-studio/relaxrl@sha256:cd431e1094646c347aa97bc9cb8c5ac8315d4e72b0b6321f1cafd1ae12e680c6",
+  "apptainer_version": "1.4.1",
+  "actual_training_versions": {
+    "python": "3.12.3",
+    "torch": "2.11.0+cu129",
+    "cuda": "12.9",
+    "ray": "2.58.0",
+    "sglang": "0.5.17",
+    "transformer_engine": "2.14.1",
+    "flash_attn": "2.7.4.post1",
+    "faiss_gpu": "1.14.3"
+  }
+}

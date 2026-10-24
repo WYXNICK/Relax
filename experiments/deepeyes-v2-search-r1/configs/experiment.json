@@ -1,0 +1,84 @@
+{
+  "base_commit": "e5e1df624e8b0ea635b6f2f8a5c41c83c33958e0",
+  "actor": "Qwen3.6-35B-A3B",
+  "judge": "Qwen3-8B non-thinking",
+  "algorithm": "GRPO",
+  "seed": 1234,
+  "training_rows": {
+    "search": 4480,
+    "perception": 1000,
+    "reason": 1000
+  },
+  "validation_questions": {
+    "search": 256,
+    "vstar": 191
+  },
+  "updates": 200,
+  "rollout_batch_size": 32,
+  "samples_per_prompt": 8,
+  "global_batch_size": 256,
+  "micro_batch_size": 1,
+  "optimizer": {
+    "name": "adam",
+    "lr": 1e-06,
+    "schedule": "constant",
+    "weight_decay": 0.1,
+    "betas": [
+      0.9,
+      0.98
+    ],
+    "cpu_offload": true
+  },
+  "policy": {
+    "kl_loss_coef": 0,
+    "entropy_coef": 0,
+    "eps_clip": 0.2,
+    "eps_clip_high": 0.28,
+    "eps_clip_c": 3,
+    "use_tis": true
+  },
+  "context_length": 16384,
+  "response_length_per_turn": 4096,
+  "max_turns": 9,
+  "rollout_temperature": 1,
+  "eval_top_p": 0.7,
+  "eval_interval": 50,
+  "save_interval": 50,
+  "baseline": true,
+  "samples_per_eval_question": 8,
+  "eval_concurrency": 8,
+  "final_standalone_eval_concurrency": 4,
+  "training_gpus": 8,
+  "service_gpus": 2,
+  "gpu": "H100-SXM-80GB",
+  "tp": 4,
+  "pp": 1,
+  "cp": 1,
+  "ep": 8,
+  "etp": 1,
+  "rollout_engines": 4,
+  "rollout_tp": 2,
+  "mode": "synchronous colocate",
+  "max_staleness": 0,
+  "moe_dispatcher": "flex/deepep",
+  "balance_data": true,
+  "recompute": "full",
+  "sglang_mem_fraction_static": 0.6,
+  "max_tokens_per_gpu": 16384,
+  "nccl_nvls_enable": 0,
+  "training_gpu_synthetic_load": false,
+  "retriever": {
+    "backend": "Search-R1",
+    "encoder": "intfloat/e5-base-v2",
+    "index": "Wiki18 FAISS Flat",
+    "top_k": 3,
+    "timeout_s": 10,
+    "max_retries": 2
+  },
+  "selection": {
+    "primary_metric": "fixed Search validation mean sampled answer accuracy",
+    "best_completed_updates": 100,
+    "final_completed_updates": 200
+  },
+  "note": "Historical experiment configuration; paths and authentication must be supplied separately. Not an exact upstream-default run or a new execution."
+}

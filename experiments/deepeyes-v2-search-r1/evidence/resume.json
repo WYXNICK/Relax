@@ -1,0 +1,31 @@
+{
+  "prepared_at": "2026-10-14T03:20:28.218051+00:00",
+  "checkpoint_iteration": 99,
+  "next_rollout_id": 100,
+  "target_updates": 200,
+  "discarded_original_updates": [
+    100,
+    145
+  ],
+  "source_checkpoint_bytes": 492650231272,
+  "dataset_cursor": {
+    "sample_offset": 0,
+    "epoch_id": 0,
+    "sample_group_index": 3673,
+    "sample_index": 29384,
+    "use_streaming": true
+  },
+  "streaming_state": {
+    "epoch_id": 0,
+    "position": 3692,
+    "filter_count": 20,
+    "total_processed": 3936
+  },
+  "branch_rule": "main results: original updates0..99 plus restored updates100..199; original100..145 retained in attempts/000-initial",
+  "router": "native use-slime-router + loopback, replaces Rust cache_aware with least-active scheduling; objective/sampling parameters unchanged",
+  "retained_sample_rows": 36236,
+  "discarded_sample_rows": 11776,
+  "tensorboard_purge_step": 100,
+  "scalar_tags_after_purge": 250,
+  "public_curation_note": "Deployment paths replaced with variable names; numeric evidence retained. This is a record, not a live configuration."
+}

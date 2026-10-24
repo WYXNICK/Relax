@@ -1,0 +1,16 @@
+# Local reproduction inputs and secrets never belong in the public study branch.
+private/
+.env
+*.local.sh
+*.local.yaml
+*.local.yml
+checkpoints/
+tensorboard/
+events.out.tfevents.*
+*.parquet
+*.safetensors
+*.distcp
+*.pt
+__pycache__/
+# Deliberately curated, identity-redacted log excerpts.
+!evidence/*.log

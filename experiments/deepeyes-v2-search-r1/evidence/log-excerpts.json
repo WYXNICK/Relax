@@ -1,0 +1,42 @@
+{
+  "operations": [
+    "select genuine training metric lines",
+    "remove ANSI color escapes",
+    "replace numeric pid with [redacted]"
+  ],
+  "first30_native_steps": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "final_native_step": 199,
+  "values_and_timestamps_changed": false,
+  "scope": "Public identity-redacted metric excerpts; numerical values and timestamps retained."
+}

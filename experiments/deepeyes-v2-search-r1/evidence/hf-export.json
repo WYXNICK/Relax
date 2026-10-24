@@ -1,0 +1,18 @@
+{
+  "native_iteration": 199,
+  "weight_files": 27,
+  "tensor_count": 1045,
+  "weight_file_bytes": 71903775976,
+  "weight_dtype": "BF16",
+  "processor_load": "passed",
+  "trained_weight_probe": {
+    "key": "model.language_model.layers.0.linear_attn.in_proj_qkv.weight",
+    "slice": "first up to64 elements of each dimension",
+    "finite": true,
+    "differs_from_initial": true,
+    "max_abs_change": 6.103515625e-05
+  },
+  "verification_scope": "all shard headers/index/dtypes + sampled trained tensor; no full tensor round-trip claim",
+  "mtp_note": "Converter may supplement untrained MTP from original HF; evaluation uses no speculative decoding",
+  "public_curation_note": "Model format and verification outcome only; source artifact locations and detailed fingerprints remain private."
+}

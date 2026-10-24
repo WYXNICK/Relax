@@ -1,0 +1,19 @@
+{
+  "load": "${ASSET_ROOT}/models/Qwen3.6-35B-A3B",
+  "num_rollout": "200",
+  "seed": "1234",
+  "global_batch_size": "256",
+  "rollout_batch_size": "32",
+  "n_samples_per_prompt": "8",
+  "save_interval": "50",
+  "eval_interval": "50",
+  "moe_token_dispatcher_type": "flex",
+  "moe_flex_dispatcher_backend": "deepep",
+  "balance_data": "True",
+  "max_tokens_per_gpu": "16384",
+  "tensor_model_parallel_size": "4",
+  "expert_model_parallel_size": "8",
+  "sglang_mem_fraction_static": "0.6",
+  "status": "passed",
+  "source_note": "Native argument normalization sets load to the initial HF directory; no pilot or old formal checkpoint loaded."
+}

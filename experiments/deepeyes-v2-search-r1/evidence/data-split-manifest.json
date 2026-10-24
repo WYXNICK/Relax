@@ -1,0 +1,68 @@
+{
+  "seed": 1234,
+  "converter_sha256": "5738a244aecc5031143afedcff8345100ba5319fd2bd1090cdbd728df2f54991",
+  "search_raw_rows": 4856,
+  "search_duplicate_rows_removed": 120,
+  "search_holdout_ids_sha256": "de1e712359fb758309aa8408edd392ed2ad3bc4d00429579aff35f18742d8810",
+  "image_group_isolation": true,
+  "auxiliary_excluded_before_selection": {
+    "perception_train": 2,
+    "reason_train": 63
+  },
+  "selection_rule": "Search dedup question+image; shuffled image groups; auxiliary first 1000 eligible rows",
+  "limitations": [
+    "Byte-identical image isolation, not perceptual duplicate detection",
+    "Wiki18 does not cover all recent events; holdout is not filtered by outcomes"
+  ],
+  "files": {
+    "search_train": {
+      "file": "search_train.parquet",
+      "rows": 4480,
+      "bytes": 1402135329,
+      "sha256": "4c166b7da55b62d2311e42425559db40ef613fef89273f721b62e38da2567546",
+      "ordered_ids_sha256": "a26d3a630597cb279263a5ec4e97ce11279ef89205d03b0a0fe605b8702a670d"
+    },
+    "search_holdout": {
+      "file": "search_holdout.parquet",
+      "rows": 256,
+      "bytes": 85166448,
+      "sha256": "930d7d4ccb025c451170ce665b7fbf5d6ab09efa148b8a802fae1329878b284b",
+      "ordered_ids_sha256": "de1e712359fb758309aa8408edd392ed2ad3bc4d00429579aff35f18742d8810"
+    },
+    "vstar_test": {
+      "file": "vstar_test.parquet",
+      "rows": 191,
+      "bytes": 113400993,
+      "sha256": "f60650e1ba00fd660db235136c64456dfff50dc3957589bd73db16821ad1ebf9",
+      "ordered_ids_sha256": "2118c6fbcee6225fdee8977b991261d6d06d51606b17b4bb7b4f2469ecc53fed"
+    },
+    "perception_train": {
+      "file": "perception_train.parquet",
+      "rows": 1000,
+      "bytes": 72098014,
+      "sha256": "e59bc80317161575c05d77cce79c14b92f4e11cc9035543883e391f2c210c375",
+      "ordered_ids_sha256": "bbda758c364a561efe3250da3ea29bb919ac709cee756bd5c2ef0f1df6829d16"
+    },
+    "reason_train": {
+      "file": "reason_train.parquet",
+      "rows": 1000,
+      "bytes": 28152842,
+      "sha256": "eb97582e0f3fc5790a99bfc8fc4ded9dc1b6d3cef4e079a6f99f5ce79380e828",
+      "ordered_ids_sha256": "2a4aea1d8411af856f8df9ef4e94f820b82b24aa48c66d09d1bcdcfb13e8f882"
+    }
+  },
+  "image_cache": {
+    "decoded_images": 23999,
+    "holdout_coverage": {
+      "covered": 256,
+      "planned": 256
+    }
+  },
+  "fixed_cases": {
+    "questions": 16,
+    "samples_per_question_per_stage": 8,
+    "stages": 5,
+    "public_ids": "anonymous case_01 through case_16"
+  },
+  "public_curation_note": "Full sample IDs, cache records and deployment locations remain private. Public records retain counts, split rules and cryptographic hashes only."
+}

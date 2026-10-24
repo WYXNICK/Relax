@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-10-14T03:37:03.728073+00:00",
+  "status": "passed",
+  "actual_native_arguments": {
+    "load": "${RUN_DIR}/checkpoints",
+    "num_rollout": "200",
+    "seed": "1234",
+    "rollout_seed": "1234",
+    "global_batch_size": "256",
+    "rollout_batch_size": "32",
+    "n_samples_per_prompt": "8",
+    "save_interval": "50",
+    "eval_interval": "50",
+    "use_slime_router": "True",
+    "skip_eval_before_train": "True",
+    "no_load_rng": "None",
+    "no_load_optim": "None",
+    "finetune": "False",
+    "rollout_global_dataset": "True",
+    "max_staleness": "0",
+    "lr": "1e-06"
+  },
+  "dataset_load_confirmed": true,
+  "auto_start_rollout100": true
+}

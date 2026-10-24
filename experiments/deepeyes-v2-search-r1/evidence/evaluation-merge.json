@@ -1,0 +1,26 @@
+{
+  "source_eval_directory": "evaluation-200/attempt-3",
+  "source_native_eval_id": 0,
+  "model_checkpoint_iteration": 199,
+  "completed_optimizer_updates": 200,
+  "source_sample_sha256": "9221a5e344ef19828bc25d3b4134fcd842a2b2a86bb3e09ebf9165d6b14d9b2f",
+  "imported_at_epoch": 1791972892.0944386,
+  "merge_script_sha256": "2619893f30dc208c5e348230974b9be67bfb08ff6a70027e269dd58ea80d2ee8",
+  "sample_counts": {
+    "eval/search": 2048,
+    "eval/vstar": 1528
+  },
+  "answer_correct_counts": {
+    "eval/search": 1136.0,
+    "eval/vstar": 1280.0
+  },
+  "scalars_imported": 82,
+  "source_raw_records_preserved": true,
+  "training_events_changed": false,
+  "extra_inference_batch_imported": false,
+  "optimizer_updates_in_evaluation": 0,
+  "source_checkpoint_metadata_unchanged": true,
+  "derived_eval_file": "${RUN_DIR}/rollouts/eval/199.jsonl",
+  "status": "complete",
+  "public_curation_note": "Deployment paths replaced with variable names; numeric evidence retained. This is a record, not a live configuration."
+}

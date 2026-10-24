@@ -1,3 +1,5 @@
+> **个人实验归档分支**：本分支用于 [DeepEyes-V2 × Search-R1 训练复盘](experiments/deepeyes-v2-search-r1/README.md)，包含实验实现、结果、原生截图和面试准备。材料不属于向上游提交的 PR 范围。
+
 <div align="center">
 
 ## Relax: An Asynchronous Reinforcement Learning Engine for Omni-Modal Post-Training at Scale

@@ -1,0 +1,12 @@
+{
+  "checked_on": "2026-10-24",
+  "pull_request": "https://github.com/redai-studio/Relax/pull/342",
+  "state": "closed",
+  "merged": true,
+  "merged_at_utc": "2026-10-16T06:54:44Z",
+  "merged_at_asia_shanghai": "2026-10-16T14:54:44+08:00",
+  "merge_commit": "0bdb491dc5e4f06384dbaa942aa9b2e2c2a0be2e",
+  "final_pr_head_commit": "afb6adae74c95ced93e9aca62e70c929bce49592",
+  "historical_training_base_commit": "e5e1df624e8b0ea635b6f2f8a5c41c83c33958e0",
+  "note": "Training used the historical snapshot, not a rerun of the final PR head or merge commit. Personal archive changes are not part of that PR."
+}

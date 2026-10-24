@@ -1,0 +1,9 @@
+# Replace this documentation-only endpoint with your own Search-R1 service.
+backend: retriever
+top_k: 3
+timeout_s: 10.0
+max_retries: 2
+backoff_s: 0.5
+trust_env: false
+retriever:
+  url: "http://127.0.0.1:8000/retrieve"

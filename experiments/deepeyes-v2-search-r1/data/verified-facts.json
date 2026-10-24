@@ -1,0 +1,20 @@
+{
+  "organized_at": "2026-10-15T11:03:56.485716+08:00",
+  "timezone": "Asia/Shanghai",
+  "training_status": "200_effective_updates_complete",
+  "search_evaluation_status": "5_complete_points",
+  "best_completed_updates": 100,
+  "final_completed_updates": 200,
+  "baseline_search_accuracy": 0.41259765625,
+  "best_search_accuracy": 0.63525390625,
+  "final_search_accuracy": 0.5546875,
+  "improvement_percentage_points": 22.265625,
+  "best_text_call_reduction_percent": 65.50647729046355,
+  "effective_train_samples": 51200,
+  "observed_two_hour_sm_windows": 64,
+  "ordinary_step_median_seconds": 168.5424346923828,
+  "remote_checkpoint_success_markers_requeried_during_organization": false,
+  "raw_inputs_modified": false,
+  "training_or_evaluation_executed": false,
+  "publication_note": "Public curated record; private locations, raw event filenames and full logs are intentionally not published. No new training or evaluation."
+}

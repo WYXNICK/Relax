@@ -1,0 +1,8 @@
+asset,repo,revision,prepared_bytes,source_url
+agent-model,Qwen/Qwen3.6-35B-A3B,995ad96eacd98c81ed38be0c5b274b04031597b0,71926799705,https://huggingface.co/Qwen/Qwen3.6-35B-A3B/tree/995ad96eacd98c81ed38be0c5b274b04031597b0
+deepeyes-rl-raw,honglyhly/DeepEyesV2_RL,53b38b4b3bc3feb31706b0793745161588e42cba,10728585479,https://huggingface.co/datasets/honglyhly/DeepEyesV2_RL/tree/53b38b4b3bc3feb31706b0793745161588e42cba
+judge-model,Qwen/Qwen3-8B,b968826d9c46dd6066d109eabc6255188de91218,16397431693,https://huggingface.co/Qwen/Qwen3-8B/tree/b968826d9c46dd6066d109eabc6255188de91218
+retriever-model,intfloat/e5-base-v2,f52bf8ec8c7124536f0efb74aca902b2995e5bcd,438899949,https://huggingface.co/intfloat/e5-base-v2/tree/f52bf8ec8c7124536f0efb74aca902b2995e5bcd
+wiki18-corpus,PeterJinGo/wiki-18-corpus,69c1c00ffe7c5554c68d8548355cb22e46aabc51,5123307260,https://huggingface.co/datasets/PeterJinGo/wiki-18-corpus/tree/69c1c00ffe7c5554c68d8548355cb22e46aabc51
+wiki18-e5-index,PeterJinGo/wiki-18-e5-index,a4d31160a035f30764604f4827cd8f1d0315eb86,64559075373,https://huggingface.co/datasets/PeterJinGo/wiki-18-e5-index/tree/a4d31160a035f30764604f4827cd8f1d0315eb86
+image-search-cache,honglyhly/DeepEyesV2_Search_Cache,fd623b4109fdf5f17860e898c5c0cbf073ffb7d5,222070557,https://huggingface.co/datasets/honglyhly/DeepEyesV2_Search_Cache/tree/fd623b4109fdf5f17860e898c5c0cbf073ffb7d5

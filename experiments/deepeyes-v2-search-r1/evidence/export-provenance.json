@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Description of the public study artifacts",
+  "historical_code_base": "e5e1df624e8b0ea635b6f2f8a5c41c83c33958e0",
+  "uncompressed_scalar_csv_sha256": "1fcbb82af791842178b1028b7683bb5c3325bb03382cc4e4c4020d9a3c8f689d",
+  "images": [
+    {
+      "file": "figures/01-training-evaluation-hd.png",
+      "sha256": "079b977cb8a8ddf6c9cf08c4b2961cd70c78e1dfd2894a7665e52904ba792ac9"
+    },
+    {
+      "file": "figures/02-performance-hd.png",
+      "sha256": "381d3edb6f4852d7398e5c0ab0c7ea26ab9942b9eae06984d14b3221c657d875"
+    },
+    {
+      "file": "figures/03-training-log-steps-000-009-hd.png",
+      "sha256": "04bb5f6ab5c224c4730f9b090469e01c04319453c2072861923055281ef235b7"
+    }
+  ],
+  "image_handling": "Native screenshots, user-requested crop only; no redraw or change of numerical content.",
+  "log_handling": "Metric excerpts with process identity removed; values and timestamps retained.",
+  "case_handling": "Consistent anonymous case_01 through case_16.",
+  "new_training_or_evaluation": false
+}

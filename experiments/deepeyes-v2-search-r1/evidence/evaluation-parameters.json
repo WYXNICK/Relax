@@ -1,0 +1,174 @@
+{
+  "all_selected_sampling_reward_and_engine_parameters_equal": true,
+  "comparisons": {
+    "--eval-prompt-data": {
+      "formal": [
+        "search",
+        "${ASSET_ROOT}/deepeyes/data/experiment/search_holdout.parquet",
+        "vstar",
+        "${ASSET_ROOT}/deepeyes/data/experiment/vstar_test.parquet"
+      ],
+      "evaluation": [
+        "search",
+        "${ASSET_ROOT}/deepeyes/data/experiment/search_holdout.parquet",
+        "vstar",
+        "${ASSET_ROOT}/deepeyes/data/experiment/vstar_test.parquet"
+      ],
+      "equal": true
+    },
+    "--n-samples-per-eval-prompt": {
+      "formal": [
+        "8"
+      ],
+      "evaluation": [
+        "8"
+      ],
+      "equal": true
+    },
+    "--eval-max-response-len": {
+      "formal": [
+        "4096"
+      ],
+      "evaluation": [
+        "4096"
+      ],
+      "equal": true
+    },
+    "--eval-top-p": {
+      "formal": [
+        "0.7"
+      ],
+      "evaluation": [
+        "0.7"
+      ],
+      "equal": true
+    },
+    "--eval-temperature": {
+      "formal": null,
+      "evaluation": null,
+      "equal": true
+    },
+    "--rollout-temperature": {
+      "formal": [
+        "1"
+      ],
+      "evaluation": [
+        "1"
+      ],
+      "equal": true
+    },
+    "--rollout-max-context-len": {
+      "formal": [
+        "16384"
+      ],
+      "evaluation": [
+        "16384"
+      ],
+      "equal": true
+    },
+    "--rollout-max-response-len": {
+      "formal": [
+        "4096"
+      ],
+      "evaluation": [
+        "4096"
+      ],
+      "equal": true
+    },
+    "--rollout-stop-token-ids": {
+      "formal": [
+        "248059",
+        "248046"
+      ],
+      "evaluation": [
+        "248059",
+        "248046"
+      ],
+      "equal": true
+    },
+    "--seed": {
+      "formal": [
+        "1234"
+      ],
+      "evaluation": [
+        "1234"
+      ],
+      "equal": true
+    },
+    "--rollout-seed": {
+      "formal": [
+        "1234"
+      ],
+      "evaluation": [
+        "1234"
+      ],
+      "equal": true
+    },
+    "--custom-rm-path": {
+      "formal": [
+        "examples.deepeyes_v2_agentic.reward_deepeyes_v2.reward_func"
+      ],
+      "evaluation": [
+        "examples.deepeyes_v2_agentic.reward_deepeyes_v2.reward_func"
+      ],
+      "equal": true
+    },
+    "--agent-command": {
+      "formal": [
+        "bash ${EXPERIMENT_OPS_DIR}/run_observed_agent.sh"
+      ],
+      "evaluation": [
+        "bash ${EXPERIMENT_OPS_DIR}/run_observed_agent.sh"
+      ],
+      "equal": true
+    },
+    "--agent-cwd": {
+      "formal": [
+        "${RELAX}/examples/deepeyes_v2_agentic"
+      ],
+      "evaluation": [
+        "${RELAX}/examples/deepeyes_v2_agentic"
+      ],
+      "equal": true
+    },
+    "--rollout-num-gpus-per-engine": {
+      "formal": [
+        "2"
+      ],
+      "evaluation": [
+        "2"
+      ],
+      "equal": true
+    },
+    "--sglang-mem-fraction-static": {
+      "formal": [
+        "0.60"
+      ],
+      "evaluation": [
+        "0.60"
+      ],
+      "equal": true
+    },
+    "--sglang-mamba-scheduler-strategy": {
+      "formal": [
+        "extra_buffer"
+      ],
+      "evaluation": [
+        "extra_buffer"
+      ],
+      "equal": true
+    }
+  },
+  "intentional_changes": {
+    "debug_rollout_only": true,
+    "training_actor_created": false,
+    "agentic_eval_concurrency": [
+      8,
+      4
+    ],
+    "hf_model": "official BF16 export of iter199, auto load",
+    "num_rollout": 1,
+    "optimizer_updates": 0
+  },
+  "public_curation_note": "Deployment paths replaced with variable names; numeric evidence retained. This is a record, not a live configuration."
+}
