@@ -2,7 +2,7 @@
 
 **Status:** all 24 production performance jobs and 19 numerical, resume/export, CUDA-trace, eviction, trajectory and lifecycle reports passed on two H100 SXM 80GB GPUs.
 
-Requirement: [official Task 17](https://github.com/redai-studio/community/blob/main/contributor-program/2026-cohort-2/official-task.md#task-17). The contribution is independent of competing PR implementations.
+Requirement: [official Task 17](https://github.com/redai-studio/community/blob/main/contributor-program/2026-cohort-2/official-task.md#task-17).
 
 ## Implementation and scope
 
@@ -46,7 +46,7 @@ SenseNova exceeds the task's 10% steady-E2E bonus threshold. Qwen has an indepen
 | Qwen / high | 0.9089–0.9154; 0.0037 | 0.9699–1.0337; 0.0320 |
 | Qwen / low | 0.9070–0.9256; 0.0097 | 0.8986–0.9225; 0.0120 |
 
-All individual repeats, whole-job variation and per-rank counters remain in the four `results/*-summary.json` files. No slow repeat or checkpoint step is removed. Percentages from competing PRs on H20/H200 or different workloads are not directly comparable to these H100 measurements.
+All individual repeats, whole-job variation and per-rank counters remain in the four `results/*-summary.json` files. No slow repeat or checkpoint step is removed.
 
 ### Cold fill and break-even
 
