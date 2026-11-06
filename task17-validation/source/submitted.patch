@@ -1,0 +1,1392 @@
+diff --git a/docs/en/guide/frozen-conditions.md b/docs/en/guide/frozen-conditions.md
+new file mode 100644
+index 0000000..901c18c
+--- /dev/null
++++ b/docs/en/guide/frozen-conditions.md
+@@ -0,0 +1,120 @@
++# Frozen conditions in image SFT
++
++Image SFT can reuse deterministic frozen conditions on each training GPU. This
++is opt-in: `condition_cache_bytes=0` preserves online encoding. It uses the same
++bounded LRU for SenseNova and Qwen-Image-Edit, without a cache service, shared
++memory, disk artifacts or SGLang/RL dependencies.
++
++## Supported conditions
++
++| Adapter | Reused fields | Still computed on every sample |
++| --- | --- | --- |
++| SenseNova SFT | Frozen vision/understanding prefix K/V and image positional IDs | Noise initialization, target image preparation, timestep/noise sampling, generation and loss |
++| Qwen-Image-Edit SFT | Frozen multimodal prompt embeddings and deterministic reference VAE latents | Target VAE posterior sampling, timestep/noise sampling, DiT and flow-matching loss |
++
++SenseNova validates the actual parameter dependencies **after** LoRA injection.
++Custom adapters touching the understanding path cannot enable its cache. Such
++adapters retain prefix gradients when caching is disabled. Qwen supports DiT
++LoRA and exactly one reference image; it uses Diffusers' `QwenImageEditPipeline`
++(the original Qwen-Image-Edit model, not Edit-Plus). Frozen encoder/VAE parameters
++remain registered inside the FSDP forward root. Full-parameter Qwen training and
++SenseNova's fixed pixel tiers are outside this adapter's scope.
++
++The Qwen objective uses uniform training timesteps and unweighted rectified-flow
++MSE against noise minus sampled clean latents. Target normalization follows the
++[Diffusers Qwen-Image training recipe](https://github.com/huggingface/diffusers/blob/v0.37.0/examples/dreambooth/train_dreambooth_lora_qwen_image.py);
++prompt/reference conditioning and token geometry follow its
++[edit pipeline](https://github.com/huggingface/diffusers/blob/v0.37.0/src/diffusers/pipelines/qwenimage/pipeline_qwenimage_edit.py).
++Training images use Relax's deterministic aspect-preserving resize/center crop
++to `max_pixels`, aligned to 32 pixels, rather than inference's fixed area.
++
++## Configuration and ownership
++
++Add these fields to `--i2i-sft-config`:
++
++```json
++{"condition_cache_bytes": 2147483648, "condition_cache_entries": 128}
++```
++
++The limits are **per rank**, in bytes and entries. Both apply; an oversized
++condition is computed online and not admitted. Admission counts unique backing
++tensor storage, including views. The bound excludes the active forward/backward
++working set and CUDA allocator reservations, so leave training headroom. Do not
++interpret a bounded cache as a bound on total GPU memory. There is no disk cache.
++
++Both adapters also support the existing bounded CPU image prefetcher. Set
++`image_prefetch_depth=4` and `image_prefetch_workers=2` in the same config to
++overlap image decoding and resizing with training. The prepared sample order
++and conditioning keys stay unchanged. Prefetch defaults to off; measure its
++benefit for your storage and resolution, using the same setting in cache-on
++and cache-off comparisons.
++
++Each cache belongs exclusively to one loaded, immutable encoder/processor and
++is created after checkpoint restoration. This ownership is the weight and
++processor namespace: entries never cross model loads, resumes, ranks or jobs.
++Within it, SHA-256 keys include the adapter conditioning version, output dtype,
++final prompt, ordered post-preprocessing reference image contents/mode/geometry,
++and target geometry. Changing a file's pixels at the same path cannot hit an old
++entry. Target pixels are not dependencies of these conditions. Future stochastic
++preprocessing must finish before keying; stochastic encoder outputs cannot be
++registered as reusable fields.
++
++The training stream borrows tensors read-only without copies or host transfers.
++Any rank miss causes all ranks to encode, using the existing decode-error
++rendezvous. This preserves nested FSDP collective order. Rank rotation or small
++budgets can reduce the **effective** hit rate below local hit rates; measure it.
++Errors, final completion and explicit trainer close release entries. Worker
++termination releases process-owned GPU memory. Checkpoints do not store cache
++contents; cache capacity may change on resume without changing the training
++contract. Reusing a model after replacing frozen weights requires a fresh cache.
++
++Future RL adapters can use the same lookup/request/admission interface after
++their own preprocessing, with a cache owned by each immutable frozen encoder
++version. FSDP callers must retain all-rank hit agreement when skipping an encoder
++would skip collectives. Only deterministic conditions may cross candidate
++evaluations; noise, sampled target latents, trajectories and rewards remain
++candidate-specific. No rollout service or cross-process feature transport is
++part of this SFT implementation.
++
++## Launch and export
++
++The existing image SFT recipe accepts `CONDITION_CACHE_BYTES` and
++`CONDITION_CACHE_ENTRIES`. Its default adapter remains SenseNova. To train Qwen:
++
++```bash
++MODEL_PATH=/shared/models/Qwen-Image-Edit DATA_ROOT=/shared/data \
++METADATA_PATH=/shared/data/train.json DATASET_SIZE=64 \
++GPUS=2 MODE=lora CONDITIONING_IMAGES=1 MAX_PIXELS=262144 \
++CONDITION_CACHE_BYTES=2147483648 CONDITION_CACHE_ENTRIES=128 \
++SAVE_DIR=/shared/runs/qwen-edit STEPS=64 RAY_NO_WAIT=1 \
++bash scripts/entrypoint/ray-job.sh \
++  scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh \
++  --model-adapter-path relax.models.qwen_image.edit_sft.QwenImageEditSFTAdapter
++```
++
++Use a separate output directory per run. All workers need the complete local
++model snapshot, metadata and images. No model download happens inside training.
++Use the original [image SFT guide](./i2i-sft.md) for data/resume controls.
++Qwen uses the same export command with an **output directory**; the resulting
++Diffusers LoRA weights load with
++`pipeline.load_lora_weights(directory, weight_name="pytorch_lora_weights.safetensors")`,
++including in offline mode, and preserve rank/alpha scaling. Continue training
++from DCP, not the exported LoRA.
++
++## Runtime requirements and metrics
++
++FSDP LoRA with frozen BF16 weights and FP32 masters requires PyTorch 2.8 or
++newer, with a matching torchvision build. Model snapshots must be available
++locally on every training worker.
++
++Training metrics under `condition_cache/` report lookups, local and effective
++hits, encodes, evictions, oversized conditions, and resident/peak bytes. Use
++effective hits to assess reuse across FSDP ranks. A one-pass dataset has no
++reuse benefit; leave caching disabled for that workload.
++
++Per-rank `i2i SFT measurement` logs record step completion, global sample count,
++elapsed time, GPU memory and cache counters. For end-to-end throughput, sum
++consecutive completion intervals for each rank and use the largest rank total;
++count the global batch once and retain checkpoint steps. The existing
++`--use-pytorch-profiler` controls expose named conditioning-encoder ranges for
++investigating cache misses and remaining compute.
+diff --git a/docs/en/guide/i2i-sft.md b/docs/en/guide/i2i-sft.md
+index 588c3b9..3c961c3 100644
+--- a/docs/en/guide/i2i-sft.md
++++ b/docs/en/guide/i2i-sft.md
+@@ -7,13 +7,18 @@ the model or raw images mounted. The model directory, metadata, and images must
+ accessible to every training worker; the checkpoint output directory must be
+ shared across workers.
+ 
+-The current model adapter supports SenseNova U1.5 MoT Edit with full-parameter or
++The default model adapter supports SenseNova U1.5 MoT Edit with full-parameter or
+ LoRA training. Inputs can contain one source conditioning image, or two
+ conditioning images ordered as source then glyph. The target image provides
+ supervision and does not count toward the conditioning-image limit. The default
+ 1024² pixel budget is not a fixed square resolution: images retain their aspect
+ ratio and are aligned to the model's patch size.
+ 
++Qwen-Image-Edit also supports DiT LoRA with one reference image through
++`relax.models.qwen_image.edit_sft.QwenImageEditSFTAdapter`. Both adapters support
++opt-in bounded frozen-condition reuse. See [frozen conditions](./frozen-conditions.md)
++for configuration, Qwen launch/export and runtime metrics.
++
+ ## Data
+ 
+ `--prompt-data` points to a JSON array. Image paths are relative to `data_root`,
+@@ -86,7 +91,7 @@ python examples/diffusion/export_i2i_sft.py \
+   --output /shared/exports/adapter.safetensors
+ ```
+ 
+-LoRA exports use parameter names relative to the DiT and BF16 weights. Export
++SenseNova LoRA exports use parameter names relative to the DiT and BF16 weights. Export
+ currently requires alpha to equal rank. For full-parameter checkpoints, set
+ `--output` to a new directory; export writes BF16 model shards and copies the
+ original model's tokenizer configuration. Exports do not include optimizer state.
+diff --git a/docs/zh/guide/i2i-sft.md b/docs/zh/guide/i2i-sft.md
+index 6ef25b0..0a680d0 100644
+--- a/docs/zh/guide/i2i-sft.md
++++ b/docs/zh/guide/i2i-sft.md
+@@ -5,10 +5,26 @@
+ head 无需挂载模型和原始图片。模型目录、metadata 和图片必须在所有训练 worker 上可见，
+ checkpoint 输出目录必须跨 worker 共享。
+ 
+-当前模型适配为 SenseNova U1.5 MoT Edit，支持全参或 LoRA、单张 source 条件图，
++默认模型适配为 SenseNova U1.5 MoT Edit，支持全参或 LoRA、单张 source 条件图，
+ 以及按顺序提供 source 和 glyph 两张条件图。target 图片是监督目标，不计入条件图数量。
+ 1024² 是像素预算，图片保持长宽比并对齐到模型 patch 大小。
+ 
++Qwen-Image-Edit 可通过 `relax.models.qwen_image.edit_sft.QwenImageEditSFTAdapter`
++进行单张条件图的 DiT LoRA 训练。两个模型共享按字节数和条目数限制的冻结条件缓存；
++默认关闭，设置 `CONDITION_CACHE_BYTES`、`CONDITION_CACHE_ENTRIES` 可启用。
++缓存仅属于当前 worker 中加载的冻结模型，恢复 checkpoint 后重新建立；
++不缓存训练噪声或目标图像的随机 VAE 采样。任一卡未命中时，各卡统一在线编码，
++避免 FSDP 通信顺序不一致。容量限制不包含当前训练激活和 CUDA allocator 预留。
++
++两个适配都支持已有的有界 CPU 图像预取。在 `--i2i-sft-config` 中设置
++`image_prefetch_depth=4`、`image_prefetch_workers=2`，可让解码、缩放与训练重叠，
++不改变样本顺序或缓存键。预取默认关闭；对比缓存收益时，两组应使用相同预取设置。
++
++Qwen 仅支持原始 Qwen-Image-Edit（非 Edit-Plus）、DiT LoRA、单张参考图，
++不使用 SenseNova 的 fixed pixel tiers。导出使用同一个命令，但 `--output` 指向新目录，
++结果可通过 Diffusers `pipeline.load_lora_weights` 加载，并保留 LoRA alpha/rank 缩放。
++启动命令、缓存依赖及运行指标见[冻结条件指南](../../en/guide/frozen-conditions.md)。
++
+ ## 数据
+ 
+ `--prompt-data` 指向 JSON 数组。路径相对于 `data_root`，也可以使用绝对路径：
+diff --git a/relax/backends/fsdp/arguments.py b/relax/backends/fsdp/arguments.py
+index afc0c94..8a3e810 100644
+--- a/relax/backends/fsdp/arguments.py
++++ b/relax/backends/fsdp/arguments.py
+@@ -659,10 +659,15 @@ def validate_i2i_sft_config(args: Namespace) -> None:
+             "image_prefetch_workers",
+             "dp_tier_micro_balance",
+             "dp_tier_rank_rotation",
++            "condition_cache_bytes",
++            "condition_cache_entries",
+         }
+     )
+     _fail(errors, bool(unknown), f"Unknown i2i_sft_config keys: {sorted(unknown)}")
+     args.i2i_sft_config = config = {**defaults, **config}
++    for field, default, minimum in (("condition_cache_bytes", 0, 0), ("condition_cache_entries", 128, 1)):
++        value = config.get(field, default)
++        _fail(errors, type(value) is not int or value < minimum, f"{field} must be an integer >= {minimum}")
+     depth, workers = config.get("image_prefetch_depth", 0), config.get("image_prefetch_workers", 2)
+     _fail(errors, type(depth) is not int or depth < 0, "image_prefetch_depth must be a nonnegative integer")
+     _fail(errors, type(workers) is not int or workers <= 0, "image_prefetch_workers must be a positive integer")
+@@ -702,11 +707,6 @@ def validate_i2i_sft_config(args: Namespace) -> None:
+         type(config["prefix_gradient_checkpointing"]) is not bool,
+         "prefix_gradient_checkpointing must be boolean",
+     )
+-    _fail(
+-        errors,
+-        config["deterministic_attention"] and config["attention_implementation"] != "flash_attention_2",
+-        "Deterministic image SFT currently requires flash_attention_2",
+-    )
+     tiers = config.get("fixed_pixels_tiers")
+     _fail(
+         errors,
+diff --git a/relax/backends/fsdp/sft.py b/relax/backends/fsdp/sft.py
+index 3068a3a..1200ff1 100644
+--- a/relax/backends/fsdp/sft.py
++++ b/relax/backends/fsdp/sft.py
+@@ -7,6 +7,7 @@ belong to the adapter; initialization, FSDP and DCP belong to the common actor.
+ 
+ from __future__ import annotations
+ 
++import json
+ import os
+ import random
+ import time
+@@ -19,6 +20,7 @@ import torch.distributed as dist
+ 
+ from relax.backends.fsdp import checkpoint
+ from relax.engine.sft.image import ImageBatchSampler, ImageEditDataset, assign_image_batch
++from relax.models.frozen_conditions import FrozenConditionCache, agree_condition_request
+ from relax.utils.logging_utils import get_logger
+ 
+ 
+@@ -114,9 +116,19 @@ class FSDPSFTTrainer:
+             "adapter_path": self.args.model_adapter_path,
+             "model_path": os.path.realpath(self.args.model_path),
+             "metadata_sha256": self.dataset.sha256,
+-            # CPU scheduling controls do not change samples or optimizer math.
+-            # Keep old checkpoints resumable when prefetch is toggled.
+-            "config": {k: v for k, v in config.items() if k not in ("image_prefetch_depth", "image_prefetch_workers")},
++            # Execution controls do not change samples or optimizer math.
++            # Keep checkpoints resumable when prefetch or caching is toggled.
++            "config": {
++                k: v
++                for k, v in config.items()
++                if k
++                not in (
++                    "image_prefetch_depth",
++                    "image_prefetch_workers",
++                    "condition_cache_bytes",
++                    "condition_cache_entries",
++                )
++            },
+             "world_size": self.world,
+             "global_batch_size": self.args.global_batch_size,
+             "seed": self.args.seed,
+@@ -138,8 +150,6 @@ class FSDPSFTTrainer:
+             "torch_version": torch.__version__,
+         }
+         # JSON roundtrip canonicalizes optimizer tuples before disk comparison.
+-        import json
+-
+         self.contract = json.loads(json.dumps(self.contract))
+         if any(contract != self.contract for contract in _collect_rank_objects(self.contract)):
+             raise ValueError("Image SFT dataset/model/config differs between training ranks")
+@@ -151,13 +161,19 @@ class FSDPSFTTrainer:
+                 raise FileExistsError("Output already contains SFT checkpoints; use --load or a fresh --save")
+             seed_training(self.args.seed + self.rank)
+         self.prefetch = None
++        self.condition_cache = None
++        budget = config.get("condition_cache_bytes", 0)
++        if budget:
++            actor.adapter.validate_condition_cache(actor.model)
++            self.condition_cache = FrozenConditionCache(budget, config.get("condition_cache_entries", 128))
++            actor.model.condition_cache = self.condition_cache
+         depth = config.get("image_prefetch_depth", 0)
+         workers = config.get("image_prefetch_workers", 2)
+         if type(depth) is not int or depth < 0 or type(workers) is not int or workers <= 0:
+             raise ValueError("Image prefetch depth/workers must be nonnegative/positive integers")
+         if depth:
+-            if actor.adapter.family != "sensenova":
+-                raise ValueError("Threaded image prefetch currently requires the CPU-only SenseNova adapter")
++            if actor.adapter.family not in ("sensenova", "qwen_image_edit"):
++                raise ValueError("Threaded image prefetch requires CPU-only SenseNova or Qwen-Image-Edit preparation")
+             from relax.engine.sft.image_prefetch import ImagePrefetch
+ 
+             self.prefetch = ImagePrefetch(
+@@ -205,10 +221,13 @@ class FSDPSFTTrainer:
+     def close(self) -> None:
+         if self.prefetch:
+             self.prefetch.close()
++        if self.condition_cache is not None:
++            self.condition_cache.clear()
+ 
+     def _train_step(self, step: int) -> None:
+-        from relax.backends.fsdp.actor import _collect_weight_sync_errors
++        from relax.backends.fsdp.actor import _collect_rank_objects
+ 
++        wall_started = time.monotonic()
+         if step != self.step:
+             raise ValueError(f"Expected SFT step {self.step}, received {step}")
+         holder: list[Any] = [None]
+@@ -235,17 +254,26 @@ class FSDPSFTTrainer:
+         data_wait = 0.0
+         for micro, sample_id in enumerate(ids):
+             data, error = None, None
++            request = None
+             read_started = time.monotonic()
+             try:
+                 data = self.prefetch.get(step, micro, sample_id) if self.prefetch else self.dataset[sample_id]
++                if self.condition_cache is not None:
++                    request = self.condition_cache.lookup(self.actor.model.condition_key(data))
+             except Exception as exc:
+                 error = f"sample {sample_id}: {type(exc).__name__}: {exc}"
+             data_wait += time.monotonic() - read_started
+-            errors = _collect_weight_sync_errors(error)
++            # Reuse the existing decode-error rendezvous: no extra collective
++            # and no tensor/feature traffic. A local hit cannot skip FSDP alone.
++            states = _collect_rank_objects((error, request is not None and request.tensors is not None))
++            errors = [(rank, state[0]) for rank, state in enumerate(states) if state[0] is not None]
+             if errors:
+                 if self.prefetch:
+                     self.prefetch.close()
+                 raise ValueError(f"Image decoding failed: {errors}")
++            if request is not None:
++                data = {**data, "condition_request": agree_condition_request(request, all(hit for _, hit in states))}
++                del request
+             loss = self.actor.model(data)
+             torch._assert_async(torch.isfinite(loss), "Non-finite SFT loss")
+             (loss / len(ids)).backward()
+@@ -283,6 +311,10 @@ class FSDPSFTTrainer:
+                 "perf/peak_reserved_bytes": peak_reserved,
+             }
+             values["train/step"] = self.step
++            if self.condition_cache is not None:
++                values.update(
++                    {f"condition_cache/{key}": value for key, value in self.condition_cache.metrics().items()}
++                )
+             _report_sft_metrics(self.args, values)
+             logger.info(
+                 "i2i SFT step=%s loss=%.8f grad_norm=%.8f lr=%g peak_allocated=%d peak_reserved=%d",
+@@ -295,6 +327,24 @@ class FSDPSFTTrainer:
+         interval = self.args.save_interval
+         if self.args.save and (self.step == self.args.num_rollout or (interval and self.step % interval == 0)):
+             self.save()
++        finished_at = time.monotonic()
++        logger.info(
++            "i2i SFT measurement %s",
++            json.dumps(
++                {
++                    "rank": self.rank,
++                    "step": self.step,
++                    "samples": self.args.global_batch_size,
++                    "seconds": finished_at - wall_started,
++                    "finished_at": finished_at,
++                    "peak_allocated_bytes": peak_allocated,
++                    "peak_reserved_bytes": peak_reserved,
++                    "cache": None if self.condition_cache is None else self.condition_cache.metrics(),
++                }
++            ),
++        )
++        if self.step == self.args.num_rollout:
++            self.close()
+ 
+     def save(self) -> None:
+         try:
+diff --git a/relax/engine/sft/image.py b/relax/engine/sft/image.py
+index a1f4351..2e08d43 100644
+--- a/relax/engine/sft/image.py
++++ b/relax/engine/sft/image.py
+@@ -17,6 +17,38 @@ from typing import Any
+ import torch
+ 
+ 
++def load_sft_image(path: Path, max_pixels: int, *, patch_size: int, fixed_pixels: int | None = None) -> Any:
++    """Decode RGB and apply the shared deterministic image-SFT resize/crop."""
++    from PIL import Image
++    from torchvision.transforms import InterpolationMode, functional
++
++    with Image.open(path) as source:
++        image = source.convert("RGB")
++    width, height = image.size
++    if fixed_pixels is not None and fixed_pixels > 0:
++        # Bi-directional rescale to the pixel budget (small images are
++        # upscaled), keeping the aspect ratio; mirrors the inference-side
++        # fixed-pixels tier semantics.
++        scale = (width * height / fixed_pixels) ** 0.5
++        height, width = int(round(height / scale)), int(round(width / scale))
++    elif width * height > max_pixels:
++        scale = (width * height / max_pixels) ** 0.5
++        height, width = int(height / scale), int(width / scale)
++    height, width = height // patch_size * patch_size, width // patch_size * patch_size
++    if fixed_pixels is not None and fixed_pixels > 0:
++        # A fixed budget is approximate after patch alignment. Keep at least
++        # one patch per axis, including for tiny budgets and extreme ratios.
++        height, width = max(patch_size, height), max(patch_size, width)
++    if min(height, width) <= 0:
++        raise ValueError(f"Image is smaller than patch size: {path}")
++    old_width, old_height = image.size
++    scale = max(width / old_width, height / old_height)
++    image = functional.resize(
++        image, (round(old_height * scale), round(old_width * scale)), interpolation=InterpolationMode.BILINEAR
++    )
++    return functional.center_crop(image, (height, width))
++
++
+ def image_tier_budget(config: dict[str, Any], index: int) -> int | None:
+     """CPU-only per-row tier policy shared by decoding and DP assignment."""
+     tiers = config.get("fixed_pixels_tiers") or []
+diff --git a/relax/models/frozen_conditions.py b/relax/models/frozen_conditions.py
+new file mode 100644
+index 0000000..4fa2b3c
+--- /dev/null
++++ b/relax/models/frozen_conditions.py
+@@ -0,0 +1,121 @@
++# Copyright (c) 2026 Relax Authors. All Rights Reserved.
++"""Worker-local, device-resident reuse of deterministic frozen conditions.
++
++Each cache belongs to one loaded model and is discarded on resume/teardown.
++Weights, tokenizer, processor and precision are immutable during that lifetime;
++entries cannot cross model instances or checkpoints. Adapters own dependencies
++and tensor packing. The cache knows neither model names nor training
++algorithms.
++"""
++
++from __future__ import annotations
++
++import hashlib
++import json
++from collections import OrderedDict
++from dataclasses import dataclass
++from typing import Any
++
++import torch
++
++
++def image_condition_key(data: dict[str, Any], *, version: str, dtype: torch.dtype) -> bytes:
++    """Hash actual post-augmentation inputs on CPU, never filenames or GPU
++    tensors.
++
++    Target pixels are not conditions; target geometry can affect positional
++    IDs. Ordered reference pixels and the final prompt include
++    crop/augmentation and caption-dropout outcomes. A stochastic encoder itself
++    is not cacheable.
++    """
++    digest = hashlib.sha256()
++    metadata = [version, str(dtype), data["prompt"], data["image"].size]
++    digest.update(json.dumps(metadata, ensure_ascii=False).encode())
++    for image in data["edit_image"]:
++        pixels = image.tobytes()
++        digest.update(json.dumps([image.mode, image.size, len(pixels)]).encode())
++        digest.update(pixels)
++    return digest.digest()
++
++
++@dataclass(frozen=True)
++class ConditionRequest:
++    key: bytes
++    tensors: dict[str, torch.Tensor] | None
++
++
++class FrozenConditionCache:
++    """Byte/entry bounded LRU. Returned tensors are borrowed read-only.
++
++    Entries own freshly encoded storage; no cross-entry views. Account backing
++    storages (including views), not tensor numel. Admission never copies or
++    casts tensors and never synchronizes a GPU stream. Encoding must use
++    no_grad, not inference_mode, since generation backward may save these
++    tensors.
++    """
++
++    def __init__(self, max_bytes: int, max_entries: int) -> None:
++        if type(max_bytes) is not int or max_bytes <= 0 or type(max_entries) is not int or max_entries <= 0:
++            raise ValueError("Frozen condition cache requires positive integer byte and entry limits")
++        self.max_bytes, self.max_entries = max_bytes, max_entries
++        self._entries: OrderedDict[bytes, tuple[dict[str, torch.Tensor], int]] = OrderedDict()
++        self.resident_bytes = 0
++        self.peak_bytes = 0
++        self.lookups = self.local_hits = self.hits = self.encodes = self.evictions = self.oversized = 0
++
++    def lookup(self, key: bytes) -> ConditionRequest:
++        self.lookups += 1
++        entry = self._entries.get(key)
++        if entry is not None:
++            self.local_hits += 1
++            self._entries.move_to_end(key)
++        return ConditionRequest(key, None if entry is None else entry[0])
++
++    def put(self, key: bytes, tensors: dict[str, torch.Tensor]) -> None:
++        # This is the adapter/cache boundary. Reject a graph instead of silently
++        # detaching trainable conditions and producing incorrect gradients.
++        if not tensors or any(t.requires_grad or t.grad_fn is not None for t in tensors.values()):
++            raise ValueError("Frozen conditions must be nonempty tensors encoded without autograd")
++        storages = {}
++        for tensor in tensors.values():
++            storage = tensor.untyped_storage()
++            storages[(storage.device, storage.data_ptr())] = storage.nbytes()
++        size = sum(storages.values())
++        old = self._entries.pop(key, None)
++        if old is not None:
++            self.resident_bytes -= old[1]
++        if size > self.max_bytes:
++            self.oversized += 1
++            return
++        while self._entries and (
++            self.resident_bytes + size > self.max_bytes or len(self._entries) >= self.max_entries
++        ):
++            _, (_, removed) = self._entries.popitem(last=False)
++            self.resident_bytes -= removed
++            self.evictions += 1
++        self._entries[key] = (tensors, size)
++        self.resident_bytes += size
++        self.peak_bytes = max(self.peak_bytes, self.resident_bytes)
++
++    def clear(self) -> None:
++        self._entries.clear()
++        self.resident_bytes = 0
++
++    def metrics(self) -> dict[str, int]:
++        return {
++            "lookups": self.lookups,
++            "local_hits": self.local_hits,
++            "hits": self.hits,
++            "encodes": self.encodes,
++            "evictions": self.evictions,
++            "oversized": self.oversized,
++            "resident_bytes": self.resident_bytes,
++            "peak_bytes": self.peak_bytes,
++            "entries": len(self._entries),
++        }
++
++
++def agree_condition_request(request: ConditionRequest, all_hit: bool) -> ConditionRequest:
++    """Every FSDP rank must execute the same conditional encoder
++    collectives."""
++    return request if all_hit else ConditionRequest(request.key, None)
+diff --git a/relax/models/qwen_image/edit_sft.py b/relax/models/qwen_image/edit_sft.py
+new file mode 100644
+index 0000000..73074cc
+--- /dev/null
++++ b/relax/models/qwen_image/edit_sft.py
+@@ -0,0 +1,214 @@
++# Copyright (c) 2026 Relax Authors. All Rights Reserved.
++"""Qwen-Image-Edit supervision through Relax's image SFT trainer.
++
++Conditioning and reference latent geometry follow Diffusers v0.37.0's
++QwenImageEditPipeline. Target posterior sampling and the rectified-flow
++objective follow its Qwen-Image DreamBooth training recipe (uniform timestep
++density, unweighted loss). Diffusers remains the model implementation.
++"""
++
++from __future__ import annotations
++
++from pathlib import Path
++from typing import Any
++
++import torch
++
++from relax.models.frozen_conditions import FrozenConditionCache, image_condition_key
++from relax.models.qwen_image.adapter import QwenImageAdapter
++
++
++class QwenImageEditSFTModel(torch.nn.Module):
++    """Keep every parameter access inside the FSDP forward root."""
++
++    _no_split_modules = ("QwenImageTransformerBlock",)
++
++    def __init__(self, pipeline: Any, dtype: torch.dtype) -> None:
++        super().__init__()
++        # DiffusionPipeline is not an nn.Module: explicitly register each
++        # component once. The pipeline keeps references to these same objects.
++        self.transformer = pipeline.transformer
++        self.text_encoder = pipeline.text_encoder
++        self.vae = pipeline.vae
++        self.pipeline = pipeline
++        self.compute_dtype = dtype
++        self.device = torch.device("cpu")
++        self.condition_cache: FrozenConditionCache | None = None
++
++    def train(self, mode: bool = True) -> QwenImageEditSFTModel:
++        super().train(mode)
++        self.text_encoder.eval()
++        self.vae.eval()
++        return self
++
++    def encode_condition(self, data: dict[str, Any]) -> torch.Tensor:
++        # One unpadded sample has no masked tokens. Extracting its hidden
++        # states directly avoids Diffusers' GPU -> CPU length/mask checks.
++        inputs = self.pipeline.processor(
++            text=[self.pipeline.prompt_template_encode.format(data["prompt"])],
++            images=data["edit_image"][0],
++            padding=False,
++            return_tensors="pt",
++        )
++        output = self.text_encoder(
++            **inputs.to(self.device), output_hidden_states=True, use_cache=False, logits_to_keep=1
++        )
++        start = self.pipeline.prompt_template_encode_start_idx
++        return output.hidden_states[-1][:, start:].to(self.compute_dtype).contiguous()
++
++    def condition_key(self, data: dict[str, Any]) -> bytes:
++        return image_condition_key(data, version="qwen-image-edit-condition-v1", dtype=self.compute_dtype)
++
++    def image_latents(self, image: Any, *, sample: bool) -> torch.Tensor:
++        pixels = self.pipeline.image_processor.preprocess(image, height=image.height, width=image.width)
++        pixels = pixels.unsqueeze(2).to(device=self.device, dtype=self.compute_dtype)
++        try:
++            posterior = self.vae.encode(pixels).latent_dist
++        finally:
++            # The temporal VAE owns intermediate feature caches, including
++            # when encode raises before its normal cleanup.
++            self.vae.clear_cache()
++        latents = posterior.sample() if sample else posterior.mode()
++        # Training targets use the official DreamBooth FP32 normalization;
++        # reference conditioning follows the edit pipeline's latent dtype.
++        dtype = torch.float32 if sample else latents.dtype
++        mean = latents.new_tensor(self.vae.config.latents_mean, dtype=dtype).view(1, -1, 1, 1, 1)
++        std = latents.new_tensor(self.vae.config.latents_std, dtype=dtype).view(1, -1, 1, 1, 1)
++        return ((latents.to(dtype) - mean) / std).to(self.compute_dtype)
++
++    def forward(self, data: dict[str, Any]) -> torch.Tensor:
++        with torch.no_grad():
++            request = data.get("condition_request")
++            cached = None if request is None else request.tensors
++            if cached is None:
++                with torch.profiler.record_function("QwenImageEditPromptEncoder"):
++                    embeddings = self.encode_condition(data)
++            else:
++                embeddings = cached["embeddings"]
++                self.condition_cache.hits += 1
++            # Keep posterior sampling in the same position in the RNG stream.
++            with torch.profiler.record_function("QwenImageEditTargetVAE"):
++                clean = self.image_latents(data["image"], sample=True)
++            if cached is None:
++                with torch.profiler.record_function("QwenImageEditReferenceVAE"):
++                    reference = self.image_latents(data["edit_image"][0], sample=False)
++            else:
++                reference = cached["reference"]
++            if request is not None and cached is None:
++                self.condition_cache.encodes += 1
++                self.condition_cache.put(request.key, {"embeddings": embeddings, "reference": reference})
++        noise = torch.randn_like(clean)
++        scheduler = self.pipeline.scheduler
++        index = (torch.rand((clean.shape[0],)) * scheduler.config.num_train_timesteps).long()
++        timestep = scheduler.timesteps[index].to(self.device)
++        sigma = scheduler.sigmas[index].to(device=self.device, dtype=clean.dtype).view(-1, 1, 1, 1, 1)
++        noisy = (1 - sigma) * clean + sigma * noise
++        batch, channels, _, height, width = clean.shape
++        ref_height, ref_width = reference.shape[-2:]
++        pack = self.pipeline._pack_latents
++        target_tokens = pack(noisy, batch, channels, height, width)
++        reference_tokens = pack(reference, batch, channels, ref_height, ref_width)
++        prediction = self.transformer(
++            hidden_states=torch.cat((target_tokens, reference_tokens), dim=1),
++            encoder_hidden_states=embeddings,
++            encoder_hidden_states_mask=None,
++            timestep=timestep / 1000,
++            guidance=None,
++            img_shapes=[[(1, height // 2, width // 2), (1, ref_height // 2, ref_width // 2)]] * batch,
++            return_dict=False,
++        )[0][:, : target_tokens.shape[1]]
++        # Compare in spatial layout, matching the reference FP32 reduction.
++        prediction = self.pipeline._unpack_latents(
++            prediction, data["image"].height, data["image"].width, self.pipeline.vae_scale_factor
++        )
++        return torch.nn.functional.mse_loss(prediction.float(), (noise - clean).float())
++
++
++class QwenImageEditSFTAdapter:
++    family = "qwen_image_edit"
++    supported_tasks = ("i2i",)
++    lora_target_modules = QwenImageAdapter.lora_target_modules
++    lora_task_type = QwenImageAdapter.lora_task_type
++
++    def load_train_model(self, args: Any) -> QwenImageEditSFTModel:
++        from diffusers import QwenImageEditPipeline
++
++        config = args.i2i_sft_config
++        if args.fsdp_trainable_mode != "lora" or config["conditioning_images"] != 1:
++            raise ValueError("Qwen-Image-Edit SFT requires DiT LoRA and one reference image")
++        if config.get("fixed_pixels_tiers"):
++            raise ValueError("Qwen-Image-Edit SFT uses max_pixels, not SenseNova fixed pixel tiers")
++        dtype = {"bf16": torch.bfloat16, "fp32": torch.float32}[args.fsdp_param_dtype]
++        pipeline = QwenImageEditPipeline.from_pretrained(args.model_path, torch_dtype=dtype, local_files_only=True)
++        for module in (pipeline.transformer, pipeline.text_encoder, pipeline.vae):
++            module.requires_grad_(False)
++        pipeline.text_encoder.set_attn_implementation(
++            "sdpa" if config["attention_implementation"] == "torch" else "flash_attention_2"
++        )
++        if config["deterministic_attention"]:
++            import os
++
++            os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
++            torch.use_deterministic_algorithms(True)
++            torch.backends.cudnn.deterministic = True
++            torch.backends.cudnn.benchmark = False
++            pipeline.transformer.set_attention_backend("native")
++        if config["prefix_gradient_checkpointing"]:
++            pipeline.transformer.enable_gradient_checkpointing()
++        model = QwenImageEditSFTModel(pipeline, dtype)
++        model.train()
++        return model
++
++    def prepare_for_sharding(self, model: QwenImageEditSFTModel) -> None:
++        self.validate_condition_cache(model)
++        # Gather the text encoder once per encode. VAE.encode is called
++        # directly, so its parameters must stay on the FSDP root.
++        model.text_encoder._fsdp_fine_grained = True
++
++    def on_device_ready(self, model: QwenImageEditSFTModel, device: torch.device) -> None:
++        model.device = device
++
++    def validate_condition_cache(self, model: QwenImageEditSFTModel) -> None:
++        if any(p.requires_grad for module in (model.text_encoder, model.vae) for p in module.parameters()):
++            raise ValueError("Qwen condition reuse requires frozen text encoder and VAE")
++
++    @staticmethod
++    def export_checkpoint(checkpoint_dir: Path, output: Path, contract: dict[str, Any]) -> None:
++        from diffusers import QwenImageEditPipeline
++        from peft import LoraConfig
++
++        from relax.backends.fsdp.checkpoint import _load_dcp_model_state
++        from relax.backends.fsdp.lora import peft_adapter_state_dict
++
++        if not (checkpoint_dir / "COMMITTED").is_file() or contract["trainable_mode"] != "lora":
++            raise ValueError("Qwen-Image-Edit export requires a committed LoRA checkpoint")
++        if output.exists():
++            raise FileExistsError(output)
++        state = _load_dcp_model_state(str(checkpoint_dir / "fsdp"))
++        renamed = peft_adapter_state_dict(list(state.items()))
++        prefix = "base_model.model.transformer."
++        if not state or len(renamed) != len(state) or any(not key.startswith(prefix) for key in renamed):
++            raise ValueError("Checkpoint must contain only transformer LoRA parameters")
++        lora = contract["lora"]
++        QwenImageEditPipeline.save_lora_weights(
++            str(output),
++            transformer_lora_layers={key.removeprefix(prefix): value.contiguous() for key, value in renamed.items()},
++            transformer_lora_adapter_metadata=LoraConfig(
++                r=lora["rank"],
++                lora_alpha=lora["alpha"],
++                lora_dropout=lora["dropout"],
++                target_modules=lora["target_modules"],
++                bias=lora["bias"],
++            ).to_dict(),
++        )
++
++    def prepare_sample(
++        self, row: dict[str, Any], root: Path, config: dict[str, Any], index: int = 0
++    ) -> dict[str, Any]:
++        from relax.engine.sft.image import load_sft_image
++
++        return {
++            "prompt": row["prompt"],
++            "image": load_sft_image(root / row["image"], config["max_pixels"], patch_size=32),
++            "edit_image": [load_sft_image(root / row["edit_image"][0], config["max_pixels"], patch_size=32)],
++        }
+diff --git a/relax/models/sensenova/adapter.py b/relax/models/sensenova/adapter.py
+index a3e0f30..5ed744e 100644
+--- a/relax/models/sensenova/adapter.py
++++ b/relax/models/sensenova/adapter.py
+@@ -13,6 +13,8 @@ from typing import Any
+ 
+ import torch
+ 
++from relax.models.frozen_conditions import FrozenConditionCache, image_condition_key
++
+ 
+ LORA_TARGETS = (
+     "q_proj_mot_gen",
+@@ -35,8 +37,6 @@ def configure_attention(implementation: str, deterministic: bool = False) -> Non
+     os.environ["RELAX_ATTENTION_IMPLEMENTATION"] = implementation
+     os.environ["RELAX_DETERMINISTIC_ATTENTION"] = "1" if deterministic else "0"
+     if deterministic:
+-        if implementation != "flash_attention_2":
+-            raise ValueError("Deterministic attention validation currently requires FlashAttention 2")
+         # Masked prefix attention uses Torch SDPA, and vision uses cuDNN.
+         # FA2's flag alone does not make full-parameter backward repeatable.
+         os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+@@ -86,6 +86,8 @@ class SenseNovaSFTModel(torch.nn.Module):
+         self.pipe = pipe
+         self.training_mode = training_mode
+         self.prefix_gradient_checkpointing = prefix_gradient_checkpointing
++        self.condition_cache: FrozenConditionCache | None = None
++        self.prefix_frozen = training_mode == "lora"
+         if training_mode == "full":
+             self._mark_fine_grained_modules()
+ 
+@@ -111,7 +113,12 @@ class SenseNovaSFTModel(torch.nn.Module):
+                 module.model.embed_tokens._fsdp_fine_grained = True
+                 module.lm_head._fsdp_fine_grained = True
+ 
++    def condition_key(self, data: dict[str, Any]) -> bytes:
++        return image_condition_key(data, version="sensenova-prefix-v1", dtype=self.pipe.torch_dtype)
++
+     def forward(self, data: dict[str, Any]) -> torch.Tensor:
++        from .pipeline import SenseNovaU1ImageUnit_EditImageEmbedder, SenseNovaU1ImageUnit_PromptEmbedder
++
+         image = data["image"]
+         shared = {
+             "input_image": image,
+@@ -124,11 +131,31 @@ class SenseNovaSFTModel(torch.nn.Module):
+             "use_gradient_checkpointing_offload": False,
+         }
+         inputs = (shared, {"prompt": data["prompt"], "is_positive": True}, {"prompt": "", "is_positive": False})
+-        # Only generation projections have adapters. Prefix/vision are frozen;
+-        # never checkpoint the mutable prefix cache in this LoRA-only path.
+-        with torch.no_grad() if self.training_mode == "lora" else nullcontext():
++        request = data.get("condition_request")
++        cached = None if request is None else request.tensors
++        # Custom prefix LoRA must retain gradients, even in LoRA training mode.
++        with torch.no_grad() if self.prefix_frozen else nullcontext():
+             for unit in self.pipe.units:
+-                inputs = self.pipe.unit_runner(unit, self.pipe, *inputs)
++                if cached is not None and isinstance(unit, SenseNovaU1ImageUnit_EditImageEmbedder):
++                    continue
++                if cached is not None and isinstance(unit, SenseNovaU1ImageUnit_PromptEmbedder):
++                    from transformers.cache_utils import DynamicCache
++
++                    prefix = DynamicCache()
++                    for layer in range((len(cached) - 1) // 2):
++                        prefix.update(cached[f"key.{layer}"], cached[f"value.{layer}"], layer)
++                    inputs[1].update(past_key_values=prefix, indexes_image=cached["indexes_image"])
++                    self.condition_cache.hits += 1
++                    continue
++                with torch.profiler.record_function(type(unit).__name__):
++                    inputs = self.pipe.unit_runner(unit, self.pipe, *inputs)
++                if request is not None and isinstance(unit, SenseNovaU1ImageUnit_PromptEmbedder):
++                    tensors = {"indexes_image": inputs[1]["indexes_image"]}
++                    for index, layer in enumerate(inputs[1]["past_key_values"].layers):
++                        tensors[f"key.{index}"] = layer.keys
++                        tensors[f"value.{index}"] = layer.values
++                    self.condition_cache.encodes += 1
++                    self.condition_cache.put(request.key, tensors)
+         return flow_matching_loss(self.pipe, {**inputs[0], **inputs[1]})
+ 
+ 
+@@ -165,6 +192,16 @@ class SenseNovaSFTAdapter:
+     def prepare_for_sharding(self, model: SenseNovaSFTModel) -> None:
+         # Match the reference BF16 adapter initialization before FP32 masters.
+         model.pipe.to(dtype=torch.bfloat16)
++        model.prefix_frozen = not any(
++            parameter.requires_grad
++            for name, parameter in model.pipe.dit.named_parameters(remove_duplicate=False)
++            if not name.startswith(("fm_modules.", "language_model.lm_head."))
++            and not any(part.endswith("_mot_gen") for part in name.split("."))
++        )
++
++    def validate_condition_cache(self, model: SenseNovaSFTModel) -> None:
++        if not model.prefix_frozen:
++            raise ValueError("SenseNova condition reuse requires frozen vision and understanding parameters")
+ 
+     def on_device_ready(self, model: SenseNovaSFTModel, device: torch.device) -> None:
+         # Never move the already sharded parameters through Module.to().
+@@ -195,33 +232,8 @@ class SenseNovaSFTAdapter:
+ 
+     @staticmethod
+     def load_image(path: Path, max_pixels: int, fixed_pixels: int | None = None) -> Any:
+-        from PIL import Image
+-        from torchvision.transforms import InterpolationMode, functional
++        from relax.engine.sft.image import load_sft_image
+ 
+         from .processing import PATCH_SIZE
+ 
+-        with Image.open(path) as source:
+-            image = source.convert("RGB")
+-        width, height = image.size
+-        if fixed_pixels is not None and fixed_pixels > 0:
+-            # Bi-directional rescale to the pixel budget (small images are
+-            # upscaled), keeping the aspect ratio; mirrors the inference-side
+-            # fixed-pixels tier semantics.
+-            scale = (width * height / fixed_pixels) ** 0.5
+-            height, width = int(round(height / scale)), int(round(width / scale))
+-        elif width * height > max_pixels:
+-            scale = (width * height / max_pixels) ** 0.5
+-            height, width = int(height / scale), int(width / scale)
+-        height, width = height // PATCH_SIZE * PATCH_SIZE, width // PATCH_SIZE * PATCH_SIZE
+-        if fixed_pixels is not None and fixed_pixels > 0:
+-            # A fixed budget is approximate after patch alignment. Keep at least
+-            # one patch per axis, including for tiny budgets and extreme ratios.
+-            height, width = max(PATCH_SIZE, height), max(PATCH_SIZE, width)
+-        if min(height, width) <= 0:
+-            raise ValueError(f"Image is smaller than patch size: {path}")
+-        old_width, old_height = image.size
+-        scale = max(width / old_width, height / old_height)
+-        image = functional.resize(
+-            image, (round(old_height * scale), round(old_width * scale)), interpolation=InterpolationMode.BILINEAR
+-        )
+-        return functional.center_crop(image, (height, width))
++        return load_sft_image(path, max_pixels, patch_size=PATCH_SIZE, fixed_pixels=fixed_pixels)
+diff --git a/relax/utils/profile_utils.py b/relax/utils/profile_utils.py
+index cde7de2..c850122 100644
+--- a/relax/utils/profile_utils.py
++++ b/relax/utils/profile_utils.py
+@@ -39,10 +39,12 @@ def _profile_this_rank() -> bool:
+ 
+ 
+ def _get_rank_tag() -> str:
+-    """Build a rank tag string like ``rank0_dp0_tp0_pp0`` from Megatron mpu."""
+-    global_rank = torch.distributed.get_rank()
++    """Use the global rank, adding MPU coordinates when initialized."""
++    global_rank = torch.distributed.get_rank(group=torch.distributed.group.WORLD)
+     from megatron.core import mpu
+ 
++    if not mpu.is_initialized():
++        return f"rank{global_rank}"
+     dp = mpu.get_data_parallel_rank(with_context_parallel=True)
+     tp = mpu.get_tensor_model_parallel_rank()
+     pp = mpu.get_pipeline_model_parallel_rank()
+diff --git a/scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh b/scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh
+index ebf0c31..0cb22bd 100755
+--- a/scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh
++++ b/scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh
+@@ -17,7 +17,9 @@ PREFIX_GRADIENT_CHECKPOINTING="${PREFIX_GRADIENT_CHECKPOINTING:-1}"
+ # Opt in after validating host-memory headroom; zero preserves synchronous decoding.
+ IMAGE_PREFETCH_DEPTH="${IMAGE_PREFETCH_DEPTH:-0}"
+ IMAGE_PREFETCH_WORKERS="${IMAGE_PREFETCH_WORKERS:-2}"
+-export IMAGE_PREFETCH_DEPTH IMAGE_PREFETCH_WORKERS
++CONDITION_CACHE_BYTES="${CONDITION_CACHE_BYTES:-0}"
++CONDITION_CACHE_ENTRIES="${CONDITION_CACHE_ENTRIES:-128}"
++export IMAGE_PREFETCH_DEPTH IMAGE_PREFETCH_WORKERS CONDITION_CACHE_BYTES CONDITION_CACHE_ENTRIES
+ if [[ "$MODE" == full ]]; then
+     LORA_RANK=0
+     LR="${LR:-1e-6}"
+@@ -40,6 +42,8 @@ print(json.dumps({
+     "prefix_gradient_checkpointing": sys.argv[7] == "1",
+     "image_prefetch_depth": int(os.environ["IMAGE_PREFETCH_DEPTH"]),
+     "image_prefetch_workers": int(os.environ["IMAGE_PREFETCH_WORKERS"]),
++    "condition_cache_bytes": int(os.environ["CONDITION_CACHE_BYTES"]),
++    "condition_cache_entries": int(os.environ["CONDITION_CACHE_ENTRIES"]),
+ }))
+ PY
+ )
+diff --git a/tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py b/tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py
+index 3d799f1..2826c00 100644
+--- a/tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py
++++ b/tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py
+@@ -6,25 +6,31 @@ from types import ModuleType, SimpleNamespace
+ from unittest.mock import Mock
+ 
+ import pytest
++import torch
+ 
+ from relax.backends.fsdp.sft import FSDPSFTTrainer, _report_sft_metrics
++from relax.models.frozen_conditions import FrozenConditionCache
+ 
+ 
+ @pytest.mark.parametrize("operation,internal,args", [("train", "_train_step", (0,)), ("save", "_save_checkpoint", ())])
+ def test_sft_failure_closes_prefetch_and_preserves_error(operation, internal, args):
+     trainer = FSDPSFTTrainer.__new__(FSDPSFTTrainer)
+     trainer.prefetch = Mock()
++    trainer.condition_cache = FrozenConditionCache(1024, 2)
++    trainer.condition_cache.put(b"key", {"condition": torch.ones(4)})
+     error = RuntimeError("training failed")
+     setattr(trainer, internal, Mock(side_effect=error))
+     with pytest.raises(RuntimeError) as raised:
+         getattr(trainer, operation)(*args)
+     assert raised.value is error
+     trainer.prefetch.close.assert_called_once()
++    assert trainer.condition_cache.resident_bytes == 0
+ 
+ 
+ def test_sft_success_keeps_prefetch_for_next_step():
+     trainer = FSDPSFTTrainer.__new__(FSDPSFTTrainer)
+     trainer.prefetch = Mock()
++    trainer.condition_cache = None
+     trainer._train_step = Mock()
+     trainer.train(0)
+     trainer._train_step.assert_called_once_with(0)
+@@ -34,6 +40,7 @@ def test_sft_success_keeps_prefetch_for_next_step():
+ def test_sft_close_without_prefetch():
+     trainer = FSDPSFTTrainer.__new__(FSDPSFTTrainer)
+     trainer.prefetch = None
++    trainer.condition_cache = None
+     trainer.close()
+ 
+ 
+diff --git a/tests/cpu/engine/sft/test_image.py b/tests/cpu/engine/sft/test_image.py
+index 0ba3a1d..270eee8 100644
+--- a/tests/cpu/engine/sft/test_image.py
++++ b/tests/cpu/engine/sft/test_image.py
+@@ -55,6 +55,24 @@ def test_head_validation_and_sizing_need_no_worker_mount():
+     assert args.num_rollout == 6
+     assert args.num_rollout_per_epoch == 3
+     assert args.i2i_sft_config["max_pixels"] == 1024**2
++    args.i2i_sft_config.update(attention_implementation="torch", deterministic_attention=True)
++    validate_i2i_sft_config(args)
++
++
++@pytest.mark.parametrize(
++    "field,value",
++    [
++        ("condition_cache_bytes", -1),
++        ("condition_cache_bytes", True),
++        ("condition_cache_entries", 0),
++        ("condition_cache_entries", 1.5),
++    ],
++)
++def test_condition_cache_limits_are_validated_at_configuration_boundary(field, value):
++    args = _args()
++    args.i2i_sft_config[field] = value
++    with pytest.raises(ValueError, match=field):
++        validate_i2i_sft_config(args)
+ 
+ 
+ @pytest.mark.parametrize("tiers", [[True], [False], [1024, True], [1.5], ["1024"], [0], [-1], [], True])
+diff --git a/tests/cpu/models/qwen_image/test_edit_sft.py b/tests/cpu/models/qwen_image/test_edit_sft.py
+new file mode 100644
+index 0000000..264ec9f
+--- /dev/null
++++ b/tests/cpu/models/qwen_image/test_edit_sft.py
+@@ -0,0 +1,177 @@
++# Copyright (c) 2026 Relax Authors. All Rights Reserved.
++"""Small real Diffusers VAE/DiT: cache parity, RNG and LoRA export scaling."""
++
++from types import SimpleNamespace
++
++import torch
++from diffusers import (
++    AutoencoderKLQwenImage,
++    FlowMatchEulerDiscreteScheduler,
++    QwenImageEditPipeline,
++    QwenImageTransformer2DModel,
++)
++from PIL import Image
++from transformers.feature_extraction_utils import BatchFeature
++
++from relax.models.frozen_conditions import FrozenConditionCache
++from relax.models.qwen_image.edit_sft import QwenImageEditSFTAdapter, QwenImageEditSFTModel
++
++
++class TextEncoder(torch.nn.Module):
++    def __init__(self):
++        super().__init__()
++        self.embedding = torch.nn.Embedding(8, 16)
++
++    def forward(self, input_ids, **kwargs):
++        return SimpleNamespace(hidden_states=[self.embedding(input_ids)])
++
++
++def tiny_model():
++    vae = AutoencoderKLQwenImage(
++        base_dim=4,
++        z_dim=16,
++        dim_mult=[1, 2, 2, 2],
++        num_res_blocks=1,
++        temperal_downsample=[False, True, True],
++    )
++    transformer = QwenImageTransformer2DModel(
++        num_layers=1,
++        attention_head_dim=16,
++        num_attention_heads=2,
++        joint_attention_dim=16,
++        axes_dims_rope=(4, 6, 6),
++    )
++    pipe = QwenImageEditPipeline(
++        scheduler=FlowMatchEulerDiscreteScheduler(),
++        vae=vae,
++        transformer=transformer,
++        text_encoder=TextEncoder(),
++        tokenizer=None,
++        processor=None,
++    )
++    pipe.processor = lambda **kwargs: BatchFeature({"input_ids": torch.tensor([[1, 2, 3, 4]])})
++    pipe.prompt_template_encode_start_idx = 1
++    model = QwenImageEditSFTModel(pipe, torch.float32)
++    model.text_encoder.requires_grad_(False)
++    model.vae.requires_grad_(False)
++    model.train()
++    return model
++
++
++def test_prefetch_preserves_prepared_images_order_and_rng(tmp_path):
++    import json
++    import random
++
++    import numpy as np
++
++    from relax.engine.sft.image import ImageBatchSampler, ImageEditDataset
++    from relax.engine.sft.image_prefetch import ImagePrefetch
++
++    rows = []
++    for index, color in enumerate(("red", "blue", "green")):
++        name = f"{index}.png"
++        Image.new("RGB", (96, 64), color).save(tmp_path / name)
++        rows.append({"prompt": color, "image": name, "edit_image": [name]})
++    metadata = tmp_path / "train.json"
++    metadata.write_text(json.dumps(rows))
++    args = SimpleNamespace(
++        prompt_data=str(metadata),
++        i2i_sft_config={"data_root": str(tmp_path), "dataset_size": 3, "conditioning_images": 1, "max_pixels": 4096},
++    )
++    dataset = ImageEditDataset(args, QwenImageEditSFTAdapter())
++    sampler = ImageBatchSampler(3, 2, 42)
++    expected = [dataset[index] for step in range(4) for index in sampler.batch(step)]
++    rng = (random.getstate(), np.random.get_state(), torch.get_rng_state())
++    prefetch = ImagePrefetch(dataset, sampler, 0, 1, 0, 4, depth=2, workers=2)
++    try:
++        actual = [
++            prefetch.get(step, micro, index) for step in range(4) for micro, index in enumerate(sampler.batch(step))
++        ]
++    finally:
++        prefetch.close()
++    for online, prefetched in zip(expected, actual, strict=True):
++        assert online["prompt"] == prefetched["prompt"]
++        for left, right in zip(
++            [online["image"], *online["edit_image"]], [prefetched["image"], *prefetched["edit_image"]]
++        ):
++            assert (left.mode, left.size, left.tobytes()) == (right.mode, right.size, right.tobytes())
++    assert random.getstate() == rng[0]
++    np.testing.assert_equal(np.random.get_state(), rng[1])
++    assert torch.equal(torch.get_rng_state(), rng[2])
++
++
++def test_real_dit_vae_cache_preserves_loss_gradient_update_and_rng():
++    old_threads = torch.get_num_threads()
++    torch.set_num_threads(1)
++    try:
++        torch.manual_seed(7)
++        model = tiny_model()
++        data = {
++            "prompt": "edit",
++            "image": Image.new("RGB", (32, 32), "red"),
++            "edit_image": [Image.new("RGB", (32, 32), "blue")],
++        }
++        weights = {name: value.detach().clone() for name, value in model.transformer.named_parameters()}
++
++        def step(cached):
++            model.transformer.load_state_dict(weights)
++            optimizer = torch.optim.AdamW(model.transformer.parameters(), lr=1e-3, foreach=False)
++            optimizer.zero_grad(set_to_none=True)
++            torch.manual_seed(19)
++            sample = data
++            if cached:
++                sample = {**data, "condition_request": model.condition_cache.lookup(model.condition_key(data))}
++            loss = model(sample)
++            loss.backward()
++            gradients = {
++                name: p.grad.clone() for name, p in model.transformer.named_parameters() if p.grad is not None
++            }
++            optimizer.step()
++            updates = {name: p.detach() - weights[name] for name, p in model.transformer.named_parameters()}
++            return loss.detach(), gradients, updates, torch.get_rng_state()
++
++        baseline = step(False)
++        model.condition_cache = FrozenConditionCache(1_000_000, 2)
++        cold, hot = step(True), step(True)
++        for actual in (cold, hot):
++            torch.testing.assert_close(actual, baseline, rtol=0, atol=0)
++        assert model.condition_cache.encodes == model.condition_cache.hits == 1
++        assert all(p.grad is None for module in (model.text_encoder, model.vae) for p in module.parameters())
++        assert model.training and not model.vae.training and not model.text_encoder.training
++    finally:
++        torch.set_num_threads(old_threads)
++
++
++def test_export_loads_into_original_dit_with_nonunit_alpha(tmp_path, monkeypatch):
++    from relax.backends.fsdp import checkpoint
++    from relax.backends.fsdp.lora import inject_lora_adapter, lora_metadata_dict
++
++    torch.manual_seed(5)
++    transformer = QwenImageTransformer2DModel(
++        num_layers=1,
++        attention_head_dim=16,
++        num_attention_heads=2,
++        joint_attention_dim=16,
++        axes_dims_rope=(4, 6, 6),
++    )
++    inject_lora_adapter(transformer, rank=2, alpha=6, target_modules=["attn.to_q"])
++    state = {
++        f"transformer.{name}": p.detach().clone() for name, p in transformer.named_parameters() if p.requires_grad
++    }
++    contract = {
++        "trainable_mode": "lora",
++        "lora": lora_metadata_dict(rank=2, alpha=6, dropout=0, target_modules=["attn.to_q"]),
++    }
++    committed = tmp_path / "checkpoint"
++    committed.mkdir()
++    (committed / "COMMITTED").touch()
++    monkeypatch.setattr(checkpoint, "_load_dcp_model_state", lambda path: state)
++    output = tmp_path / "export"
++    QwenImageEditSFTAdapter.export_checkpoint(committed, output, contract)
++    transformer.delete_adapters("default")
++    transformer.load_lora_adapter(output, prefix="transformer", use_safetensors=True)
++    layer = transformer.transformer_blocks[0].attn.to_q
++    assert layer.scaling["default_0"] == 3
++    for name, parameter in transformer.named_parameters():
++        if parameter.requires_grad:
++            torch.testing.assert_close(parameter, state[f"transformer.{name.replace('default_0', 'default')}"])
+diff --git a/tests/cpu/models/test_frozen_conditions.py b/tests/cpu/models/test_frozen_conditions.py
+new file mode 100644
+index 0000000..a9e5a80
+--- /dev/null
++++ b/tests/cpu/models/test_frozen_conditions.py
+@@ -0,0 +1,71 @@
++# Copyright (c) 2026 Relax Authors. All Rights Reserved.
++"""Cache regressions: bounded backing storage, keys, autograd and rank
++misses."""
++
++import weakref
++
++import pytest
++import torch
++from PIL import Image
++
++from relax.models.frozen_conditions import FrozenConditionCache, agree_condition_request, image_condition_key
++
++
++def test_storage_budget_lru_and_oversized_admission():
++    cache = FrozenConditionCache(64, 2)
++    backing = torch.arange(8, dtype=torch.float32)
++    cache.put(b"a", {"first": backing[:1], "second": backing[2:]})
++    assert cache.resident_bytes == 32  # backing bytes, shared views counted once
++    cache.put(b"b", {"x": torch.zeros(8)})
++    assert cache.lookup(b"a").tensors["first"].untyped_storage().data_ptr() == backing.data_ptr()
++    cache.put(b"c", {"x": torch.ones(8)})
++    assert cache.lookup(b"b").tensors is None
++    assert cache.resident_bytes == cache.peak_bytes == 64
++    cache.put(b"large", {"x": torch.zeros(100)})
++    assert cache.resident_bytes == 64
++    assert cache.metrics()["oversized"] == cache.metrics()["evictions"] == 1
++    cache.clear()
++    assert cache.metrics()["entries"] == cache.resident_bytes == 0
++
++
++def test_entry_limit_graph_rejection_and_release():
++    cache = FrozenConditionCache(1024, 1)
++    tensor = torch.ones(1, dtype=torch.bfloat16)
++    reference = weakref.ref(tensor)
++    cache.put(b"a", {"x": tensor})
++    del tensor
++    assert reference() is not None
++    cache.put(b"b", {"x": torch.zeros(1)})
++    assert reference() is None
++    with pytest.raises(ValueError, match="autograd"):
++        cache.put(b"c", {"x": torch.ones(1, requires_grad=True) * 2})
++
++
++def test_borrowed_frozen_tensor_can_participate_in_generation_backward():
++    cache = FrozenConditionCache(1024, 2)
++    with torch.no_grad():
++        condition = torch.randn(3, 4)
++    cache.put(b"key", {"x": condition})
++    cached = cache.lookup(b"key").tensors["x"]
++    assert cached is condition and cached.dtype == condition.dtype
++    weight = torch.nn.Parameter(torch.randn(4, 2))
++    (cached @ weight).square().sum().backward()
++    assert torch.isfinite(weight.grad).all()
++    assert agree_condition_request(cache.lookup(b"key"), False).tensors is None
++    assert agree_condition_request(cache.lookup(b"key"), True).tensors["x"] is condition
++
++
++def test_actual_inputs_and_geometry_determine_key():
++    data = {"prompt": "edit", "image": Image.new("RGB", (32, 32)), "edit_image": [Image.new("RGB", (32, 32))]}
++
++    def key(value=data, version="v1", dtype=torch.bfloat16):
++        return image_condition_key(value, version=version, dtype=dtype)
++
++    original = key()
++    assert key({**data, "image": Image.new("RGB", (32, 32), "red")}) == original
++    assert key({**data, "prompt": ""}) != original
++    assert key({**data, "image": Image.new("RGB", (64, 32))}) != original
++    assert key(version="v2") != original
++    assert key(dtype=torch.float32) != original
++    data["edit_image"][0].putpixel((0, 0), (255, 0, 0))
++    assert key() != original
+diff --git a/tests/cpu/models/test_sensenova_conditions.py b/tests/cpu/models/test_sensenova_conditions.py
+new file mode 100644
+index 0000000..175f4e6
+--- /dev/null
++++ b/tests/cpu/models/test_sensenova_conditions.py
+@@ -0,0 +1,73 @@
++# Copyright (c) 2026 Relax Authors. All Rights Reserved.
++"""SenseNova's real pipeline runner must preserve RNG and borrowed KV
++storage."""
++
++import pytest
++import torch
++from PIL import Image
++from transformers.cache_utils import DynamicCache
++
++from relax.models.frozen_conditions import FrozenConditionCache
++from relax.models.sensenova.adapter import SenseNovaSFTAdapter, SenseNovaSFTModel
++from relax.models.sensenova.pipeline import SenseNovaU1ImagePipeline, SenseNovaU1ImageUnit_PromptEmbedder
++
++
++def test_sensenova_cached_prefix_preserves_rng_and_generation_gradient(monkeypatch):
++    # Isolate heavyweight prefix encoding; use the production unit runner,
++    # NoiseInitializer, input preparation, scheduler and flow-matching loss.
++    pipe = SenseNovaU1ImagePipeline(device="cpu", torch_dtype=torch.float32)
++    pipe.scheduler.set_timesteps(1000, training=True)
++    pipe.dit = torch.nn.Module()
++    pipe.dit.weight = torch.nn.Parameter(torch.tensor(0.3))
++    pipe.dit.compute_noise_scale = lambda height, width: 1.0
++    pipe.units = [unit for unit in pipe.units if type(unit).__name__ != "SenseNovaU1ImageUnit_EditImageEmbedder"]
++
++    def prefix(self, pipe, **kwargs):
++        cache = DynamicCache()
++        cache.update(torch.ones(1, 1, 2, 2), torch.full((1, 1, 2, 2), 0.25), 0)
++        return {"past_key_values": cache, "indexes_image": torch.ones(3, 1, dtype=torch.long)}
++
++    monkeypatch.setattr(SenseNovaU1ImageUnit_PromptEmbedder, "process", prefix)
++    pipe.model_fn = lambda dit, latents, past_key_values, **kwargs: (
++        latents * dit.weight + past_key_values.layers[0].values.mean()
++    )
++    model = SenseNovaSFTModel(pipe, prefix_gradient_checkpointing=False)
++    data = {"prompt": "edit", "image": Image.new("RGB", (32, 32), "red"), "edit_image": []}
++
++    def evaluate(enabled):
++        pipe.dit.weight.grad = None
++        torch.manual_seed(27)
++        sample = (
++            data
++            if not enabled
++            else {**data, "condition_request": model.condition_cache.lookup(model.condition_key(data))}
++        )
++        loss = model(sample)
++        loss.backward()
++        return loss.detach(), pipe.dit.weight.grad.clone(), torch.get_rng_state()
++
++    baseline = evaluate(False)
++    model.condition_cache = FrozenConditionCache(1024, 2)
++    cold = evaluate(True)
++    stored = model.condition_cache.lookup(model.condition_key(data)).tensors
++    before = {key: value.clone() for key, value in stored.items()}
++    hot = evaluate(True)
++    torch.testing.assert_close(cold, baseline, rtol=0, atol=0)
++    torch.testing.assert_close(hot, baseline, rtol=0, atol=0)
++    torch.testing.assert_close(stored, before, rtol=0, atol=0)
++
++
++def test_shared_prefix_parameter_cannot_be_hidden_by_generation_alias():
++    pipe = torch.nn.Module()
++    pipe.dit = torch.nn.Module()
++    shared = torch.nn.Linear(2, 2, bias=False)
++    # Register generation first: default duplicate filtering would miss the
++    # trainable understanding alias below and admit an unsafe cache.
++    pipe.dit.q_proj_mot_gen = shared
++    pipe.dit.q_proj = shared
++    model = SenseNovaSFTModel(pipe)
++    adapter = SenseNovaSFTAdapter()
++    adapter.prepare_for_sharding(model)
++    assert not model.prefix_frozen
++    with pytest.raises(ValueError, match="frozen"):
++        adapter.validate_condition_cache(model)
+diff --git a/tests/cpu/utils/test_profile_utils.py b/tests/cpu/utils/test_profile_utils.py
+index 113d1ab..e8e659c 100644
+--- a/tests/cpu/utils/test_profile_utils.py
++++ b/tests/cpu/utils/test_profile_utils.py
+@@ -2,7 +2,9 @@
+ 
+ import gzip
+ import json
++import sys
+ from argparse import Namespace
++from types import ModuleType
+ from unittest.mock import Mock
+ 
+ import pytest
+@@ -10,6 +12,23 @@ import pytest
+ from relax.utils import profile_utils
+ 
+ 
++@pytest.mark.parametrize("initialized", [False, True])
++def test_rank_tag_supports_fsdp_and_megatron(monkeypatch, initialized):
++    core = ModuleType("megatron.core")
++    core.mpu = Mock()
++    core.mpu.is_initialized.return_value = initialized
++    core.mpu.get_data_parallel_rank.return_value = 2
++    core.mpu.get_tensor_model_parallel_rank.return_value = 1
++    core.mpu.get_pipeline_model_parallel_rank.return_value = 0
++    monkeypatch.setitem(sys.modules, "megatron.core", core)
++    monkeypatch.setattr(profile_utils.torch.distributed, "get_rank", lambda group: 5)
++    assert profile_utils._get_rank_tag() == ("rank5_dp2_tp1_pp0" if initialized else "rank5")
++    if not initialized:
++        core.mpu.get_data_parallel_rank.assert_not_called()
++        core.mpu.get_tensor_model_parallel_rank.assert_not_called()
++        core.mpu.get_pipeline_model_parallel_rank.assert_not_called()
++
++
+ @pytest.mark.parametrize("rank,selected", [(0, True), (48, True), (1, False)])
+ def test_train_profiler_honors_rank_selection(monkeypatch, rank, selected):
+     args = Namespace(

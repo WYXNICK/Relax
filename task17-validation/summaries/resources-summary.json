@@ -1,0 +1,773 @@
+{
+  "scope": "Two-second samples over the entire job, including CPU startup and teardown. RSS sums include shared pages more than once; container charged memory includes file cache. Filesystem usage includes intentionally retained checkpoints/logs, not only cache. Cache owns no disk or shared-memory files. GPU peaks are per device, not summed.",
+  "runs": [
+    {
+      "run": "perf-qwen-high-1-off",
+      "ray_start_to_first_training_seconds": 119.27900004386902,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 243934466048,
+      "ray_process_rss_sum_peak_bytes": 33766604800,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1508755542016,
+      "filesystem_used_end_bytes": 1486710951936,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-high-1-on",
+      "ray_start_to_first_training_seconds": 118.85199999809265,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 243988647936,
+      "ray_process_rss_sum_peak_bytes": 31248658432,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1486844592128,
+      "filesystem_used_end_bytes": 1473376321536,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63822.0,
+        "1": 63822.0
+      },
+      "torch_peak_allocated_bytes": 62977226240,
+      "torch_peak_reserved_bytes": 64778928128,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-qwen-high-2-off",
+      "ray_start_to_first_training_seconds": 124.63100004196167,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244617232384,
+      "ray_process_rss_sum_peak_bytes": 30655381504,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 34385920,
+      "filesystem_used_start_bytes": 1472917495808,
+      "filesystem_used_end_bytes": 1570671804416,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-high-2-on",
+      "ray_start_to_first_training_seconds": 122.48799991607666,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244554104832,
+      "ray_process_rss_sum_peak_bytes": 34648563712,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1473432125440,
+      "filesystem_used_end_bytes": 1451591454720,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63822.0,
+        "1": 63822.0
+      },
+      "torch_peak_allocated_bytes": 62977226240,
+      "torch_peak_reserved_bytes": 64778928128,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-qwen-high-3-off",
+      "ray_start_to_first_training_seconds": 123.2720000743866,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244955385856,
+      "ray_process_rss_sum_peak_bytes": 33749049344,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1570823061504,
+      "filesystem_used_end_bytes": 1492801871872,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-high-3-on",
+      "ray_start_to_first_training_seconds": 114.68499994277954,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 245505531904,
+      "ray_process_rss_sum_peak_bytes": 34245550080,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1492678557696,
+      "filesystem_used_end_bytes": 1493049044992,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63822.0,
+        "1": 63822.0
+      },
+      "torch_peak_allocated_bytes": 62977226240,
+      "torch_peak_reserved_bytes": 64778928128,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-qwen-low-1-off",
+      "ray_start_to_first_training_seconds": 114.77999997138977,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 245532094464,
+      "ray_process_rss_sum_peak_bytes": 29244440576,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1493079310336,
+      "filesystem_used_end_bytes": 1493724286976,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-low-1-on",
+      "ray_start_to_first_training_seconds": 116.36400008201599,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 245850808320,
+      "ray_process_rss_sum_peak_bytes": 31441829888,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1493846474752,
+      "filesystem_used_end_bytes": 1493979758592,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63830.0,
+        "1": 63830.0
+      },
+      "torch_peak_allocated_bytes": 63145638400,
+      "torch_peak_reserved_bytes": 64787316736,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192419840,
+          "peak_bytes": 192419840,
+          "entries": 64
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192233472,
+          "peak_bytes": 192233472,
+          "entries": 64
+        }
+      }
+    },
+    {
+      "run": "perf-qwen-low-2-off",
+      "ray_start_to_first_training_seconds": 111.62299990653992,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 246734794752,
+      "ray_process_rss_sum_peak_bytes": 31032893440,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1494891085824,
+      "filesystem_used_end_bytes": 1495076839424,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-low-2-on",
+      "ray_start_to_first_training_seconds": 115.06500005722046,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 246445162496,
+      "ray_process_rss_sum_peak_bytes": 31511138304,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1494066679808,
+      "filesystem_used_end_bytes": 1494859837440,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63830.0,
+        "1": 63830.0
+      },
+      "torch_peak_allocated_bytes": 63145638400,
+      "torch_peak_reserved_bytes": 64787316736,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192419840,
+          "peak_bytes": 192419840,
+          "entries": 64
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192233472,
+          "peak_bytes": 192233472,
+          "entries": 64
+        }
+      }
+    },
+    {
+      "run": "perf-qwen-low-3-off",
+      "ray_start_to_first_training_seconds": 113.89599990844727,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 246860128256,
+      "ray_process_rss_sum_peak_bytes": 33341468672,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1495135109120,
+      "filesystem_used_end_bytes": 1495767859200,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63820.0,
+        "1": 63820.0
+      },
+      "torch_peak_allocated_bytes": 62956216832,
+      "torch_peak_reserved_bytes": 64776830976,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-qwen-low-3-on",
+      "ray_start_to_first_training_seconds": 115.52900004386902,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 247350960128,
+      "ray_process_rss_sum_peak_bytes": 33286905856,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67424256,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1495843844096,
+      "filesystem_used_end_bytes": 1496046587904,
+      "gpu_peak_used_mib_by_device": {
+        "0": 63830.0,
+        "1": 63830.0
+      },
+      "torch_peak_allocated_bytes": 63145638400,
+      "torch_peak_reserved_bytes": 64787316736,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192419840,
+          "peak_bytes": 192419840,
+          "entries": 64
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 192233472,
+          "peak_bytes": 192233472,
+          "entries": 64
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-high-1-off",
+      "ray_start_to_first_training_seconds": 132.4649999141693,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 240822894592,
+      "ray_process_rss_sum_peak_bytes": 39885504512,
+      "shared_memory_start_bytes": 1236992,
+      "shared_memory_peak_bytes": 67305472,
+      "shared_memory_end_bytes": 1236992,
+      "filesystem_used_start_bytes": 1456703045632,
+      "filesystem_used_end_bytes": 1457200058368,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-high-1-on",
+      "ray_start_to_first_training_seconds": 128.47000002861023,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244668424192,
+      "ray_process_rss_sum_peak_bytes": 39788355584,
+      "shared_memory_start_bytes": 1236992,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1457222840320,
+      "filesystem_used_end_bytes": 1457714491392,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-high-2-off",
+      "ray_start_to_first_training_seconds": 128.8050000667572,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 242278932480,
+      "ray_process_rss_sum_peak_bytes": 37508186112,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1457734066176,
+      "filesystem_used_end_bytes": 1458234212352,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-high-2-on",
+      "ray_start_to_first_training_seconds": 129.86500000953674,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 242145255424,
+      "ray_process_rss_sum_peak_bytes": 37729906688,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1457738612736,
+      "filesystem_used_end_bytes": 1458216935424,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-high-3-off",
+      "ray_start_to_first_training_seconds": 131.02999997138977,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 247348981760,
+      "ray_process_rss_sum_peak_bytes": 40612417536,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1458256175104,
+      "filesystem_used_end_bytes": 1458222886912,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-high-3-on",
+      "ray_start_to_first_training_seconds": 130.54299998283386,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244556619776,
+      "ray_process_rss_sum_peak_bytes": 39713079296,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1458244227072,
+      "filesystem_used_end_bytes": 1458735644672,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-low-1-off",
+      "ray_start_to_first_training_seconds": 134.24200010299683,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 242873401344,
+      "ray_process_rss_sum_peak_bytes": 39463464960,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1458757980160,
+      "filesystem_used_end_bytes": 1408442015744,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-low-1-on",
+      "ray_start_to_first_training_seconds": 129.72699999809265,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244081106944,
+      "ray_process_rss_sum_peak_bytes": 40798638080,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1416736251904,
+      "filesystem_used_end_bytes": 1494035881984,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2130935808,
+          "peak_bytes": 2132828160,
+          "entries": 24
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2128527360,
+          "peak_bytes": 2131107840,
+          "entries": 24
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-low-2-off",
+      "ray_start_to_first_training_seconds": 126.33400011062622,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 242494574592,
+      "ray_process_rss_sum_peak_bytes": 41664897024,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1528431640576,
+      "filesystem_used_end_bytes": 1515848048640,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-low-2-on",
+      "ray_start_to_first_training_seconds": 121.08999991416931,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 245510070272,
+      "ray_process_rss_sum_peak_bytes": 39232282624,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1520607670272,
+      "filesystem_used_end_bytes": 1521784987648,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2130935808,
+          "peak_bytes": 2132828160,
+          "entries": 24
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2128527360,
+          "peak_bytes": 2131107840,
+          "entries": 24
+        }
+      }
+    },
+    {
+      "run": "perf-sensenova-low-3-off",
+      "ray_start_to_first_training_seconds": 127.34500002861023,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 244842844160,
+      "ray_process_rss_sum_peak_bytes": 40821678080,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1517675040768,
+      "filesystem_used_end_bytes": 1506822127616,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": null,
+        "1": null
+      }
+    },
+    {
+      "run": "perf-sensenova-low-3-on",
+      "ray_start_to_first_training_seconds": 124.58299994468689,
+      "startup_timestamp_resolution_seconds": 1,
+      "container_memory_peak_bytes": 245262376960,
+      "ray_process_rss_sum_peak_bytes": 37952356352,
+      "shared_memory_start_bytes": 1347584,
+      "shared_memory_peak_bytes": 67416064,
+      "shared_memory_end_bytes": 1347584,
+      "filesystem_used_start_bytes": 1507153272832,
+      "filesystem_used_end_bytes": 1508655333376,
+      "gpu_peak_used_mib_by_device": {
+        "0": 39414.0,
+        "1": 39414.0
+      },
+      "torch_peak_allocated_bytes": 35554789888,
+      "torch_peak_reserved_bytes": 39178993664,
+      "cache_final_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2130935808,
+          "peak_bytes": 2132828160,
+          "entries": 24
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 0,
+          "hits": 0,
+          "encodes": 64,
+          "evictions": 40,
+          "oversized": 0,
+          "resident_bytes": 2128527360,
+          "peak_bytes": 2131107840,
+          "entries": 24
+        }
+      }
+    }
+  ]
+}

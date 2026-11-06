@@ -1,0 +1,246 @@
+{
+  "runs": {
+    "off": [
+      {
+        "log": "perf-sensenova-high-1-off/driver.log",
+        "job_seconds": 242.69363510794938,
+        "training_seconds": 102.35482969880104,
+        "cold_seconds": 39.425283042714,
+        "steady_step_seconds": 3.147421764396131,
+        "steady_samples_per_second": 1.2708814704302733,
+        "job_samples_per_second": 0.5274139140198959,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-sensenova-high-2-off/driver.log",
+        "job_seconds": 236.27516018785536,
+        "training_seconds": 99.08015475608408,
+        "cold_seconds": 38.35220327787101,
+        "steady_step_seconds": 3.0373225366696714,
+        "steady_samples_per_second": 1.3169493696200845,
+        "job_samples_per_second": 0.5417412473585078,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-sensenova-high-3-off/driver.log",
+        "job_seconds": 238.11561409384012,
+        "training_seconds": 99.26699931919575,
+        "cold_seconds": 38.412713542580605,
+        "steady_step_seconds": 3.043712964374572,
+        "steady_samples_per_second": 1.3141843685059598,
+        "job_samples_per_second": 0.5375539965621736,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      }
+    ],
+    "on": [
+      {
+        "log": "perf-sensenova-high-1-on/driver.log",
+        "job_seconds": 225.93529795110226,
+        "training_seconds": 88.32802601158619,
+        "cold_seconds": 35.22373863495886,
+        "steady_step_seconds": 2.656121787428856,
+        "steady_samples_per_second": 1.5059550427738584,
+        "job_samples_per_second": 0.5665338756748944,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          }
+        }
+      },
+      {
+        "log": "perf-sensenova-high-2-on/driver.log",
+        "job_seconds": 225.71794797480106,
+        "training_seconds": 88.92601378634572,
+        "cold_seconds": 35.970522874966264,
+        "steady_step_seconds": 2.648742324486375,
+        "steady_samples_per_second": 1.510150671517529,
+        "job_samples_per_second": 0.5670794066154181,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          }
+        }
+      },
+      {
+        "log": "perf-sensenova-high-3-on/driver.log",
+        "job_seconds": 227.6708495337516,
+        "training_seconds": 89.55509350262582,
+        "cold_seconds": 35.96754829771817,
+        "steady_step_seconds": 2.6803897231817246,
+        "steady_samples_per_second": 1.4923203015611655,
+        "job_samples_per_second": 0.5622151463928382,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 709165056,
+            "peak_bytes": 709165056,
+            "entries": 8
+          }
+        }
+      }
+    ]
+  },
+  "medians": {
+    "off": {
+      "job_seconds": 238.11561409384012,
+      "training_seconds": 99.26699931919575,
+      "cold_seconds": 38.412713542580605,
+      "steady_step_seconds": 3.043712964374572,
+      "steady_samples_per_second": 1.3141843685059598,
+      "job_samples_per_second": 0.5375539965621736
+    },
+    "on": {
+      "job_seconds": 225.93529795110226,
+      "training_seconds": 88.92601378634572,
+      "cold_seconds": 35.96754829771817,
+      "steady_step_seconds": 2.656121787428856,
+      "steady_samples_per_second": 1.5059550427738584,
+      "job_samples_per_second": 0.5665338756748944
+    }
+  },
+  "dispersion": {
+    "off": {
+      "steady_samples_per_second": {
+        "mean": 1.3006717361854392,
+        "stdev": 0.025836142477406208,
+        "min": 1.2708814704302733,
+        "max": 1.3169493696200845
+      },
+      "job_seconds": {
+        "mean": 239.02813646321496,
+        "stdev": 3.3051063342842775,
+        "min": 236.27516018785536,
+        "max": 242.69363510794938
+      }
+    },
+    "on": {
+      "steady_samples_per_second": {
+        "mean": 1.5028086719508509,
+        "stdev": 0.009322299084029775,
+        "min": 1.4923203015611655,
+        "max": 1.510150671517529
+      },
+      "job_seconds": {
+        "mean": 226.4413651532183,
+        "stdev": 1.070296283526689,
+        "min": 225.71794797480106,
+        "max": 227.6708495337516
+      }
+    }
+  },
+  "steady_speedup_percent": 14.592372186401414,
+  "job_speedup_percent": 5.39106383694592,
+  "cold_window_net_change_seconds": -2.4451652448624372,
+  "median_cumulative_training_savings_seconds": [
+    0.26029324159026146,
+    0.2987902294844389,
+    0.44476237893104553,
+    0.39587677270174026,
+    0.7775396127253771,
+    0.9352731667459011,
+    1.0645913891494274,
+    1.4420769698917866,
+    1.5821241214871407,
+    1.948643198236823,
+    2.068945065140724,
+    2.4451652448624372,
+    2.8323770072311163,
+    3.182837503030896,
+    3.0583900939673185,
+    3.976062932983041,
+    4.329282935708761,
+    4.698134787380695,
+    5.087762115523219,
+    5.473627427592874,
+    5.853683076798916,
+    6.222306126728654,
+    6.729330986738205,
+    7.102608598768711,
+    7.5462842751294374,
+    7.925160173326731,
+    8.277456890791655,
+    8.668603530153632,
+    9.036298867315054,
+    9.444747317582369,
+    9.870198557153344,
+    10.340985532850027
+  ],
+  "first_sustained_training_break_even_step": 1,
+  "first_sustained_training_break_even_samples": 4,
+  "estimated_extra_steady_steps_to_repay_cold_overhead": 0
+}

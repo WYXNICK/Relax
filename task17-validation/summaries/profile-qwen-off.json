@@ -1,0 +1,109 @@
+{
+  "trace": "task17-validation/results/profile-qwen-off/train_overall_rank0.1793959412060655427.pt.trace.json.gz",
+  "model": "qwen",
+  "mode": "off",
+  "scope": "Rank 0 only, 15 profiled steps / 30 samples on this rank; hot window is profiled steps 13-15 / 6 rank-local samples. CPU named-range wall times include dispatch and possible waiting, not pure GPU latency. GPU kernel durations are summed across streams and may overlap; never add them to infer end-to-end latency. GPU work is attributed by Kineto External id to its CPU operator and enclosing named range; unmatched events are reported explicitly. Other forward/framework work includes DiT and distributed/runtime overhead, not isolated DiT compute.",
+  "encoder_ranges": {
+    "QwenImageEditPromptEncoder": {
+      "calls": 30,
+      "hot_calls": 6,
+      "cpu_range_seconds": 10.053315453,
+      "hot_cpu_range_seconds": 1.777235539
+    },
+    "QwenImageEditReferenceVAE": {
+      "calls": 30,
+      "hot_calls": 6,
+      "cpu_range_seconds": 0.5431937349999999,
+      "hot_cpu_range_seconds": 0.108975083
+    },
+    "QwenImageEditTargetVAE": {
+      "calls": 30,
+      "hot_calls": 6,
+      "cpu_range_seconds": 0.8648380420000003,
+      "hot_cpu_range_seconds": 0.12953247
+    }
+  },
+  "gpu_by_stage": {
+    "other_forward_and_framework": {
+      "kernel_calls": 368389,
+      "kernel_seconds_sum": 9.176190604003331,
+      "h2d_calls": 1968,
+      "h2d_bytes": 135758324
+    },
+    "unattributed": {
+      "kernel_calls": 15,
+      "kernel_seconds_sum": 0.0005810260000000002,
+      "h2d_calls": 146,
+      "h2d_bytes": 31720
+    },
+    "QwenImageEditPromptEncoder": {
+      "kernel_calls": 208768,
+      "kernel_seconds_sum": 2.696634850000297,
+      "h2d_calls": 360,
+      "h2d_bytes": 185258112
+    },
+    "QwenImageEditTargetVAE": {
+      "kernel_calls": 12960,
+      "kernel_seconds_sum": 0.3446389830000004,
+      "h2d_calls": 90,
+      "h2d_bytes": 47189760
+    },
+    "QwenImageEditReferenceVAE": {
+      "kernel_calls": 12720,
+      "kernel_seconds_sum": 0.3440235969999992,
+      "h2d_calls": 90,
+      "h2d_bytes": 47187840
+    },
+    "backward": {
+      "kernel_calls": 710605,
+      "kernel_seconds_sum": 15.755648784994394,
+      "h2d_calls": 3600,
+      "h2d_bytes": 71149680
+    },
+    "optimizer": {
+      "kernel_calls": 19806,
+      "kernel_seconds_sum": 0.03585450300000442,
+      "h2d_calls": 0,
+      "h2d_bytes": 0
+    }
+  },
+  "hot_gpu_by_stage": {
+    "QwenImageEditPromptEncoder": {
+      "kernel_calls": 41602,
+      "kernel_seconds_sum": 0.5413622319999972,
+      "h2d_calls": 72,
+      "h2d_bytes": 37051560
+    },
+    "QwenImageEditTargetVAE": {
+      "kernel_calls": 2592,
+      "kernel_seconds_sum": 0.0689987509999998,
+      "h2d_calls": 18,
+      "h2d_bytes": 9437952
+    },
+    "QwenImageEditReferenceVAE": {
+      "kernel_calls": 2544,
+      "kernel_seconds_sum": 0.06891943999999997,
+      "h2d_calls": 18,
+      "h2d_bytes": 9437568
+    },
+    "other_forward_and_framework": {
+      "kernel_calls": 73059,
+      "kernel_seconds_sum": 1.577616847999708,
+      "h2d_calls": 393,
+      "h2d_bytes": 25473948
+    },
+    "backward": {
+      "kernel_calls": 142121,
+      "kernel_seconds_sum": 3.1493364310001892,
+      "h2d_calls": 720,
+      "h2d_bytes": 14229936
+    },
+    "optimizer": {
+      "kernel_calls": 3194,
+      "kernel_seconds_sum": 0.006151315999999783,
+      "h2d_calls": 0,
+      "h2d_bytes": 0
+    }
+  },
+  "passed": true
+}

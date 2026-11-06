@@ -1,0 +1,26 @@
+{
+  "declared_before_performance_runs": "2026-11-06T07:24:00Z",
+  "models": ["sensenova", "qwen"],
+  "world_size": 2,
+  "global_batch_size": 4,
+  "micro_batch_size": 1,
+  "lora_rank": 8,
+  "lora_alpha": 8,
+  "max_pixels": 262144,
+  "condition_cache_bytes": 2147483648,
+  "condition_cache_entries": 128,
+  "steps": 32,
+  "checkpoint_steps": [32],
+  "regimes": {
+    "high": {"dataset": 8, "warmup_steps": 12},
+    "low": {"dataset": 128, "warmup_steps": 4}
+  },
+  "order": [["off", "on"], ["on", "off"], ["off", "on"]],
+  "warmup_amendment": "Before reading any performance timings or starting the cache-on run, the CPU-only deterministic sampler audit found both ranks see all 8 rows only after step 11. High-reuse warmup is therefore 12 steps; every run still has 32 steps and reports its full/cold cost. The first off run continues unchanged.",
+  "profiler": false,
+  "keepalive_during_experiment": "User script runs during CPU service startup only; stop and wait for exact keeper PIDs as soon as a training CUDA context appears, before model forward. Record stop timestamp and verify it precedes first training step. Restart after terminal completion. Same policy for both modes.",
+  "attention": "deterministic native Torch",
+  "prefetch_depth": 0,
+  "metrics": ["steady E2E samples/s", "full training seconds", "submission-to-completion seconds", "cold-fill cost", "cache hits/bytes/evictions", "GPU allocated/reserved", "process RSS", "container memory", "shared memory", "disk usage"],
+  "reporting": "Retain checkpoint steps and every repeat; report median, standard deviation and range. Failed runs are retained separately and never silently included as successful repeats."
+}

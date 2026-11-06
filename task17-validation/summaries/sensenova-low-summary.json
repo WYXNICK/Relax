@@ -1,0 +1,246 @@
+{
+  "runs": {
+    "off": [
+      {
+        "log": "perf-sensenova-low-1-off/driver.log",
+        "job_seconds": 242.1277777068317,
+        "training_seconds": 99.00572368688881,
+        "cold_seconds": 15.074462009593844,
+        "steady_step_seconds": 2.9981854182135845,
+        "steady_samples_per_second": 1.3341403022309837,
+        "job_samples_per_second": 0.5286464907590338,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-sensenova-low-2-off/driver.log",
+        "job_seconds": 234.64393723011017,
+        "training_seconds": 98.84756259992719,
+        "cold_seconds": 14.918411519378424,
+        "steady_step_seconds": 2.998128115997783,
+        "steady_samples_per_second": 1.3341658012065278,
+        "job_samples_per_second": 0.5455073824237496,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-sensenova-low-3-off/driver.log",
+        "job_seconds": 242.3806393146515,
+        "training_seconds": 102.1679329611361,
+        "cold_seconds": 15.420101443305612,
+        "steady_step_seconds": 3.0988209463123764,
+        "steady_samples_per_second": 1.2908135285325324,
+        "job_samples_per_second": 0.528094984656898,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      }
+    ],
+    "on": [
+      {
+        "log": "perf-sensenova-low-1-on/driver.log",
+        "job_seconds": 240.11577965132892,
+        "training_seconds": 101.43791576474905,
+        "cold_seconds": 14.89360686019063,
+        "steady_step_seconds": 3.091570272775633,
+        "steady_samples_per_second": 1.2938408792528506,
+        "job_samples_per_second": 0.5330761692791213,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2130935808,
+            "peak_bytes": 2132828160,
+            "entries": 24
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2128527360,
+            "peak_bytes": 2131107840,
+            "entries": 24
+          }
+        }
+      },
+      {
+        "log": "perf-sensenova-low-2-on/driver.log",
+        "job_seconds": 231.7993206884712,
+        "training_seconds": 102.99009316042066,
+        "cold_seconds": 14.95025209337473,
+        "steady_step_seconds": 3.14497638267598,
+        "steady_samples_per_second": 1.2718696464729895,
+        "job_samples_per_second": 0.5522017908414268,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2130935808,
+            "peak_bytes": 2132828160,
+            "entries": 24
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2128527360,
+            "peak_bytes": 2131107840,
+            "entries": 24
+          }
+        }
+      },
+      {
+        "log": "perf-sensenova-low-3-on/driver.log",
+        "job_seconds": 235.66700246743858,
+        "training_seconds": 101.89599784091115,
+        "cold_seconds": 15.033823650330305,
+        "steady_step_seconds": 3.102911192058985,
+        "steady_samples_per_second": 1.289111983042524,
+        "job_samples_per_second": 0.543139254370944,
+        "peak_allocated_bytes": 35554789888,
+        "peak_reserved_bytes": 39178993664,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2130935808,
+            "peak_bytes": 2132828160,
+            "entries": 24
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 40,
+            "oversized": 0,
+            "resident_bytes": 2128527360,
+            "peak_bytes": 2131107840,
+            "entries": 24
+          }
+        }
+      }
+    ]
+  },
+  "medians": {
+    "off": {
+      "job_seconds": 242.1277777068317,
+      "training_seconds": 99.00572368688881,
+      "cold_seconds": 15.074462009593844,
+      "steady_step_seconds": 2.9981854182135845,
+      "steady_samples_per_second": 1.3341403022309837,
+      "job_samples_per_second": 0.5286464907590338
+    },
+    "on": {
+      "job_seconds": 235.66700246743858,
+      "training_seconds": 101.89599784091115,
+      "cold_seconds": 14.95025209337473,
+      "steady_step_seconds": 3.102911192058985,
+      "steady_samples_per_second": 1.289111983042524,
+      "job_samples_per_second": 0.543139254370944
+    }
+  },
+  "dispersion": {
+    "off": {
+      "steady_samples_per_second": {
+        "mean": 1.3197065439900146,
+        "stdev": 0.025022088626235204,
+        "min": 1.2908135285325324,
+        "max": 1.3341658012065278
+      },
+      "job_seconds": {
+        "mean": 239.7174514171978,
+        "stdev": 4.395610811151482,
+        "min": 234.64393723011017,
+        "max": 242.3806393146515
+      }
+    },
+    "on": {
+      "steady_samples_per_second": {
+        "mean": 1.2849408362561214,
+        "stdev": 0.011564281931966139,
+        "min": 1.2718696464729895,
+        "max": 1.2938408792528506
+      },
+      "job_seconds": {
+        "mean": 235.86070093574622,
+        "stdev": 4.161611676104906,
+        "min": 231.7993206884712,
+        "max": 240.11577965132892
+      }
+    }
+  },
+  "steady_speedup_percent": -3.3750812499376726,
+  "job_speedup_percent": 2.7414848798298808,
+  "cold_window_net_change_seconds": -0.12420991621911526,
+  "median_cumulative_training_savings_seconds": [
+    0.1321447305381298,
+    0.13726410456001759,
+    0.14753831550478935,
+    0.12420991621911526,
+    0.09949910640716553,
+    -0.25805184431374073,
+    0.19487719796597958,
+    0.0878886841237545,
+    -0.011995688080787659,
+    -0.14697274006903172,
+    -0.23809084855020046,
+    -0.3454294204711914,
+    -0.4222841989248991,
+    -0.5014600679278374,
+    -0.6367690321058035,
+    -0.7171635832637548,
+    -0.8073461838066578,
+    -0.8559461534023285,
+    -0.9248517099767923,
+    -1.0205829590559006,
+    -1.1589749678969383,
+    -1.3543045204132795,
+    -2.0554231870919466,
+    -1.4883047975599766,
+    -1.491992274299264,
+    -1.5402328725904226,
+    -1.5840836185961962,
+    -1.6221031621098518,
+    -1.677573911845684,
+    -1.7189568169414997,
+    -2.4158285167068243,
+    -2.890274154022336
+  ],
+  "first_sustained_training_break_even_step": null,
+  "first_sustained_training_break_even_samples": null,
+  "estimated_extra_steady_steps_to_repay_cold_overhead": null
+}

@@ -1,0 +1,91 @@
+{
+  "trace": "task17-validation/results/profile-sensenova-off/train_overall_rank0.1793958401301605352.pt.trace.json.gz",
+  "model": "sensenova",
+  "mode": "off",
+  "scope": "Rank 0 only, 15 profiled steps / 30 samples on this rank; hot window is profiled steps 13-15 / 6 rank-local samples. CPU named-range wall times include dispatch and possible waiting, not pure GPU latency. GPU kernel durations are summed across streams and may overlap; never add them to infer end-to-end latency. GPU work is attributed by Kineto External id to its CPU operator and enclosing named range; unmatched events are reported explicitly. Other forward/framework work includes DiT and distributed/runtime overhead, not isolated DiT compute.",
+  "encoder_ranges": {
+    "SenseNovaU1ImageUnit_EditImageEmbedder": {
+      "calls": 30,
+      "hot_calls": 6,
+      "cpu_range_seconds": 0.21717074699999997,
+      "hot_cpu_range_seconds": 0.043234087
+    },
+    "SenseNovaU1ImageUnit_PromptEmbedder": {
+      "calls": 30,
+      "hot_calls": 6,
+      "cpu_range_seconds": 11.792397564999998,
+      "hot_cpu_range_seconds": 2.057589217
+    }
+  },
+  "gpu_by_stage": {
+    "other_forward_and_framework": {
+      "kernel_calls": 293347,
+      "kernel_seconds_sum": 5.105550550004414,
+      "h2d_calls": 1514,
+      "h2d_bytes": 92648076
+    },
+    "unattributed": {
+      "kernel_calls": 15,
+      "kernel_seconds_sum": 0.00010710300000000001,
+      "h2d_calls": 146,
+      "h2d_bytes": 31720
+    },
+    "SenseNovaU1ImageUnit_EditImageEmbedder": {
+      "kernel_calls": 60,
+      "kernel_seconds_sum": 0.00010086500000000002,
+      "h2d_calls": 60,
+      "h2d_bytes": 47186400
+    },
+    "SenseNovaU1ImageUnit_PromptEmbedder": {
+      "kernel_calls": 220893,
+      "kernel_seconds_sum": 4.872488223002228,
+      "h2d_calls": 1494,
+      "h2d_bytes": 44371552
+    },
+    "backward": {
+      "kernel_calls": 570024,
+      "kernel_seconds_sum": 5.951362166009091,
+      "h2d_calls": 2520,
+      "h2d_bytes": 51939120
+    },
+    "optimizer": {
+      "kernel_calls": 12237,
+      "kernel_seconds_sum": 0.03321920300000111,
+      "h2d_calls": 0,
+      "h2d_bytes": 0
+    }
+  },
+  "hot_gpu_by_stage": {
+    "SenseNovaU1ImageUnit_PromptEmbedder": {
+      "kernel_calls": 43721,
+      "kernel_seconds_sum": 0.8572744159999712,
+      "h2d_calls": 282,
+      "h2d_bytes": 8871064
+    },
+    "other_forward_and_framework": {
+      "kernel_calls": 58662,
+      "kernel_seconds_sum": 1.5173473489999172,
+      "h2d_calls": 303,
+      "h2d_bytes": 18529620
+    },
+    "backward": {
+      "kernel_calls": 114004,
+      "kernel_seconds_sum": 1.189968272999883,
+      "h2d_calls": 504,
+      "h2d_bytes": 10387824
+    },
+    "optimizer": {
+      "kernel_calls": 1977,
+      "kernel_seconds_sum": 0.005987104999999938,
+      "h2d_calls": 0,
+      "h2d_bytes": 0
+    },
+    "SenseNovaU1ImageUnit_EditImageEmbedder": {
+      "kernel_calls": 12,
+      "kernel_seconds_sum": 2.0288000000000003e-05,
+      "h2d_calls": 12,
+      "h2d_bytes": 9437280
+    }
+  },
+  "passed": true
+}

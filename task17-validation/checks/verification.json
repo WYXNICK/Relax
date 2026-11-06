@@ -1,0 +1,19 @@
+{
+  "commit": "68d0f1f56e7182dcf4ee21431b160b86c008e7fe",
+  "cpu_distinct_passed": 141,
+  "cpu_suites": [
+    {
+      "passed": 125,
+      "ray_cli_cases_deferred_to_worker": 16
+    },
+    {
+      "passed": 19,
+      "scope": "Ray CLI suite on Python 3.12 with Ray installed",
+      "overlap_with_first_suite": 3
+    }
+  ],
+  "precommit_all_files": "passed",
+  "docs_build": "passed",
+  "public_benchmark_recalculation": "four summaries exactly reproduced from public raw logs",
+  "public_secret_scan": "passed for source and expanded evidence"
+}

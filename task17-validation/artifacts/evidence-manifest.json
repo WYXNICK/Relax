@@ -1,0 +1,950 @@
+{
+  "results/cleanup-cancel/cleanup.json": {
+    "bytes": 4606,
+    "sha256": "6e7a3c518c9edb072095f3ecabe194cabccdf1190db05c25ebbec0e3481915f3"
+  },
+  "results/cleanup-cancel/driver.log": {
+    "bytes": 59597,
+    "sha256": "9419d2934e348a0f70286792fd546453d139cd94576b42090c7a1ba14b3b418b"
+  },
+  "results/cleanup-cancel/job.json": {
+    "bytes": 765,
+    "sha256": "7065a5290994a13bf9cda74eee5289645851f6f91b98233bc07a7525d3e883ca"
+  },
+  "results/cleanup-cancel/resources.jsonl": {
+    "bytes": 206240,
+    "sha256": "f07c9563aa2e82e570b2413e8ef3bb3c062d1675faee24a5a8a80a68295f31fd"
+  },
+  "results/cleanup-cancel/submission.log": {
+    "bytes": 7768,
+    "sha256": "d0d81d7d5157b5e77620d413fd7ad28b39ba33dab588639fc03b67902e94e7e4"
+  },
+  "results/cleanup-decode-error/cleanup.json": {
+    "bytes": 6353,
+    "sha256": "879d8107c7704ba6b27af6a533450ee562def924227baeadb741fb7a8f03643d"
+  },
+  "results/cleanup-decode-error/driver.log": {
+    "bytes": 87983,
+    "sha256": "74632a6e6274e2a683e740a53dcce5b4aeb17f2c5177238c39a53b928ca00b28"
+  },
+  "results/cleanup-decode-error/job.json": {
+    "bytes": 2450,
+    "sha256": "685b9cf026b71fdc0acfd5321c9f04b08e0217a43194a4890ea2a07e61bb5049"
+  },
+  "results/cleanup-decode-error/resources.jsonl": {
+    "bytes": 294800,
+    "sha256": "18121c8bfe764b1cf6c0a392ba5173d8ef9d323f8ecdec0796950b1577359337"
+  },
+  "results/cleanup-decode-error/submission.log": {
+    "bytes": 7938,
+    "sha256": "7e90d573ebe6eb06f351fe3b09fe6448a7c232743d2f4bbada6b9f74de669c07"
+  },
+  "results/gpu-topology.txt": {
+    "bytes": 1432,
+    "sha256": "be2fc62c9b22b5b1027abe6391a13e3462deee5a70313d52d8e89b34b6f4ed38"
+  },
+  "results/perf-qwen-high-1-off/driver.log": {
+    "bytes": 106092,
+    "sha256": "f342834902f31484afae7fcf136a8ec1a0ab8cd1d4edf911e2fea8aee17623b2"
+  },
+  "results/perf-qwen-high-1-off/job.json": {
+    "bytes": 755,
+    "sha256": "817f86b19d18f7e3374c50c025c6322c0274fa03c32364823824cc5f16e93110"
+  },
+  "results/perf-qwen-high-1-off/resources.jsonl": {
+    "bytes": 383350,
+    "sha256": "344f10575e273722fc452065c1ed51625207dda70c81c14b81fdfe2f1eba4e79"
+  },
+  "results/perf-qwen-high-1-off/submission.log": {
+    "bytes": 7688,
+    "sha256": "4f32ec84711b0a4c48f8dc28461cef3725365a2266dccb069b56b8a76de1a213"
+  },
+  "results/perf-qwen-high-1-off/tensorboard_log/scalars.json": {
+    "bytes": 23283,
+    "sha256": "0b9c02ac8802f8b555023a7e1a201e262e0a055e2249652503d810f39e07520d"
+  },
+  "results/perf-qwen-high-1-on/driver.log": {
+    "bytes": 115923,
+    "sha256": "470f3cb62369e568de0dea545cf8854782a40426d7363488c06fb85c4a125ac3"
+  },
+  "results/perf-qwen-high-1-on/job.json": {
+    "bytes": 759,
+    "sha256": "22d3c3b3bbbd2a38bbf824ededd2db1c9c71ef4fdab8bbfb89cee7b1676d219f"
+  },
+  "results/perf-qwen-high-1-on/resources.jsonl": {
+    "bytes": 360625,
+    "sha256": "8faff77cb6835e08a7c68f16fc893583bc12b6e5a1752b0938b4f7747249e010"
+  },
+  "results/perf-qwen-high-1-on/submission.log": {
+    "bytes": 7704,
+    "sha256": "6a80bbfc93a74236e0bf434e20804498870913ff10d7fc54526f6ac55f4c451a"
+  },
+  "results/perf-qwen-high-1-on/tensorboard_log/scalars.json": {
+    "bytes": 49649,
+    "sha256": "7c0e22868944e162b2728a1751356b18035267a5c0b1dac34a474e132f0b222d"
+  },
+  "results/perf-qwen-high-2-off/driver.log": {
+    "bytes": 105848,
+    "sha256": "4aadfa8faab002c480b15fff2a65ec1057664475ffd26c2b266d8be00af96d16"
+  },
+  "results/perf-qwen-high-2-off/job.json": {
+    "bytes": 753,
+    "sha256": "87324870664bd8c02b189235dd463892c131efbf564d972256cd1494da62bad5"
+  },
+  "results/perf-qwen-high-2-off/resources.jsonl": {
+    "bytes": 391763,
+    "sha256": "58030fcea3185500918699df36b11218d1ac1239d961d75dd263fbe635bf0a64"
+  },
+  "results/perf-qwen-high-2-off/submission.log": {
+    "bytes": 7688,
+    "sha256": "618ac5ef3b031963019e7ce851a3f7f5a607131ec161306bb09aa441b1c05be7"
+  },
+  "results/perf-qwen-high-2-off/tensorboard_log/scalars.json": {
+    "bytes": 23263,
+    "sha256": "1c1abb6aa77f3b0614145eb9544b05c8c250ee01a55c2e859604a0fda16058e1"
+  },
+  "results/perf-qwen-high-2-on/driver.log": {
+    "bytes": 115898,
+    "sha256": "645ed8cad377aceaf33103c29f02559b38e245aed31a9f7acda448f65618c22d"
+  },
+  "results/perf-qwen-high-2-on/job.json": {
+    "bytes": 760,
+    "sha256": "896a50b822a1babbdae45c7415578c6842a3cbac582df381c110d798188cf138"
+  },
+  "results/perf-qwen-high-2-on/resources.jsonl": {
+    "bytes": 372379,
+    "sha256": "417d4560b429761b79ef9539871dfefc10e449c2a9490b9fa0b821d98b452c02"
+  },
+  "results/perf-qwen-high-2-on/submission.log": {
+    "bytes": 7704,
+    "sha256": "e8713c0bb6dffecee207e27044d15851c1012206e3e52f44748f269f8130758b"
+  },
+  "results/perf-qwen-high-2-on/tensorboard_log/scalars.json": {
+    "bytes": 49634,
+    "sha256": "6507d34a9e40376b34ea364445a2fcfb5c60d9ce7a2c577d98ed24df96bde826"
+  },
+  "results/perf-qwen-high-3-off/driver.log": {
+    "bytes": 106106,
+    "sha256": "ff4dd70afbc3b768b9551b536cabbf35f60a0957ba8acf2203fb12ea02b54469"
+  },
+  "results/perf-qwen-high-3-off/job.json": {
+    "bytes": 754,
+    "sha256": "5dffd324e69b470eb3ed1c32425f3da205e71602181656b2474210f00fb15353"
+  },
+  "results/perf-qwen-high-3-off/resources.jsonl": {
+    "bytes": 385591,
+    "sha256": "5529e1077d076536b45d97c385b56e89a1fd473a459a0e228562c92aa5ffad89"
+  },
+  "results/perf-qwen-high-3-off/submission.log": {
+    "bytes": 7688,
+    "sha256": "073d0f625489b4328747e503f290365b16b968c10ff777dc8a391f9ddb29c92c"
+  },
+  "results/perf-qwen-high-3-off/tensorboard_log/scalars.json": {
+    "bytes": 23293,
+    "sha256": "efccc150b39d0894b38b2dad62a65e4c7031e675547a90c961566281de058771"
+  },
+  "results/perf-qwen-high-3-on/driver.log": {
+    "bytes": 115926,
+    "sha256": "f02fffe474421956534f0d45d06ac473ab65944caa6e21c0e4283b0fb542ddf3"
+  },
+  "results/perf-qwen-high-3-on/job.json": {
+    "bytes": 761,
+    "sha256": "5891db40549b0af7c9f2b75a01d6052bf97a0d3c6e5c3001f887c195104959f5"
+  },
+  "results/perf-qwen-high-3-on/resources.jsonl": {
+    "bytes": 367562,
+    "sha256": "8b3be2d82cf7488278934659743ff57b8d66cce06128be14053786260d07099b"
+  },
+  "results/perf-qwen-high-3-on/submission.log": {
+    "bytes": 7704,
+    "sha256": "c95254517f0d94977783d5c83b1d0178bf136ac8f4c3a291a69d0a1caf9e1065"
+  },
+  "results/perf-qwen-high-3-on/tensorboard_log/scalars.json": {
+    "bytes": 49628,
+    "sha256": "f2050f468fc4f89cb8ceb8dfeabfe7c78e28ab499f9fb27158e20b3522510004"
+  },
+  "results/perf-qwen-low-1-off/driver.log": {
+    "bytes": 106107,
+    "sha256": "d9655d6c7279231416b797665a15d9dd6e86d6616b7483d03cef782a67359727"
+  },
+  "results/perf-qwen-low-1-off/job.json": {
+    "bytes": 756,
+    "sha256": "a278127f8d11e692bd3165764ff31348d1d7a0942aa9212ed0bcfe6c134bc317"
+  },
+  "results/perf-qwen-low-1-off/resources.jsonl": {
+    "bytes": 380334,
+    "sha256": "bb781a9d21753c30c28b7ebf7d44caf7498dce71487af0ebbcdb08629b9c0266"
+  },
+  "results/perf-qwen-low-1-off/submission.log": {
+    "bytes": 7690,
+    "sha256": "d71bff0987e8e7dfae789e75072f67a37da9b5ba2983b7e054054063c7fcefc8"
+  },
+  "results/perf-qwen-low-1-off/tensorboard_log/scalars.json": {
+    "bytes": 23275,
+    "sha256": "ba60d07557b36aa90e59adefa01e6d604e60dcea196c66210d1c6ca5c3dbce05"
+  },
+  "results/perf-qwen-low-1-on/driver.log": {
+    "bytes": 115920,
+    "sha256": "b9c1f7e09014d6c9c7936fa4f75b715974bb4bba954db9acfa2274511275cf01"
+  },
+  "results/perf-qwen-low-1-on/job.json": {
+    "bytes": 761,
+    "sha256": "2d848474b8e0cd0f2461fb85ef2e7a2ad3ab66782bd3b9f7f1ce08c0460763d6"
+  },
+  "results/perf-qwen-low-1-on/resources.jsonl": {
+    "bytes": 382200,
+    "sha256": "ed62f6002131bc1f83d1168f6ed8781036c195b2f0b5034db29ea8ca4a10aa0a"
+  },
+  "results/perf-qwen-low-1-on/submission.log": {
+    "bytes": 7706,
+    "sha256": "96475687be538fcd041da83bd016593a8d1298b506347b1021e83796b3e061d6"
+  },
+  "results/perf-qwen-low-1-on/tensorboard_log/scalars.json": {
+    "bytes": 49638,
+    "sha256": "aa2df01be63625951c5aa73a80b5e3b06749e55f3bf57fac50dcfec2793643e6"
+  },
+  "results/perf-qwen-low-2-off/driver.log": {
+    "bytes": 106642,
+    "sha256": "b53fbbd14fd8ead6fe10aa01518dd4b5a1d4bdbc14618cfdabb7bf76e913eef9"
+  },
+  "results/perf-qwen-low-2-off/job.json": {
+    "bytes": 757,
+    "sha256": "b3e4f7f491fbc2b8ebe57f8c601eb5e85b4655037caef4cfe7e6e07f3450a999"
+  },
+  "results/perf-qwen-low-2-off/resources.jsonl": {
+    "bytes": 374817,
+    "sha256": "f60d87fda7a19e5ee22c55407104bbc27e656694d6ab087975e70e8fb4193301"
+  },
+  "results/perf-qwen-low-2-off/submission.log": {
+    "bytes": 7690,
+    "sha256": "3b266be3d5b1ab4a913c65a39fdf4542758aa7e2783b1b59f81f17f2b3bfeb20"
+  },
+  "results/perf-qwen-low-2-off/tensorboard_log/scalars.json": {
+    "bytes": 23278,
+    "sha256": "950378bb4a98a766babfe3b760a1cd27819064538701a67bf804eb25c06cf53f"
+  },
+  "results/perf-qwen-low-2-on/driver.log": {
+    "bytes": 116170,
+    "sha256": "46cdbd82072081b2eff838935448d18fab1c18df0821270bae1ffd0ca76b82ba"
+  },
+  "results/perf-qwen-low-2-on/job.json": {
+    "bytes": 763,
+    "sha256": "c9fdba4dc0cee8c1dc86fdd46295d7239c39743471aad4f28fe984b6cb4a6910"
+  },
+  "results/perf-qwen-low-2-on/resources.jsonl": {
+    "bytes": 383283,
+    "sha256": "bab2b91f977c22cd4c8de0fd36db57ce0a94ec97e1639ee924235e8678502c7e"
+  },
+  "results/perf-qwen-low-2-on/submission.log": {
+    "bytes": 7706,
+    "sha256": "0f980ca5f88e378b714dfc0270bce1a88ad99f7dad34498c236361a2f01f1a25"
+  },
+  "results/perf-qwen-low-2-on/tensorboard_log/scalars.json": {
+    "bytes": 49647,
+    "sha256": "884b97d3c930c1fd985015675661be0af41a0fe3c7f3d329a881a6966dff1e6b"
+  },
+  "results/perf-qwen-low-3-off/driver.log": {
+    "bytes": 106646,
+    "sha256": "7e882f27551a421e3543aabc229a6f2ee9d67140a7e903ee2edfd3ad5fdc6ef4"
+  },
+  "results/perf-qwen-low-3-off/job.json": {
+    "bytes": 755,
+    "sha256": "ae95fc0336a5a287f67c9b7e76bce037d82499d343d7470071c76458b70e2b4e"
+  },
+  "results/perf-qwen-low-3-off/resources.jsonl": {
+    "bytes": 380759,
+    "sha256": "c71476b1b95016f2510316db70a486b3cbedb752faf88a001afdb15435824506"
+  },
+  "results/perf-qwen-low-3-off/submission.log": {
+    "bytes": 7690,
+    "sha256": "00962557acf636dda0554901adc55bf0d067d057b69e6ba6cc35748da449a8fb"
+  },
+  "results/perf-qwen-low-3-off/tensorboard_log/scalars.json": {
+    "bytes": 23290,
+    "sha256": "a9ca32bc6d86f81864df1d5fb50a67cadadfb61a1f4b3e5459b397c1ec638fd3"
+  },
+  "results/perf-qwen-low-3-on/driver.log": {
+    "bytes": 116272,
+    "sha256": "6c629f9e8a5e3d1f17c39df96df2e27a23bc5c461ba56fdb885166cd1af8586b"
+  },
+  "results/perf-qwen-low-3-on/job.json": {
+    "bytes": 763,
+    "sha256": "d80a6303f0a800663ef663f17780f9aa2f65af13035098da17198e881cd45c22"
+  },
+  "results/perf-qwen-low-3-on/resources.jsonl": {
+    "bytes": 378352,
+    "sha256": "07cbfb18c838289d414b17e3d4c11cd5511efcb2a69898a6599e84930ae06c5b"
+  },
+  "results/perf-qwen-low-3-on/submission.log": {
+    "bytes": 7706,
+    "sha256": "fea0ce5810b3cc44d874090e823ff547f0910cd16494b70fb71df17d069e5589"
+  },
+  "results/perf-qwen-low-3-on/tensorboard_log/scalars.json": {
+    "bytes": 49640,
+    "sha256": "81df3a8c02e216b7c57ded6b41752fd7cc92e932a84d45b67490c43f05d8ea63"
+  },
+  "results/perf-sensenova-high-1-off/driver.log": {
+    "bytes": 104522,
+    "sha256": "32539ba64841f24940ea75985df566d8f2c7e85083be0f9f6699e29461669e27"
+  },
+  "results/perf-sensenova-high-1-off/job.json": {
+    "bytes": 774,
+    "sha256": "e2176d57afc1448dfc825442c49b7b5cec09137dc230c89816d4da4778965974"
+  },
+  "results/perf-sensenova-high-1-off/resources.jsonl": {
+    "bytes": 338381,
+    "sha256": "8b6755cedde7d631a8d1390576a59b2a957ad4d9bb269e615e0cf26bccbaa35b"
+  },
+  "results/perf-sensenova-high-1-off/submission.log": {
+    "bytes": 7708,
+    "sha256": "ecf325fd9de2bbde33df6500dbbd3b599585a18531d34086581ba5a73fdc3cf9"
+  },
+  "results/perf-sensenova-high-1-off/tensorboard_log/scalars.json": {
+    "bytes": 23293,
+    "sha256": "851ec5c993ff8349492e30e2094c891f1106b63c9bd25ef3c53542fbfffe550c"
+  },
+  "results/perf-sensenova-high-1-on/driver.log": {
+    "bytes": 114476,
+    "sha256": "d33d88983a753ba4e64947d2193962e2f1e89575061b59577d16c93cb5bcb10d"
+  },
+  "results/perf-sensenova-high-1-on/job.json": {
+    "bytes": 780,
+    "sha256": "d87e7cb4400b1dab5c0db8588471e8dacfdc749892ab964f60ad4fea047cad1e"
+  },
+  "results/perf-sensenova-high-1-on/resources.jsonl": {
+    "bytes": 315342,
+    "sha256": "c98a02eeadbe905ed1f0c25d2914fe575f46e23f1a50a45ccb9020deaff6003d"
+  },
+  "results/perf-sensenova-high-1-on/submission.log": {
+    "bytes": 7724,
+    "sha256": "7a407bf0f60b1d0186d398c4d3b6598fb78c80990dc9a389746fcf6ba3eed406"
+  },
+  "results/perf-sensenova-high-1-on/tensorboard_log/scalars.json": {
+    "bytes": 49705,
+    "sha256": "07c91ba50ec210e48f89a58d607608ce943ba9065dc81b6b7d07de35ff7d7e9d"
+  },
+  "results/perf-sensenova-high-2-off/driver.log": {
+    "bytes": 104276,
+    "sha256": "96b412aab2f963c8d177ae3aac0a27b5bf1b1a39f45f213b95419eed30f2e0b2"
+  },
+  "results/perf-sensenova-high-2-off/job.json": {
+    "bytes": 775,
+    "sha256": "b98909f0031c7e1ed9b43b5c0c27afb7b7ab8412208bde773155c0b057bb45bb"
+  },
+  "results/perf-sensenova-high-2-off/resources.jsonl": {
+    "bytes": 332328,
+    "sha256": "03dbae7e7ff0ad2ae9c54ecde589e14a38af55ef288d50bfcc00d1f2649dcfa9"
+  },
+  "results/perf-sensenova-high-2-off/submission.log": {
+    "bytes": 7708,
+    "sha256": "7354fda25893df29eef6ca03f2a45265d3fce6e8e4a1544e21b657ef336e7290"
+  },
+  "results/perf-sensenova-high-2-off/tensorboard_log/scalars.json": {
+    "bytes": 23282,
+    "sha256": "66b47ed21c309c666fd0e23ade9aa3f4df55b769f911c6b35fa5776329d0f8e0"
+  },
+  "results/perf-sensenova-high-2-on/driver.log": {
+    "bytes": 114242,
+    "sha256": "ac75113317a9f170d9dc28b102d96671cd9e4f7306741eca634dac72a060e6bc"
+  },
+  "results/perf-sensenova-high-2-on/job.json": {
+    "bytes": 780,
+    "sha256": "1cc36514b3bc87c14d9a68336dcc43bea277b77a7fdfc2c91ce156098110c647"
+  },
+  "results/perf-sensenova-high-2-on/resources.jsonl": {
+    "bytes": 316527,
+    "sha256": "c1de031e46678e2de5413cf671b0ffe108eb5546d228cb65c6b37cc0bef1e004"
+  },
+  "results/perf-sensenova-high-2-on/submission.log": {
+    "bytes": 7724,
+    "sha256": "c6a11142ea67b0f42f752e7998090f73edd7d971c9d50536fa61c85dc9ca7803"
+  },
+  "results/perf-sensenova-high-2-on/tensorboard_log/scalars.json": {
+    "bytes": 49696,
+    "sha256": "9584dbb0a9d7fb8d38422b4cd057bc00db10ec83f8108852ef3fa1e7bcdffac8"
+  },
+  "results/perf-sensenova-high-3-off/driver.log": {
+    "bytes": 104281,
+    "sha256": "83921ae1deae93171a4de0198630d097f174c6954db93b8194a9ddfa813ac11e"
+  },
+  "results/perf-sensenova-high-3-off/job.json": {
+    "bytes": 774,
+    "sha256": "f623122d659edf7b62f3d446777ac31fbfd169e75a970ef3ca2411c7a4ee6eac"
+  },
+  "results/perf-sensenova-high-3-off/resources.jsonl": {
+    "bytes": 335173,
+    "sha256": "28db50f5558ca6bcdad661e02103e5296a0ef55ab13ca1cc68731dde3b446c31"
+  },
+  "results/perf-sensenova-high-3-off/submission.log": {
+    "bytes": 7708,
+    "sha256": "4fba1b1b3d00d76bf9588db224a40753c1f5752f492f8053194442012facb6f9"
+  },
+  "results/perf-sensenova-high-3-off/tensorboard_log/scalars.json": {
+    "bytes": 23289,
+    "sha256": "a87e6a2ff0b536d3ec6a70940fc091ef2f38b2c1a9debe7df5df2e09d002bc29"
+  },
+  "results/perf-sensenova-high-3-on/driver.log": {
+    "bytes": 114475,
+    "sha256": "37fd45dcf4ebc9fa4d16a021187a551ff35b4a780a4aa724adc7681c620bd5a3"
+  },
+  "results/perf-sensenova-high-3-on/job.json": {
+    "bytes": 780,
+    "sha256": "832d6c660098e8614186dcdc3959b8a71e12858fc248dd1489776796fbb0b3eb"
+  },
+  "results/perf-sensenova-high-3-on/resources.jsonl": {
+    "bytes": 319222,
+    "sha256": "d342b548afe38586e15a9324aa13f8cf3b4dc9c115179520b20e6c847ccb61d3"
+  },
+  "results/perf-sensenova-high-3-on/submission.log": {
+    "bytes": 7724,
+    "sha256": "3efaee8a6e2a60c02a2c40cf95c9aace177101d059e2d8ebc2a24fc6be718c29"
+  },
+  "results/perf-sensenova-high-3-on/tensorboard_log/scalars.json": {
+    "bytes": 49718,
+    "sha256": "e9e6a60e51056431caf43f5219e08a31c8dc302dd0716b6b8ffa8e7e0648d026"
+  },
+  "results/perf-sensenova-low-1-off/driver.log": {
+    "bytes": 104279,
+    "sha256": "71ae62474a6b9898d6da1847a3a2372b80d04c4f16733a224a82650e4bb505dd"
+  },
+  "results/perf-sensenova-low-1-off/job.json": {
+    "bytes": 776,
+    "sha256": "bfec064ffc5ad4b50ce4a8dc7731556148678b9d43ba60c70cce902448649410"
+  },
+  "results/perf-sensenova-low-1-off/resources.jsonl": {
+    "bytes": 321657,
+    "sha256": "eed1af078746f7b5649c7ac7504511f52f79cf34e5354955d15b8df9a5492c17"
+  },
+  "results/perf-sensenova-low-1-off/submission.log": {
+    "bytes": 7710,
+    "sha256": "a768e7ccfcb63cca2afdb7bd07a22b9dbf1abd4b0098f1a58faea71a27e33ea2"
+  },
+  "results/perf-sensenova-low-1-off/tensorboard_log/scalars.json": {
+    "bytes": 23288,
+    "sha256": "126bceabc801ef7266516beddfc4d6000c6dcad90cc88146cd53ae1f28f005ae"
+  },
+  "results/perf-sensenova-low-1-on/driver.log": {
+    "bytes": 114582,
+    "sha256": "ba5b07beb0b0bf9102f7a9f369575159d85368b94cae3aa94b86d2c50f02edd8"
+  },
+  "results/perf-sensenova-low-1-on/job.json": {
+    "bytes": 783,
+    "sha256": "071c4fad3acbd346cca02b913e2dbc323bd9c58fa547fd3dea6e88c2bba13884"
+  },
+  "results/perf-sensenova-low-1-on/resources.jsonl": {
+    "bytes": 337672,
+    "sha256": "fb057fd602544e7bee9012d4b6fc0d2436d3c3fe6458042d52d09d31743e63a1"
+  },
+  "results/perf-sensenova-low-1-on/submission.log": {
+    "bytes": 7726,
+    "sha256": "9d15444a993b9b8f7392861b70f5c114108093bc30235045c44d860aac7afa16"
+  },
+  "results/perf-sensenova-low-1-on/tensorboard_log/scalars.json": {
+    "bytes": 49744,
+    "sha256": "6f8d4a6f529f725acde830f1b1a51e3522409f440fe356ee421636d8229d5aad"
+  },
+  "results/perf-sensenova-low-2-off/driver.log": {
+    "bytes": 104519,
+    "sha256": "764b4f5b57e3426db9fb593a14e20479da715543495de8b7158e8c66971c52de"
+  },
+  "results/perf-sensenova-low-2-off/job.json": {
+    "bytes": 777,
+    "sha256": "ea41b4916b7b007cc23f265e5fb7e9d5471429e5a4ce4b72aec1e557a5b2b18c"
+  },
+  "results/perf-sensenova-low-2-off/resources.jsonl": {
+    "bytes": 329232,
+    "sha256": "f0cf81755b373c7d7ccc7b31e3ca1501a7152b729a2449b5b1d410c2295c6f1b"
+  },
+  "results/perf-sensenova-low-2-off/submission.log": {
+    "bytes": 7710,
+    "sha256": "8b022e29393641c6a582958a3d812aaa319af2ec5428f7c07c202cd06194a909"
+  },
+  "results/perf-sensenova-low-2-off/tensorboard_log/scalars.json": {
+    "bytes": 23297,
+    "sha256": "640f840bbbbc314e573698fc80598b992c7d595ea3d758d92035abc2a7823917"
+  },
+  "results/perf-sensenova-low-2-on/driver.log": {
+    "bytes": 114312,
+    "sha256": "8d9b018e3efaab7ff701312cd393abf0deef5762462b014770c9ac18a627a74d"
+  },
+  "results/perf-sensenova-low-2-on/job.json": {
+    "bytes": 782,
+    "sha256": "e7d400f969f8affcd0a8d23c6b2ff9dfd7bc05ea3eaf998e8fb04546a69447b6"
+  },
+  "results/perf-sensenova-low-2-on/resources.jsonl": {
+    "bytes": 326680,
+    "sha256": "2137fb06fe36dd667be85de58376fb8f4baa45158e8944a0fa7c6ad38942eb15"
+  },
+  "results/perf-sensenova-low-2-on/submission.log": {
+    "bytes": 7726,
+    "sha256": "ff0687bde421a8425e7ff4a7255959ace7edb0069284d2ed8084172ec2530f8d"
+  },
+  "results/perf-sensenova-low-2-on/tensorboard_log/scalars.json": {
+    "bytes": 49749,
+    "sha256": "1efedb2156586fcb4673f63d3345e1004c256f2b52a93c8bd67d97eda15357ba"
+  },
+  "results/perf-sensenova-low-3-off/driver.log": {
+    "bytes": 104521,
+    "sha256": "8e76b0ac4bf77ead6cfb4433c7aff0273cf11ab57a8f930d1203f80e97c04936"
+  },
+  "results/perf-sensenova-low-3-off/job.json": {
+    "bytes": 776,
+    "sha256": "1342b3377073be397c387ac1a401968e3e02b1ffb083b0a90be237096456b18e"
+  },
+  "results/perf-sensenova-low-3-off/resources.jsonl": {
+    "bytes": 340277,
+    "sha256": "502e4c5b5eaeff9a511b29d81f733d8056996d770d48a909f3652e521bafcf94"
+  },
+  "results/perf-sensenova-low-3-off/submission.log": {
+    "bytes": 7710,
+    "sha256": "d1ce16b24605d6a3d78edc0db60f43e0e180f913b7e5ae202b9887b409d16748"
+  },
+  "results/perf-sensenova-low-3-off/tensorboard_log/scalars.json": {
+    "bytes": 23292,
+    "sha256": "3fc753d0c2b44bc8b4cd4605dec2c1511ff4cefdb1339888834a3303d7b836e1"
+  },
+  "results/perf-sensenova-low-3-on/driver.log": {
+    "bytes": 114348,
+    "sha256": "e5a8871cb20541524bf3f2f7c300544fb264a794f7d563bbf4b8ec0e15bd7a7d"
+  },
+  "results/perf-sensenova-low-3-on/job.json": {
+    "bytes": 782,
+    "sha256": "b89aa29572e3095f1aaa11b459dc3d72c922a6e8fd4ca491f159c4d2c662a8e0"
+  },
+  "results/perf-sensenova-low-3-on/resources.jsonl": {
+    "bytes": 331857,
+    "sha256": "3909afd3fa5f408baa205d2270011447f7f51966dc0f2c1c544f0e25698a3200"
+  },
+  "results/perf-sensenova-low-3-on/submission.log": {
+    "bytes": 7726,
+    "sha256": "db9620db3a9868a5d141976cd4c518bc984273de489db36486087685ddf91d08"
+  },
+  "results/perf-sensenova-low-3-on/tensorboard_log/scalars.json": {
+    "bytes": 49761,
+    "sha256": "8126193dce187a4be906c71666252db763db1d9f836a30b118b0dd1a7fef81ba"
+  },
+  "results/precommit-all-files.log": {
+    "bytes": 1280,
+    "sha256": "db1591dacf6d68f356918e60d681adaee85db73caa1443705582fbed9cb26ed8"
+  },
+  "results/precommit-changed-files.log": {
+    "bytes": 1280,
+    "sha256": "3ae990b3cdff5c1266a5d7def81ef9f23750be9a6af7caabd72cdcfd234ed20a"
+  },
+  "results/precommit-final-doc.log": {
+    "bytes": 1280,
+    "sha256": "134e0350ac5baf793dd1ae7fdad09d2de6ade6c50703c03c52f5f13fbd6397e4"
+  },
+  "results/preparation-summary.json": {
+    "bytes": 5750,
+    "sha256": "fb6172106921c2d1edb64ec70652334698c76b87e845627fc5d1107cd01d4dd0"
+  },
+  "results/profile-qwen-off/analysis.log": {
+    "bytes": 461,
+    "sha256": "6991bddec12a43a124f6dfc09d39694a609720063621490c1f7dbf48ae2d5ccf"
+  },
+  "results/profile-qwen-off/driver.log": {
+    "bytes": 82273,
+    "sha256": "49db2f48ae94fcc01a93e15fe8152e836447ffd4f6db2029b0628f012ed52af9"
+  },
+  "results/profile-qwen-off/job.json": {
+    "bytes": 988,
+    "sha256": "296ee6db0fcd10a93c3141018e1c131c6e95eaf9f4163ac2f4dabba04eebdf6a"
+  },
+  "results/profile-qwen-off/profile-summary.json": {
+    "bytes": 3443,
+    "sha256": "b7920281355689199221c35cfa80915eaebca8da904e2d6ac9c75fd9639c2c78"
+  },
+  "results/profile-qwen-off/resources.jsonl": {
+    "bytes": 551095,
+    "sha256": "db177fcdd26056e74cb2eb0b3d42eedbd66aca4c1482fcc50608e53f454dcad5"
+  },
+  "results/profile-qwen-off/submission.log": {
+    "bytes": 8010,
+    "sha256": "cd8a90940ddf0cc35463629f54d586824883f67c028afbecd7e388702ac46e72"
+  },
+  "results/profile-qwen-on/analysis.log": {
+    "bytes": 443,
+    "sha256": "77af2974d7fba999290acdbf15cd5271eb4afaf14a4c311ab84ba9ed25bcc804"
+  },
+  "results/profile-qwen-on/driver.log": {
+    "bytes": 87458,
+    "sha256": "a4116b90e9891fe30001ec904b499c25b1eb94d7f58e1e44884575dab974df76"
+  },
+  "results/profile-qwen-on/job.json": {
+    "bytes": 993,
+    "sha256": "6388113b67d2c7fe5f2d43c0b6b6720eca18011a57f7f12ed5e47df58b793c1a"
+  },
+  "results/profile-qwen-on/profile-summary.json": {
+    "bytes": 3075,
+    "sha256": "5e3dd3ec7533ba7486c29c8ed519403c52e8f325ba8162805ebe77abc8c9b1f9"
+  },
+  "results/profile-qwen-on/resources.jsonl": {
+    "bytes": 521531,
+    "sha256": "dbd703af8a15daa48234e90b1d42371d4021e71f038f13ef4a91a46399b724f8"
+  },
+  "results/profile-qwen-on/submission.log": {
+    "bytes": 8026,
+    "sha256": "31ede40be10142c19d4e8ad351e7bf0930da84b7201e4dd7d51d163c0e042285"
+  },
+  "results/profile-sensenova-off/analysis.log": {
+    "bytes": 360,
+    "sha256": "ba9319346a3a8f6f4f9cd75b7ed21806c5b462fc46d4811b0c71dcbbd457fca5"
+  },
+  "results/profile-sensenova-off/driver.log": {
+    "bytes": 80107,
+    "sha256": "3cfa680cd9cc1b40b91f551286315424064c1bfb3cf01138c65fa5d26d5d8471"
+  },
+  "results/profile-sensenova-off/job.json": {
+    "bytes": 1007,
+    "sha256": "c873df65c28554bdf10637f92ff352ebf527eda17720647def72e09c93ce9d34"
+  },
+  "results/profile-sensenova-off/profile-summary.json": {
+    "bytes": 3026,
+    "sha256": "8cb06fadc30a8b0f81e28dc68406e972d62d1290ca4b637afb34e619dec68d7e"
+  },
+  "results/profile-sensenova-off/resources.jsonl": {
+    "bytes": 707135,
+    "sha256": "1a5a69f533f18c6a6e7a8bc82f388f3826a03c575fb873d0b2d42b93c7513678"
+  },
+  "results/profile-sensenova-off/submission.log": {
+    "bytes": 8030,
+    "sha256": "393f91773227d96103114c380f266841e4ed72f689eaa7819f26bd535a792750"
+  },
+  "results/profile-sensenova-on/analysis.log": {
+    "bytes": 336,
+    "sha256": "4a1031fe873147fbf9e6a466e7e759632038d9255841e423090449bc82bd184a"
+  },
+  "results/profile-sensenova-on/driver.log": {
+    "bytes": 84835,
+    "sha256": "49a23cf79598f974ac62781a4cd3330e128f13b39a20bb73787c4bb19f730da3"
+  },
+  "results/profile-sensenova-on/job.json": {
+    "bytes": 1014,
+    "sha256": "4a061e9f515318dd483a55f64bc491b2d14eaf4dfc97e3503e65fbd16cc58590"
+  },
+  "results/profile-sensenova-on/profile-summary.json": {
+    "bytes": 2627,
+    "sha256": "de386861d126fd7df4f697d36746127f2712df46fe7c7993936c15553e700867"
+  },
+  "results/profile-sensenova-on/resources.jsonl": {
+    "bytes": 646862,
+    "sha256": "ec96653cf8a6f53d29446802b3e01dcc78a41f2e3f96b606ac6c1c2792c84e23"
+  },
+  "results/profile-sensenova-on/submission.log": {
+    "bytes": 8046,
+    "sha256": "fc56501207edbcc9ba646e7025f8e8998689a77d4d54bc28bea228eca009e794"
+  },
+  "results/qwen-export-load.json": {
+    "bytes": 285,
+    "sha256": "c091034cbac13e1a8dd30e174ab35183f3e183f8aebf3b1db4e4775ec16c8612"
+  },
+  "results/qwen-high-manifest.json": {
+    "bytes": 781,
+    "sha256": "154ca4744b540abd4b387e46621617c234f0428031a520f8ca5210b6e074b9c0"
+  },
+  "results/qwen-high-summary.json": {
+    "bytes": 7427,
+    "sha256": "045e6776293bc17dc279ecc14c57c33b8dae39ddbf4db8953449a5de399fa157"
+  },
+  "results/qwen-high-trajectory-comparison.json": {
+    "bytes": 246,
+    "sha256": "aafcfc3f0e0c8a23b1345e890d464e23bb32343d7cc3656132a9913fe0a26ef5"
+  },
+  "results/qwen-low-manifest.json": {
+    "bytes": 774,
+    "sha256": "77acf4b2d59964c68aaaaa1e28464c1ecfaf770f44e755efd0659877c6fde5d2"
+  },
+  "results/qwen-low-summary.json": {
+    "bytes": 7444,
+    "sha256": "de3882ff7a00ad949c54e44cfa235e35a0e95ba470ab1d45d6cd7bc7c0aefe9b"
+  },
+  "results/qwen-low-trajectory-comparison.json": {
+    "bytes": 244,
+    "sha256": "c9de06cc28a8b6cbe3f2d11c61479a05be60e89d129c75c01b06b4fc9cbd641b"
+  },
+  "results/qwen-numerics.json": {
+    "bytes": 3908913,
+    "sha256": "e77ae61cf1071c81156c8d3b42e07356130abdec1a5a05d1d24aebddb1893e28"
+  },
+  "results/qwen-resume-off/driver.log": {
+    "bytes": 59064,
+    "sha256": "853ad1eed69968d4d6cef7dd835704d6228f1c17760fa2685f907dee3bbda26b"
+  },
+  "results/qwen-resume-off/job.json": {
+    "bytes": 664,
+    "sha256": "f80c9c5a4c899cb211d29a559a57b020d1f6d3559b7dcf5612a3b192a8661414"
+  },
+  "results/qwen-resume-off/resources.jsonl": {
+    "bytes": 214195,
+    "sha256": "b5c7b0d8818acae2c539fc1bab06565ed1bc1db5585594f384c0ec02cd8a352e"
+  },
+  "results/qwen-resume-off/submission.log": {
+    "bytes": 7788,
+    "sha256": "38d4af5fcc6e9d715ceb78d2d2f79f5c0a6ab3440efb41632e8e984a16ae37f1"
+  },
+  "results/qwen-resume-off-comparison.json": {
+    "bytes": 241,
+    "sha256": "041ed66bc2e6376887b099df9e3e9c4f1298616cb1ddd7df8d1f1fc8314fc5d1"
+  },
+  "results/qwen-resume-on-comparison.json": {
+    "bytes": 240,
+    "sha256": "7f710562593a2ffca364e6074e0f7da6ddc300fbac20bd9ebad16a5b3efb14ec"
+  },
+  "results/qwen-smoke-01/driver.log": {
+    "bytes": 60019,
+    "sha256": "d1ac0292f9b040677484dcd431060e8993922a10dacc3daffaa0dbfe1a99ff81"
+  },
+  "results/qwen-smoke-01/job.json": {
+    "bytes": 509,
+    "sha256": "50a9b62c5cc1f8f0fc25e9c9abf009a73df1a9808e45e0c1617c455d1ce38f02"
+  },
+  "results/qwen-smoke-01/resources.jsonl": {
+    "bytes": 209852,
+    "sha256": "acb836e8686d7bd118d61290c42a92441383585d6ccb78918ed2e261709101ed"
+  },
+  "results/qwen-smoke-01/submission.log": {
+    "bytes": 7690,
+    "sha256": "ccf73882c7dec78cda532c22b691033489362783354dea65247d2f269be8e914"
+  },
+  "results/resources-summary.json": {
+    "bytes": 24872,
+    "sha256": "bdad2497911e028a2eb2e48af1a2d019e9867fab585a5ef674409e38ab7a00f2"
+  },
+  "results/sampler-warmup-audit.json": {
+    "bytes": 2067,
+    "sha256": "6244c31cf4b7cc16469b7e03ca95fe30a74ec1446cd4c90498a78e9a86ecad43"
+  },
+  "results/sense-byte-eviction/driver.log": {
+    "bytes": 66763,
+    "sha256": "70d07e9828797dc0c67d03904195dafda6ebcd452ae13252ed78e7c9deab9647"
+  },
+  "results/sense-byte-eviction/job.json": {
+    "bytes": 1152,
+    "sha256": "dc20b1b1d9d85b7e7e3f6b7e894f37046cc5bd9df3546f6b5b4e514672771b25"
+  },
+  "results/sense-byte-eviction/resources.jsonl": {
+    "bytes": 227933,
+    "sha256": "e996f2e9a82babeeecfcfe45cc107abf9066081616c322a855dbcfd5f518db23"
+  },
+  "results/sense-byte-eviction/submission.log": {
+    "bytes": 8402,
+    "sha256": "95f34c54325a1123d8bafd47966eaf2ee9bf5c36daf4b6f8f235c3615d69f8c5"
+  },
+  "results/sense-continuous-off/driver.log": {
+    "bytes": 64083,
+    "sha256": "97ca27a2098f36192e327f95d76a5785af2f2735eec3b492155615c803dfbda6"
+  },
+  "results/sense-continuous-off/job.json": {
+    "bytes": 571,
+    "sha256": "ff8323f634e4fb30005529c88347d501a08d1d26868b07894dab0a5f70734b9d"
+  },
+  "results/sense-continuous-off/resources.jsonl": {
+    "bytes": 229542,
+    "sha256": "b79e6b8e389010316c84d5470098f0462634465964e5d8b04498aee60a2525b5"
+  },
+  "results/sense-continuous-off/submission.log": {
+    "bytes": 7696,
+    "sha256": "33822c6984b78da9c5821611adb476d50a27f9454a2f35f74685f8e1eda4b601"
+  },
+  "results/sense-eviction-capacity.json": {
+    "bytes": 547,
+    "sha256": "3df48a84ab23b9250b63c9af9d2d82461a586bcfd954c3d6fdf8b699aaae98f5"
+  },
+  "results/sense-eviction-comparison.json": {
+    "bytes": 246,
+    "sha256": "80919355f72907c6c95a3dc7132b4d7776524b21569e8bef7655107157b1bb60"
+  },
+  "results/sense-export-load.json": {
+    "bytes": 224,
+    "sha256": "0ed7c803e3296b0812b0aa158f896b290296ae25420a3c2342f37d39177bd7d8"
+  },
+  "results/sense-resume-comparison.json": {
+    "bytes": 243,
+    "sha256": "b91967e5db796f87a32277f63c244f4f9934cc431d7c412266e869201bb162d1"
+  },
+  "results/sense-resume-off/driver.log": {
+    "bytes": 57156,
+    "sha256": "72d8024896fd6f9fe23385891080a593a18484a07866427a0da2effd29505a74"
+  },
+  "results/sense-resume-off/job.json": {
+    "bytes": 634,
+    "sha256": "f25afb8742df5cbe7d032a5ca569d50806f77a8f58b68fbacfbfd18b22323302"
+  },
+  "results/sense-resume-off/resources.jsonl": {
+    "bytes": 207622,
+    "sha256": "2cbbc738cdf1e32453398737398d805ca4e07f74200860b72fe2c86fb7e52930"
+  },
+  "results/sense-resume-off/submission.log": {
+    "bytes": 7802,
+    "sha256": "e950ef40d2c8c53d887e55740e19c720cb4b432a4414f4876fbc9055610a0878"
+  },
+  "results/sense-smoke-03/driver.log": {
+    "bytes": 58381,
+    "sha256": "7b013dfead44fce441983baec697d2e76d68da4469c409e973633e3f307a19fe"
+  },
+  "results/sense-smoke-03/job.json": {
+    "bytes": 521,
+    "sha256": "696fdb70f196d42d0e6168eca249abe1a6ebeb994c3df4a4bb9296d47f7b46fd"
+  },
+  "results/sense-smoke-03/resources.jsonl": {
+    "bytes": 221585,
+    "sha256": "5abce833148139293f2d98375ec99ff5a76ad13d5b6efd883e02c3cb5a62b96f"
+  },
+  "results/sense-smoke-03/submission.log": {
+    "bytes": 7702,
+    "sha256": "9e1f330e6f4d556b5f96bcb0920e294fc570f999977242b6d97de6235774223e"
+  },
+  "results/sensenova-high-manifest.json": {
+    "bytes": 814,
+    "sha256": "cf4130c8a4e6531a14cf594adc7bcfcb07c2173206221715d4d6da3c358f5b9a"
+  },
+  "results/sensenova-high-summary.json": {
+    "bytes": 7463,
+    "sha256": "fa34374888f4319d2edb7598d9b3b8a7e60066e9f24c387f5a0998677b1d9097"
+  },
+  "results/sensenova-high-trajectory-comparison.json": {
+    "bytes": 256,
+    "sha256": "c10736bc674fd48531f8a3adfc1937ccd9b68cef18c825f378fde9fee8f287a5"
+  },
+  "results/sensenova-low-manifest.json": {
+    "bytes": 805,
+    "sha256": "90c0bbd17f3bf4131a1011c4f5c0dd234354ecb5aa6745859466ff8d6b646004"
+  },
+  "results/sensenova-low-summary.json": {
+    "bytes": 7528,
+    "sha256": "a76d9225fa94af2bf15ddc58bc4a462366b615a343bd21f2767916b49db2039a"
+  },
+  "results/sensenova-low-trajectory-comparison.json": {
+    "bytes": 254,
+    "sha256": "f4ab4e217f2257f001843a4bf5f461fa23d64de48c21f69183bda8c686f63575"
+  },
+  "results/sensenova-numerics.json": {
+    "bytes": 2536495,
+    "sha256": "71fbb2cfdbd02665f92aac1a4c1feb6ac09b79140bff6c86c8af7acaa1d5eee7"
+  },
+  "prefetch-results/cpu-prefetch.log": {
+    "bytes": 1272,
+    "sha256": "710cd88165355fa86a05a9c06f3156b41ee8a7ed4b8d6ea22b78e238850b87f3"
+  },
+  "prefetch-results/local-checks.json": {
+    "bytes": 768,
+    "sha256": "c3d9d3e42324f623f83d7317312f240284fb3649d34b09ae7da3ead48dd7626e"
+  },
+  "prefetch-results/original-evidence-integrity.json": {
+    "bytes": 45,
+    "sha256": "afc4d2e552e0afed69e000f3e5a49482ffddf5e5732f30028ab8b1051f2284cb"
+  },
+  "prefetch-results/patch-reconstruction.json": {
+    "bytes": 239,
+    "sha256": "0991ceaa02335b177175812209369fb1514e3747af92a17e5661ff1c8323d614"
+  },
+  "prefetch-results/precommit-all-files.log": {
+    "bytes": 1280,
+    "sha256": "db1591dacf6d68f356918e60d681adaee85db73caa1443705582fbed9cb26ed8"
+  },
+  "prefetch-results/precommit-prefetch.log": {
+    "bytes": 1280,
+    "sha256": "3ae990b3cdff5c1266a5d7def81ef9f23750be9a6af7caabd72cdcfd234ed20a"
+  },
+  "prefetch-results/prefetch-qwen-off/comparison.json": {
+    "bytes": 244,
+    "sha256": "f4704a50ae2c8e62bc93160ec97567546fcfcdaae722ff9f7629efc1524edcaa"
+  },
+  "prefetch-results/prefetch-qwen-off/driver.log": {
+    "bytes": 107014,
+    "sha256": "811dff0df7078f079feb1cab03af1943feed50ffff0cf9f1c5774ba9f90a6eb4"
+  },
+  "prefetch-results/prefetch-qwen-off/job.json": {
+    "bytes": 1184,
+    "sha256": "39004a2524eca78ada9771ccfb261db38306051b103bbc9fcfbbe155e8aa6f37"
+  },
+  "prefetch-results/prefetch-qwen-off/resources.jsonl": {
+    "bytes": 389721,
+    "sha256": "d78f7cb3fce75291cc72e7c996e0236a60923484c25ef76b255c7dfe9c782699"
+  },
+  "prefetch-results/prefetch-qwen-off/submission.log": {
+    "bytes": 9196,
+    "sha256": "6a76c226ea9c5b3bbba6240d1905d7661f2639621417d7e3ebcd01e5905e1d9b"
+  },
+  "prefetch-results/prefetch-qwen-off/tensorboard_log/scalars.json": {
+    "bytes": 23354,
+    "sha256": "7458929333d4c943a7c836a130f30cfda0793b2555accdc8ef9bc3327576e71f"
+  },
+  "prefetch-results/prefetch-qwen-on/comparison.json": {
+    "bytes": 243,
+    "sha256": "a2e0910a3d274043e1d4ec5caaf4f3fbfdffcb526a65a3c55671fd218c3db9cf"
+  },
+  "prefetch-results/prefetch-qwen-on/driver.log": {
+    "bytes": 116872,
+    "sha256": "f1edcd03c2cc64da442a62853ea944e7650f75649cba0d0983953ebca090ea59"
+  },
+  "prefetch-results/prefetch-qwen-on/job.json": {
+    "bytes": 1199,
+    "sha256": "f38a460c5a9c39d3a1fc2246df0d25e1309269ad7edb995b96e2a14f4fe56116"
+  },
+  "prefetch-results/prefetch-qwen-on/resources.jsonl": {
+    "bytes": 373426,
+    "sha256": "e803fc12047006c806eb54b82bdf9452a2faa8f138e675eb1b8d7e0280df0d7d"
+  },
+  "prefetch-results/prefetch-qwen-on/submission.log": {
+    "bytes": 9230,
+    "sha256": "6802d5f60f8ef6a46270d0edf920db81586f8d242fa7ad083d1e682d47110d08"
+  },
+  "prefetch-results/prefetch-qwen-on/tensorboard_log/scalars.json": {
+    "bytes": 49701,
+    "sha256": "9690e796535bb591512eb374d8f006acc960c1f967c526a6eb4cd0d7dff02fae"
+  },
+  "prefetch-results/prefetch-sensenova-off/comparison.json": {
+    "bytes": 254,
+    "sha256": "fab60494b6fdda138bcdc274a68aa0e8ca7f9de067f2a7898e533c0fb244e475"
+  },
+  "prefetch-results/prefetch-sensenova-off/driver.log": {
+    "bytes": 105447,
+    "sha256": "ae0fe64548aa3181e2f6aa52abf60529ee951f70696ae5a04733950142208c28"
+  },
+  "prefetch-results/prefetch-sensenova-off/job.json": {
+    "bytes": 1204,
+    "sha256": "402ee46f5449f571748ac006d4e5a778378eec98cff81a9f9120a016a94ce34d"
+  },
+  "prefetch-results/prefetch-sensenova-off/resources.jsonl": {
+    "bytes": 341488,
+    "sha256": "c812e4854849fca964309c5f9f73f067e1ac28d69a8996f9fa4e1d1ebb307e03"
+  },
+  "prefetch-results/prefetch-sensenova-off/submission.log": {
+    "bytes": 9216,
+    "sha256": "75e5d7b1c1d47a2a16db010dcde0eaae05345a31af9e637e4e3b473993646525"
+  },
+  "prefetch-results/prefetch-sensenova-off/tensorboard_log/scalars.json": {
+    "bytes": 23359,
+    "sha256": "90d94f7ea12cd963ea01be60ce4ddb7559551facd33424f7687550e8b9b0231e"
+  },
+  "prefetch-results/prefetch-sensenova-on/comparison.json": {
+    "bytes": 253,
+    "sha256": "47f40a6448be741ba20a07c03320c8e7de07ea7095925570a91b979b76f9d9a2"
+  },
+  "prefetch-results/prefetch-sensenova-on/driver.log": {
+    "bytes": 115156,
+    "sha256": "743c50a2fb301d3568ffa8983f8c2c6cdef9488ed62e9dabe30e0c96b44bc72b"
+  },
+  "prefetch-results/prefetch-sensenova-on/job.json": {
+    "bytes": 1219,
+    "sha256": "e4f53e57e18512116d1b8e3ef7c7f0a909e128ed87c84d6e94c544dc1d9f6c78"
+  },
+  "prefetch-results/prefetch-sensenova-on/resources.jsonl": {
+    "bytes": 331426,
+    "sha256": "347c8fe5142d90f1b3b269db4f9a0b1bc3a91050e9912750ff97fe3a35ecb82b"
+  },
+  "prefetch-results/prefetch-sensenova-on/submission.log": {
+    "bytes": 9250,
+    "sha256": "993a2227dd8737fabf4379f4302f43d517664acdcfba1bc437ee2f0e2d27cb4d"
+  },
+  "prefetch-results/prefetch-sensenova-on/tensorboard_log/scalars.json": {
+    "bytes": 49758,
+    "sha256": "de9ba1c153bdb86918bc1b3105141feaf99d3df33e4e43e585f2b9fcce932100"
+  },
+  "prefetch-results/prefetch-summary.json": {
+    "bytes": 4079,
+    "sha256": "233ee0a7dea172bba23d8c4b29eb4f7207d28639273f66ddb114e01bcd95c25f"
+  }
+}

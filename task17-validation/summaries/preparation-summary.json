@@ -1,0 +1,149 @@
+{
+  "scope": "Per-step maximum across ranks of accumulated synchronous image decode/resize/crop and condition-key lookup CPU wall time. This excludes the TQ read, rank agreement and GPU encoding. It is a stage diagnostic, not the throughput denominator; end-to-end timing includes every stage.",
+  "runs": [
+    {
+      "run": "perf-qwen-high-1-off",
+      "preparation_full_seconds": 1.2854021899402142,
+      "preparation_steady_seconds": 0.7984786964952946,
+      "preparation_steady_seconds_per_step": 0.03992393482476473
+    },
+    {
+      "run": "perf-qwen-high-1-on",
+      "preparation_full_seconds": 1.335775900632143,
+      "preparation_steady_seconds": 0.8347966484725475,
+      "preparation_steady_seconds_per_step": 0.041739832423627374
+    },
+    {
+      "run": "perf-qwen-high-2-off",
+      "preparation_full_seconds": 1.2724488005042076,
+      "preparation_steady_seconds": 0.7931463792920113,
+      "preparation_steady_seconds_per_step": 0.03965731896460056
+    },
+    {
+      "run": "perf-qwen-high-2-on",
+      "preparation_full_seconds": 1.347865417599678,
+      "preparation_steady_seconds": 0.8380672633647919,
+      "preparation_steady_seconds_per_step": 0.041903363168239595
+    },
+    {
+      "run": "perf-qwen-high-3-off",
+      "preparation_full_seconds": 1.2797798924148083,
+      "preparation_steady_seconds": 0.7984752394258976,
+      "preparation_steady_seconds_per_step": 0.03992376197129488
+    },
+    {
+      "run": "perf-qwen-high-3-on",
+      "preparation_full_seconds": 1.336700901389122,
+      "preparation_steady_seconds": 0.8394604213535786,
+      "preparation_steady_seconds_per_step": 0.04197302106767893
+    },
+    {
+      "run": "perf-qwen-low-1-off",
+      "preparation_full_seconds": 1.3116786256432533,
+      "preparation_steady_seconds": 1.1423945017158985,
+      "preparation_steady_seconds_per_step": 0.040799803632710664
+    },
+    {
+      "run": "perf-qwen-low-1-on",
+      "preparation_full_seconds": 1.383127711713314,
+      "preparation_steady_seconds": 1.2090466357767582,
+      "preparation_steady_seconds_per_step": 0.043180236992027075
+    },
+    {
+      "run": "perf-qwen-low-2-off",
+      "preparation_full_seconds": 1.3029084913432598,
+      "preparation_steady_seconds": 1.1379516944289207,
+      "preparation_steady_seconds_per_step": 0.040641131943890026
+    },
+    {
+      "run": "perf-qwen-low-2-on",
+      "preparation_full_seconds": 1.3793256431818008,
+      "preparation_steady_seconds": 1.2044089697301388,
+      "preparation_steady_seconds_per_step": 0.043014606061790674
+    },
+    {
+      "run": "perf-qwen-low-3-off",
+      "preparation_full_seconds": 1.3066652119159698,
+      "preparation_steady_seconds": 1.1413383558392525,
+      "preparation_steady_seconds_per_step": 0.04076208413711616
+    },
+    {
+      "run": "perf-qwen-low-3-on",
+      "preparation_full_seconds": 1.3549538515508175,
+      "preparation_steady_seconds": 1.1796699352562428,
+      "preparation_steady_seconds_per_step": 0.042131069116294384
+    },
+    {
+      "run": "perf-sensenova-high-1-off",
+      "preparation_full_seconds": 1.2710233591496944,
+      "preparation_steady_seconds": 0.795265257358551,
+      "preparation_steady_seconds_per_step": 0.03976326286792755
+    },
+    {
+      "run": "perf-sensenova-high-1-on",
+      "preparation_full_seconds": 1.316486969590187,
+      "preparation_steady_seconds": 0.8208762630820274,
+      "preparation_steady_seconds_per_step": 0.04104381315410137
+    },
+    {
+      "run": "perf-sensenova-high-2-off",
+      "preparation_full_seconds": 1.2553236111998558,
+      "preparation_steady_seconds": 0.7816970571875572,
+      "preparation_steady_seconds_per_step": 0.039084852859377864
+    },
+    {
+      "run": "perf-sensenova-high-2-on",
+      "preparation_full_seconds": 1.312200166285038,
+      "preparation_steady_seconds": 0.8181463293731213,
+      "preparation_steady_seconds_per_step": 0.040907316468656064
+    },
+    {
+      "run": "perf-sensenova-high-3-off",
+      "preparation_full_seconds": 1.2495054490864277,
+      "preparation_steady_seconds": 0.7776366136968136,
+      "preparation_steady_seconds_per_step": 0.038881830684840676
+    },
+    {
+      "run": "perf-sensenova-high-3-on",
+      "preparation_full_seconds": 1.320731244981289,
+      "preparation_steady_seconds": 0.8258284591138363,
+      "preparation_steady_seconds_per_step": 0.04129142295569181
+    },
+    {
+      "run": "perf-sensenova-low-1-off",
+      "preparation_full_seconds": 1.2841108031570911,
+      "preparation_steady_seconds": 1.1173231713473797,
+      "preparation_steady_seconds_per_step": 0.03990439897669213
+    },
+    {
+      "run": "perf-sensenova-low-1-on",
+      "preparation_full_seconds": 1.3571665696799755,
+      "preparation_steady_seconds": 1.1831377185881138,
+      "preparation_steady_seconds_per_step": 0.04225491852100406
+    },
+    {
+      "run": "perf-sensenova-low-2-off",
+      "preparation_full_seconds": 1.2910771556198597,
+      "preparation_steady_seconds": 1.1242170631885529,
+      "preparation_steady_seconds_per_step": 0.040150609399591176
+    },
+    {
+      "run": "perf-sensenova-low-2-on",
+      "preparation_full_seconds": 1.3855267278850079,
+      "preparation_steady_seconds": 1.1945385113358498,
+      "preparation_steady_seconds_per_step": 0.04266208969056606
+    },
+    {
+      "run": "perf-sensenova-low-3-off",
+      "preparation_full_seconds": 1.3001087941229343,
+      "preparation_steady_seconds": 1.1317093148827553,
+      "preparation_steady_seconds_per_step": 0.04041818981724126
+    },
+    {
+      "run": "perf-sensenova-low-3-on",
+      "preparation_full_seconds": 1.3480726480484009,
+      "preparation_steady_seconds": 1.1739033684134483,
+      "preparation_steady_seconds_per_step": 0.0419251203004803
+    }
+  ]
+}

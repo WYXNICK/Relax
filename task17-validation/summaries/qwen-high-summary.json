@@ -1,0 +1,246 @@
+{
+  "runs": {
+    "off": [
+      {
+        "log": "perf-qwen-high-1-off/driver.log",
+        "job_seconds": 270.83306209743023,
+        "training_seconds": 144.27024720981717,
+        "cold_seconds": 56.899971816688776,
+        "steady_step_seconds": 4.369551834836602,
+        "steady_samples_per_second": 0.9154256892227892,
+        "job_samples_per_second": 0.47261585793374417,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-qwen-high-2-off/driver.log",
+        "job_seconds": 275.986886639148,
+        "training_seconds": 144.30903578735888,
+        "cold_seconds": 56.3061491753906,
+        "steady_step_seconds": 4.401058866269887,
+        "steady_samples_per_second": 0.9088721877038187,
+        "job_samples_per_second": 0.4637901516218037,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-qwen-high-3-off/driver.log",
+        "job_seconds": 275.3711626753211,
+        "training_seconds": 144.70141050964594,
+        "cold_seconds": 56.73497265204787,
+        "steady_step_seconds": 4.3992405094206335,
+        "steady_samples_per_second": 0.9092478557228934,
+        "job_samples_per_second": 0.46482717636966064,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      }
+    ],
+    "on": [
+      {
+        "log": "perf-qwen-high-1-on/driver.log",
+        "job_seconds": 255.2315905597061,
+        "training_seconds": 128.43245843425393,
+        "cold_seconds": 51.05845592916012,
+        "steady_step_seconds": 3.8697347230277956,
+        "steady_samples_per_second": 1.0336625857573722,
+        "job_samples_per_second": 0.5015053180497933,
+        "peak_allocated_bytes": 62977226240,
+        "peak_reserved_bytes": 64778928128,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          }
+        }
+      },
+      {
+        "log": "perf-qwen-high-2-on/driver.log",
+        "job_seconds": 264.30993150919676,
+        "training_seconds": 132.86486066319048,
+        "cold_seconds": 52.60254822485149,
+        "steady_step_seconds": 4.01412945697084,
+        "steady_samples_per_second": 0.9964800694341575,
+        "job_samples_per_second": 0.484279948426933,
+        "peak_allocated_bytes": 62977226240,
+        "peak_reserved_bytes": 64778928128,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          }
+        }
+      },
+      {
+        "log": "perf-qwen-high-3-on/driver.log",
+        "job_seconds": 258.99977406300604,
+        "training_seconds": 136.6823883522302,
+        "cold_seconds": 54.219881132245064,
+        "steady_step_seconds": 4.124072551354766,
+        "steady_samples_per_second": 0.9699150415494006,
+        "job_samples_per_second": 0.49420892532849026,
+        "peak_allocated_bytes": 62977226240,
+        "peak_reserved_bytes": 64778928128,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 56,
+            "hits": 53,
+            "encodes": 11,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 24000512,
+            "peak_bytes": 24000512,
+            "entries": 8
+          }
+        }
+      }
+    ]
+  },
+  "medians": {
+    "off": {
+      "job_seconds": 275.3711626753211,
+      "training_seconds": 144.30903578735888,
+      "cold_seconds": 56.73497265204787,
+      "steady_step_seconds": 4.3992405094206335,
+      "steady_samples_per_second": 0.9092478557228934,
+      "job_samples_per_second": 0.46482717636966064
+    },
+    "on": {
+      "job_seconds": 258.99977406300604,
+      "training_seconds": 132.86486066319048,
+      "cold_seconds": 52.60254822485149,
+      "steady_step_seconds": 4.01412945697084,
+      "steady_samples_per_second": 0.9964800694341575,
+      "job_samples_per_second": 0.49420892532849026
+    }
+  },
+  "dispersion": {
+    "off": {
+      "steady_samples_per_second": {
+        "mean": 0.9111819108831671,
+        "stdev": 0.003680016652411138,
+        "min": 0.9088721877038187,
+        "max": 0.9154256892227892
+      },
+      "job_seconds": {
+        "mean": 274.06370380396646,
+        "stdev": 2.814704847211531,
+        "min": 270.83306209743023,
+        "max": 275.986886639148
+      }
+    },
+    "on": {
+      "steady_samples_per_second": {
+        "mean": 1.0000192322469768,
+        "stdev": 0.03202079954027629,
+        "min": 0.9699150415494006,
+        "max": 1.0336625857573722
+      },
+      "job_seconds": {
+        "mean": 259.51376537730295,
+        "stdev": 4.5609438608888055,
+        "min": 255.2315905597061,
+        "max": 264.30993150919676
+      }
+    }
+  },
+  "steady_speedup_percent": 9.593887207125773,
+  "job_speedup_percent": 6.321004978302591,
+  "cold_window_net_change_seconds": -4.1324244271963835,
+  "median_cumulative_training_savings_seconds": [
+    0.38402947783470154,
+    -0.1221889965236187,
+    0.2568191569298506,
+    0.2702277787029743,
+    0.6723403129726648,
+    1.3053960278630257,
+    1.1565264854580164,
+    1.7282362468540668,
+    1.990208726376295,
+    2.4656092040240765,
+    3.598338259384036,
+    4.1324244271963835,
+    4.118969481438398,
+    4.399008974432945,
+    4.815452897921205,
+    5.729664530605078,
+    6.031849853694439,
+    5.89738655090332,
+    6.26659987680614,
+    6.762091131880879,
+    7.744551200419664,
+    8.414748594164848,
+    8.111005265265703,
+    8.635419888421893,
+    9.159898744896054,
+    10.301157556474209,
+    11.378143481910229,
+    10.463794745504856,
+    10.896922094747424,
+    11.153806364163756,
+    11.856950219720602,
+    11.444175124168396
+  ],
+  "first_sustained_training_break_even_step": 3,
+  "first_sustained_training_break_even_samples": 12,
+  "estimated_extra_steady_steps_to_repay_cold_overhead": 0
+}

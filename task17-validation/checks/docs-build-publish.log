@@ -1,0 +1,35 @@
+
+> relax-docs@1.0.0 docs:build
+> python scripts/tools/generate_openapi.py && vitepress build docs && node docs/fix-chunk-names.js
+
+  ✓ docs/public/openapi/actor.json
+  ✓ docs/public/openapi/rollout.json
+  ✓ docs/public/openapi/genrm.json
+  ✓ docs/public/openapi/actor_fwd.json
+
+Generated 4 OpenAPI specs in docs/public/openapi/
+
+  vitepress v1.6.4
+
+- building client + server bundles...
+[source-links] /tmp/relax-task17-docs-build/docs/DEPLOYMENT_SUMMARY.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCUMENTATION_COMPLETE.md" points to missing target /tmp/relax-task17-docs-build/DOCUMENTATION_COMPLETE.md
+[source-links] /tmp/relax-task17-docs-build/docs/DEPLOYMENT_SUMMARY.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCUMENTATION_COMPLETE.md" points to missing target /tmp/relax-task17-docs-build/DOCUMENTATION_COMPLETE.md
+
+(!) Some chunks are larger than 1500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[source-links] /tmp/relax-task17-docs-build/docs/DEPLOYMENT_SUMMARY.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCS_GUIDE.md" points to missing target /tmp/relax-task17-docs-build/DOCS_GUIDE.md
+[source-links] /tmp/relax-task17-docs-build/docs/GET_STARTED.md: "../DOCUMENTATION_COMPLETE.md" points to missing target /tmp/relax-task17-docs-build/DOCUMENTATION_COMPLETE.md
+✓ building client + server bundles...
+- rendering pages...
+✓ rendering pages...
+build complete in 26.80s.
+Fixing .md. chunk filenames to bypass WAF...
+
+No files with .md. pattern found — nothing to do.

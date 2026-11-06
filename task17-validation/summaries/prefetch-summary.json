@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "scope": "One supplementary run per condition, 32 steps, two H100 GPUs. Full checkpoints compare with the original no-prefetch cache-off baseline. These are functional and stage diagnostics, not repeated throughput estimates or a replacement for the original 24-run benchmark. Data-wait measures synchronous preparation when prefetch is disabled and consumer wait plus key lookup when enabled; overlapped CPU work still occurs.",
+  "runs": [
+    {
+      "run": "prefetch-sensenova-off",
+      "checkpoint_tensors_exact": 2358,
+      "checkpoint_metadata_and_rng_exact": true,
+      "job_seconds": 242.48163833096623,
+      "training_seconds": 99.14909994229674,
+      "steady_samples_per_second": 1.31203015484221,
+      "original_median_synchronous_preparation_seconds_per_step": 0.039084852859377864,
+      "prefetch_observed_wait_seconds_per_step": 0.00017200749880430521,
+      "peak_allocated_bytes": 35554789888,
+      "peak_reserved_bytes": 39178993664,
+      "final_cache_by_rank": {
+        "0": null,
+        "1": null
+      },
+      "keepalive_excluded_from_training": true
+    },
+    {
+      "run": "prefetch-sensenova-on",
+      "checkpoint_tensors_exact": 2358,
+      "checkpoint_metadata_and_rng_exact": true,
+      "job_seconds": 236.62380810827017,
+      "training_seconds": 90.15526383183897,
+      "steady_samples_per_second": 1.4768820822938569,
+      "original_median_synchronous_preparation_seconds_per_step": 0.04104381315410137,
+      "prefetch_observed_wait_seconds_per_step": 0.003025753470137715,
+      "peak_allocated_bytes": 35554789888,
+      "peak_reserved_bytes": 39178993664,
+      "final_cache_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 709165056,
+          "peak_bytes": 709165056,
+          "entries": 8
+        }
+      },
+      "keepalive_excluded_from_training": true
+    },
+    {
+      "run": "prefetch-qwen-on",
+      "checkpoint_tensors_exact": 3840,
+      "checkpoint_metadata_and_rng_exact": true,
+      "job_seconds": 264.30997903831303,
+      "training_seconds": 131.02881445549428,
+      "steady_samples_per_second": 1.0158476594135566,
+      "original_median_synchronous_preparation_seconds_per_step": 0.041903363168239595,
+      "prefetch_observed_wait_seconds_per_step": 0.003438764752354473,
+      "peak_allocated_bytes": 62977226240,
+      "peak_reserved_bytes": 64778928128,
+      "final_cache_by_rank": {
+        "0": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        },
+        "1": {
+          "lookups": 64,
+          "local_hits": 56,
+          "hits": 53,
+          "encodes": 11,
+          "evictions": 0,
+          "oversized": 0,
+          "resident_bytes": 24000512,
+          "peak_bytes": 24000512,
+          "entries": 8
+        }
+      },
+      "keepalive_excluded_from_training": true
+    },
+    {
+      "run": "prefetch-qwen-off",
+      "checkpoint_tensors_exact": 3840,
+      "checkpoint_metadata_and_rng_exact": true,
+      "job_seconds": 274.71940181590617,
+      "training_seconds": 143.23751243203878,
+      "steady_samples_per_second": 0.9119848519211597,
+      "original_median_synchronous_preparation_seconds_per_step": 0.03992376197129488,
+      "prefetch_observed_wait_seconds_per_step": 0.00020416664992808364,
+      "peak_allocated_bytes": 62956216832,
+      "peak_reserved_bytes": 64776830976,
+      "final_cache_by_rank": {
+        "0": null,
+        "1": null
+      },
+      "keepalive_excluded_from_training": true
+    }
+  ]
+}

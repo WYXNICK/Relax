@@ -1,0 +1,246 @@
+{
+  "runs": {
+    "off": [
+      {
+        "log": "perf-qwen-low-1-off/driver.log",
+        "job_seconds": 267.4555456545204,
+        "training_seconds": 145.8290190473199,
+        "cold_seconds": 22.363249886780977,
+        "steady_step_seconds": 4.410122462814408,
+        "steady_samples_per_second": 0.9070042915423533,
+        "job_samples_per_second": 0.4785842061594082,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-qwen-low-2-off/driver.log",
+        "job_seconds": 263.40081239677966,
+        "training_seconds": 143.62379249930382,
+        "cold_seconds": 22.0979754216969,
+        "steady_step_seconds": 4.34087292883279,
+        "steady_samples_per_second": 0.9214736449508446,
+        "job_samples_per_second": 0.4859514245050405,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      },
+      {
+        "log": "perf-qwen-low-3-off/driver.log",
+        "job_seconds": 268.1094923838973,
+        "training_seconds": 142.83997742645442,
+        "cold_seconds": 21.849968269467354,
+        "steady_step_seconds": 4.3217203521968,
+        "steady_samples_per_second": 0.9255573415264446,
+        "job_samples_per_second": 0.477416889875428,
+        "peak_allocated_bytes": 62956216832,
+        "peak_reserved_bytes": 64776830976,
+        "final_cache_by_rank": {
+          "0": null,
+          "1": null
+        }
+      }
+    ],
+    "on": [
+      {
+        "log": "perf-qwen-low-1-on/driver.log",
+        "job_seconds": 269.168350154534,
+        "training_seconds": 144.11056690476835,
+        "cold_seconds": 21.190414233133197,
+        "steady_step_seconds": 4.390736966726503,
+        "steady_samples_per_second": 0.9110087965442814,
+        "job_samples_per_second": 0.4755388214346638,
+        "peak_allocated_bytes": 63145638400,
+        "peak_reserved_bytes": 64787316736,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192419840,
+            "peak_bytes": 192419840,
+            "entries": 64
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192233472,
+            "peak_bytes": 192233472,
+            "entries": 64
+          }
+        }
+      },
+      {
+        "log": "perf-qwen-low-2-on/driver.log",
+        "job_seconds": 269.94263656809926,
+        "training_seconds": 146.83596547320485,
+        "cold_seconds": 22.21411074511707,
+        "steady_step_seconds": 4.451428887301257,
+        "steady_samples_per_second": 0.8985878694840966,
+        "job_samples_per_second": 0.47417481590652333,
+        "peak_allocated_bytes": 63145638400,
+        "peak_reserved_bytes": 64787316736,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192419840,
+            "peak_bytes": 192419840,
+            "entries": 64
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192233472,
+            "peak_bytes": 192233472,
+            "entries": 64
+          }
+        }
+      },
+      {
+        "log": "perf-qwen-low-3-on/driver.log",
+        "job_seconds": 265.65772089734674,
+        "training_seconds": 142.9708664957434,
+        "cold_seconds": 21.585613664239645,
+        "steady_step_seconds": 4.335954064569835,
+        "steady_samples_per_second": 0.9225189982257884,
+        "job_samples_per_second": 0.48182299978949494,
+        "peak_allocated_bytes": 63145638400,
+        "peak_reserved_bytes": 64787316736,
+        "final_cache_by_rank": {
+          "0": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192419840,
+            "peak_bytes": 192419840,
+            "entries": 64
+          },
+          "1": {
+            "lookups": 64,
+            "local_hits": 0,
+            "hits": 0,
+            "encodes": 64,
+            "evictions": 0,
+            "oversized": 0,
+            "resident_bytes": 192233472,
+            "peak_bytes": 192233472,
+            "entries": 64
+          }
+        }
+      }
+    ]
+  },
+  "medians": {
+    "off": {
+      "job_seconds": 267.4555456545204,
+      "training_seconds": 143.62379249930382,
+      "cold_seconds": 22.0979754216969,
+      "steady_step_seconds": 4.34087292883279,
+      "steady_samples_per_second": 0.9214736449508446,
+      "job_samples_per_second": 0.4785842061594082
+    },
+    "on": {
+      "job_seconds": 269.168350154534,
+      "training_seconds": 144.11056690476835,
+      "cold_seconds": 21.585613664239645,
+      "steady_step_seconds": 4.390736966726503,
+      "steady_samples_per_second": 0.9110087965442814,
+      "job_samples_per_second": 0.4755388214346638
+    }
+  },
+  "dispersion": {
+    "off": {
+      "steady_samples_per_second": {
+        "mean": 0.9180117593398809,
+        "stdev": 0.00974896942838557,
+        "min": 0.9070042915423533,
+        "max": 0.9255573415264446
+      },
+      "job_seconds": {
+        "mean": 266.3219501450658,
+        "stdev": 2.5508225907660265,
+        "min": 263.40081239677966,
+        "max": 268.1094923838973
+      }
+    },
+    "on": {
+      "steady_samples_per_second": {
+        "mean": 0.9107052214180554,
+        "stdev": 0.011968452243536086,
+        "min": 0.8985878694840966,
+        "max": 0.9225189982257884
+      },
+      "job_seconds": {
+        "mean": 268.25623587332666,
+        "stdev": 2.2834381802124413,
+        "min": 265.65772089734674,
+        "max": 269.94263656809926
+      }
+    }
+  },
+  "steady_speedup_percent": -1.135664428809735,
+  "job_speedup_percent": -0.6363320572534858,
+  "cold_window_net_change_seconds": -0.5123617574572563,
+  "median_cumulative_training_savings_seconds": [
+    -0.11862052045762539,
+    0.5257684662938118,
+    0.6334709376096725,
+    0.5123617574572563,
+    0.4836132265627384,
+    0.29010698571801186,
+    0.6393577717244625,
+    0.6821799129247665,
+    0.7227620463818312,
+    1.2909091226756573,
+    1.0445694457739592,
+    1.0044346414506435,
+    1.5315362457185984,
+    1.629720363765955,
+    1.6943505499511957,
+    1.0788154434412718,
+    1.0349138621240854,
+    1.6547157913446426,
+    1.615475693717599,
+    1.5543543007224798,
+    1.486857132986188,
+    0.7428640369325876,
+    0.517012057825923,
+    1.1030647829174995,
+    0.9976991917937994,
+    0.19828003458678722,
+    0.0737269725650549,
+    0.46738763339817524,
+    0.865152271464467,
+    0.712038179859519,
+    0.5731262862682343,
+    -0.48677440546453
+  ],
+  "first_sustained_training_break_even_step": null,
+  "first_sustained_training_break_even_samples": null,
+  "estimated_extra_steady_steps_to_repay_cold_overhead": null
+}

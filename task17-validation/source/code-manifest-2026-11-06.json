@@ -1,0 +1,24 @@
+{
+  "recorded_utc": "2026-11-06T07:44:54.878885+00:00",
+  "base_commit": "9213c4b716a8e2351ff1b6a31cbf9e03256b9f66",
+  "files_sha256": {
+    "docs/en/guide/frozen-conditions.md": "ad0b858c35a06ba0b75cf574266701feaa7d98a188c09ae7a1ea340515015c18",
+    "docs/en/guide/i2i-sft.md": "6bd74f3d0d31052cee412d0227ccfa0bf1f3226dfe5b847f6aabd8ea336add41",
+    "docs/zh/guide/i2i-sft.md": "63d7f30bb4fa2f9ec45cdd9c91bacec43b7227b644055da88d29cdddc88f1f6a",
+    "relax/backends/fsdp/arguments.py": "c64d70140bea0ddfffed9afd3d7a5f027a46d5ea510774d6b038a3929b2415b7",
+    "relax/backends/fsdp/sft.py": "7fc2bf9a68f71709240f69dd1e490e11d3ae0c5298dd97ef0265b253242b7054",
+    "relax/engine/sft/image.py": "295b5821447aff7600e4c1e6f20e28897fcee14aae905ea24fcd2b89d8bdd80f",
+    "relax/models/frozen_conditions.py": "c2d5c0619f7292964185299f7011ee50d333cb558edc00591f13de458b853ac1",
+    "relax/models/qwen_image/edit_sft.py": "3c6a72abe4750796f5775d56c01e133c6d2838be0f951a499ffd401330e79bd9",
+    "relax/models/sensenova/adapter.py": "de344780c916a7d8c77ab661b7e0df09300155ee8980c615142b98441e7eb684",
+    "relax/utils/profile_utils.py": "6bc63c5978924adc4dc5f2b856da2facfbbc718a02d221436de9d3516b22158e",
+    "scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh": "28fbad1ac93708e86d04825ff0e1063cd4b69602abf92391dd29c133c91e8323",
+    "tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py": "192982f684ae2b413b3e6702dd64a3d6535fee3ea6cd9e974824b624e1e8d8a1",
+    "tests/cpu/engine/sft/test_image.py": "31bea0295dc0720337af9b4712780c06bdd349cfa601845b9507bf2499c873b3",
+    "tests/cpu/models/qwen_image/test_edit_sft.py": "046de0eb61cd25fa1fe3d704b6b32dfc5c7a36adcfe86493880fec5fc54d3caa",
+    "tests/cpu/models/test_frozen_conditions.py": "62bd48cf25941d8c4c014a0c0c80ad0a489636de078d5229b760dd68c95d581f",
+    "tests/cpu/models/test_sensenova_conditions.py": "d9ca89505d3412a71cf552d4895df2c99026f14a5cd6484d3381d11cd35a6221",
+    "tests/cpu/utils/test_profile_utils.py": "011b75f42133919bab1de38b14447f91c181d0111d450d3ff15fba1de17151a3"
+  },
+  "patch_sha256": "cac2510ca3ab4f5b16e21cfc6447ad9a218413892b652ac79168909954f66624"
+}

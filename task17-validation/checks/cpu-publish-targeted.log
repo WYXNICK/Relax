@@ -1,0 +1,28 @@
+/tmp/relax-task17-venv/lib/python3.11/site-packages/pytest_asyncio/plugin.py:300: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+........................................................................ [ 51%]
+..................................................ssssssssssssssss...    [100%]
+=============================== warnings summary ===============================
+tests/cpu/backends/fsdp/test_checkpoint.py::test_dcp_save_load_restores_model_and_state
+  /usr/local/lib/python3.11/dist-packages/torch/distributed/checkpoint/filesystem.py:111: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+    if tensor.storage().size() != tensor.numel():
+
+tests/cpu/models/qwen_image/test_edit_sft.py::test_export_loads_into_original_dit_with_nonunit_alpha
+  /home/runner/.local/lib/python3.11/site-packages/peft/tuners/tuners_utils.py:305: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+    warnings.warn(
+
+tests/cpu/utils/test_profile_utils.py::test_train_profiler_exports_python_operator_call_stacks[None]
+tests/cpu/utils/test_profile_utils.py::test_train_profiler_exports_python_operator_call_stacks[1]
+  /usr/local/lib/python3.11/dist-packages/torch/profiler/profiler.py:497: UserWarning: Profiler won't be using warmup, this can skew profiler results
+    warn("Profiler won't be using warmup, this can skew profiler results")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+SKIPPED [6] tests/cpu/scripts/test_ray_submission_status.py:32: could not import 'ray.dashboard.modules.job.cli': No module named 'ray'
+SKIPPED [3] tests/cpu/scripts/test_ray_submission_status.py:62: could not import 'ray.dashboard.modules.job.cli': No module named 'ray'
+SKIPPED [5] tests/cpu/scripts/test_ray_submission_status.py:87: could not import 'ray.dashboard.modules.job.cli': No module named 'ray'
+SKIPPED [1] tests/cpu/scripts/test_ray_submission_status.py:107: could not import 'ray.dashboard.modules.job.cli': No module named 'ray'
+SKIPPED [1] tests/cpu/scripts/test_ray_submission_status.py:120: could not import 'ray.dashboard.modules.job.cli': No module named 'ray'
+125 passed, 16 skipped, 4 warnings in 20.72s

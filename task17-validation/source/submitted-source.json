@@ -1,0 +1,25 @@
+{
+  "submitted_commit": "68d0f1f56e7182dcf4ee21431b160b86c008e7fe",
+  "submitted_base": "6a2ad57ec46a0fb02cec13dc5c2bd7077ecd64a8",
+  "measured_base": "9213c4b716a8e2351ff1b6a31cbf9e03256b9f66",
+  "files_sha256": {
+    "docs/en/guide/frozen-conditions.md": "a3606e5a641f75f08d40954d2ab8753adb2aa6fd1ebb77e65b7675f5139f326f",
+    "docs/en/guide/i2i-sft.md": "83b4357e0fdd549c9f36e6569cf45a944cfe9151c69684f229cc892cda30efdf",
+    "docs/zh/guide/i2i-sft.md": "4eb92feebd7317592e6793414cfb314ce6e4c792c13b34d0392525a5fc5ed926",
+    "relax/backends/fsdp/arguments.py": "c64d70140bea0ddfffed9afd3d7a5f027a46d5ea510774d6b038a3929b2415b7",
+    "relax/backends/fsdp/sft.py": "c7ca20256764b0e2c6733ca45edd2690cfaa4a4eccb36674953060fcdd94096f",
+    "relax/engine/sft/image.py": "295b5821447aff7600e4c1e6f20e28897fcee14aae905ea24fcd2b89d8bdd80f",
+    "relax/models/frozen_conditions.py": "c2d5c0619f7292964185299f7011ee50d333cb558edc00591f13de458b853ac1",
+    "relax/models/qwen_image/edit_sft.py": "3c6a72abe4750796f5775d56c01e133c6d2838be0f951a499ffd401330e79bd9",
+    "relax/models/sensenova/adapter.py": "de344780c916a7d8c77ab661b7e0df09300155ee8980c615142b98441e7eb684",
+    "relax/utils/profile_utils.py": "6bc63c5978924adc4dc5f2b856da2facfbbc718a02d221436de9d3516b22158e",
+    "scripts/training/diffusion/run-sensenova-i2i-sft-8xgpu.sh": "28fbad1ac93708e86d04825ff0e1063cd4b69602abf92391dd29c133c91e8323",
+    "tests/cpu/backends/fsdp/test_sft_prefetch_lifecycle.py": "192982f684ae2b413b3e6702dd64a3d6535fee3ea6cd9e974824b624e1e8d8a1",
+    "tests/cpu/engine/sft/test_image.py": "31bea0295dc0720337af9b4712780c06bdd349cfa601845b9507bf2499c873b3",
+    "tests/cpu/models/qwen_image/test_edit_sft.py": "9836c59c96fb273b6b663b038c6f1d734f8eda70b0f313adcbf364707c63fb88",
+    "tests/cpu/models/test_frozen_conditions.py": "62bd48cf25941d8c4c014a0c0c80ad0a489636de078d5229b760dd68c95d581f",
+    "tests/cpu/models/test_sensenova_conditions.py": "d9ca89505d3412a71cf552d4895df2c99026f14a5cd6484d3381d11cd35a6221",
+    "tests/cpu/utils/test_profile_utils.py": "011b75f42133919bab1de38b14447f91c181d0111d450d3ff15fba1de17151a3"
+  },
+  "changes_after_repeated_benchmark": "The existing CPU prefetch family check also accepts Qwen-Image-Edit; four supplementary full production checkpoints match the original baseline exactly. Documentation was condensed for submission. Cache encoding, lookup and training math are unchanged."
+}
